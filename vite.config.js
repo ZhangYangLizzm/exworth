@@ -127,6 +127,7 @@ export default defineConfig({
           'primary-color': '#0cbf53',
           'success-color': '#0cbf53',
           'font-size-lg': '14px',
+          'radius-base': '4px',
           'btn-border-radius-base': '4px'
         }
       }
