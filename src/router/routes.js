@@ -41,6 +41,7 @@ const routes = [
             path: ':coin',
             name: 'Coin',
             component: Coin,
+            props: true,
             meta: { hideBottom: true }
           }
         ]

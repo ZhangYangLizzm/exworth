@@ -25,7 +25,7 @@ const handleMenuClick = ({ key }) => {
 }
 </script>
 <template>
-  <a-layout-header class="bg-transparent">
+  <a-layout-header class="bg-transparent absolute z-10 w-full">
     <div class="flex justify-between">
       <div class=""></div>
       <div class="">

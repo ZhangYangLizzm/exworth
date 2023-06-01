@@ -49,7 +49,7 @@ const selectedKeys = computed(() => [ ...route.matched.map(i => i.name) ])
         </a-menu>
       </div>
     </a-layout-sider>
-    <a-layout class="!bg-transparent">
+    <a-layout class="!bg-transparent relative">
       <WebHeader></WebHeader>
       <a-layout-content class="!bg-transparent">
         <router-view v-slot="{ Component }">
