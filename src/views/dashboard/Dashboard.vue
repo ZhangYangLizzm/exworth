@@ -8,6 +8,7 @@ import { Format } from '@/libs/hooks/useUtil.js'
 
 const appStore = useAppStore()
 const accountStore = useAccountStore()
+const router = useRouter()
 
 const topupModalRef = ref()
 const withdrawModalRef = ref()
@@ -16,16 +17,17 @@ const transferModalRef = ref()
 <template>
   <div class="px-12">
     <h1 class="text-3xl">{{ $t('HIwApk1j8nh8NDfDaDSKL') }}</h1>
-    <div class="flex gap-x-2 overflow-x-auto">
+    <div class="flex overflow-x-auto gap-x-2">
       <div
         class="hover:bg-gray-200 cursor-pointer py-8 bg-gray-100 rounded-lg text-center min-w-[220px]"
         v-for="asset in accountStore.walletAccounts"
         :key="asset.currency"
+        @click="router.push({ name: 'Coin', params: { coin: asset.currency } })"
       >
         <SvgIcon :name="`coin-${asset.currency}`" class="w-14 h-14" />
         <div class="">{{ asset.currency }}</div>
-        <div class="font-bold mt-2 mb-1 text-xl">{{ Format(asset.balanceAmount) }}</div>
-        <div class="text-gray-700 text-xs">{{ $t('e8DgaMG0nnSK1cxzTVxp1') }}</div>
+        <div class="mt-2 mb-1 text-xl font-bold">{{ Format(asset.balanceAmount) }}</div>
+        <div class="text-xs text-gray-700">{{ $t('e8DgaMG0nnSK1cxzTVxp1') }}</div>
         <!-- <div class="flex justify-center gap-x-2">
           <a-button
             @click="topupModalRef.show()"

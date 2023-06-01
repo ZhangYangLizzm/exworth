@@ -1,4 +1,4 @@
-import { loadSelf } from "../../api/user"
+import { loadSelf, logoutSelf } from "@/api/user"
 
 export const useUserStore = defineStore('user', () => {
   const username = ref('')
@@ -11,9 +11,15 @@ export const useUserStore = defineStore('user', () => {
       username.value = content.accountName
     }
   }
+
+  const logout = async () => {
+    logoutSelf()
+    window.location.href = '/login'
+  }
   return {
     username,
     uid,
+    logout,
     fetchUser
   }
 })
