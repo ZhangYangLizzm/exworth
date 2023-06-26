@@ -10,7 +10,7 @@ const selectedKeys = computed(() => [ ...route.matched.map(i => i.name) ])
   <a-layout class="min-h-screen !bg-white">
     <a-layout-sider v-if="!route.meta.hideSider">
       <div class="p-4 ">
-        <Logo class="w-full bg-gray-700 rounded px-4 pt-2 pb-1" />
+        <Logo class="w-full px-4 pt-2 pb-1 bg-gray-700 rounded" />
       </div>
       <div class="px-4">
         <a-menu
@@ -51,7 +51,7 @@ const selectedKeys = computed(() => [ ...route.matched.map(i => i.name) ])
     </a-layout-sider>
     <a-layout class="!bg-transparent relative">
       <WebHeader></WebHeader>
-      <a-layout-content class="!bg-transparent">
+      <a-layout-content class="!bg-transparent pt-16">
         <router-view v-slot="{ Component }">
           <component :is="Component"></component>
         </router-view>
