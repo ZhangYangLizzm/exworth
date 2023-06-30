@@ -19,28 +19,28 @@ const selectedKeys = computed(() => [ ...route.matched.map(i => i.name) ])
           @click="({ key }) => router.push({ name: key })"
           :selectedKeys="selectedKeys"
         >
-          <a-menu-item key="Dashboard">
+          <a-menu-item class="rounded" key="Dashboard">
             <template #icon>
               <home-outlined />
             </template>
             首頁
           </a-menu-item>
 
-          <a-menu-item key="Wallet">
+          <a-menu-item class="rounded" key="Wallet">
             <template #icon>
               <wallet-outlined />
             </template>
             錢包
           </a-menu-item>
 
-          <a-menu-item key="Card">
+          <a-menu-item class="rounded" key="Card">
             <template #icon>
               <credit-card-outlined />
             </template>
             發卡
           </a-menu-item>
 
-          <a-menu-item key="Setting">
+          <a-menu-item class="rounded" key="Setting">
             <template #icon>
               <setting-outlined />
             </template>
