@@ -16,3 +16,8 @@ export const login = data => request({
   method: 'POST',
   data
 })
+
+export const authCode = params => request({
+  url: 'authCode',
+  params
+})

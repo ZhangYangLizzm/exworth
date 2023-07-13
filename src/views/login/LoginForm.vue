@@ -34,15 +34,15 @@ const handleSubmit = async () => {
         // need bind mfa
         ifGoogleSecretKeyBound,
         // first login
-        ifFirstLogin
+        ifFirstLogin,
+        name
       } = content
       if (ifCheckGoogleSecretKey) {
 
       } else {
         if (ifFirstLogin) {
           // reset password
-          message.warning(res.message)
-
+          router.replace({ name: 'Reset', query: {username: name} })
         } else {
           router.replace({ name: 'Dashboard' })
         }

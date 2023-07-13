@@ -8,9 +8,9 @@ export default function Permission() {
 
   router.beforeEach(async (to, from, next) => {
     console.log(to, from)
-    if (!['Login'].includes(to.name)) {
+    if (!['Login', 'Reset'].includes(to.name)) {
       // 非登录页
-      if (!from.name || ['Login'].includes(from.name)) {
+      if (!from.name || ['Login', 'Reset'].includes(from.name)) {
         accountStore.fetchWalletAccount()
         userStore.fetchUser()
       }
