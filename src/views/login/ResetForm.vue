@@ -2,7 +2,7 @@
 import { login } from '@/api/user'
 import { message } from 'ant-design-vue'
 import { useForm } from '@/libs/hooks/useForm'
-import GraphValidateCodeImage from '@/libs/components/GraphValidateCodeImage'
+import GraphValidateCodeImage from '@/components/GraphValidateCodeImage'
 const { t } = useI18n()
 
 const formState = reactive({
