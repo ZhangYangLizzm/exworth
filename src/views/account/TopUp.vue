@@ -2,6 +2,7 @@
 import Copy from '@/libs/components/copy'
 import { useAccountStore } from '@/stores/modules/accounts.js'
 import { loadWalletAddress } from '@/api/account.js'
+import ExModal from '@/libs/components/antd/modal/ExModal.vue'
 
 const accountStore = useAccountStore()
 
@@ -52,7 +53,7 @@ const fetchAddress = async () => {
     </a-form-item>
 
     <a-spin :spinning="loading">
-      <div class="text-center mx-auto my-5">
+      <div class="mx-auto my-5 text-center">
         <img :src="walletAddress.codeImgUrl" alt="">
         <br />
         <Copy :text="walletAddress.address"></Copy>
@@ -68,7 +69,7 @@ const fetchAddress = async () => {
         <exclamation-circle-outlined />
       </template>
       <template #description>
-        <ul class="list-decimal pl-4">
+        <ul class="pl-4 list-decimal">
           <li>{{ $t('bccqYtXK6oqkAxhQPSlKt') }}</li>
           <li>{{ $t('U7P1XxNW_ub2B9iCV1uzz') }}</li>
           <li>{{ $t('cq-SHcVuf2g6cPSxUEdXY') }}</li>
