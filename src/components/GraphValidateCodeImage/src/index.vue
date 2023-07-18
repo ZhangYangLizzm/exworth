@@ -1,5 +1,5 @@
 <template>
-  <a-tooltip placement="top" :title="t('kFh6GIcqxV90k3QFVdol8')">
+  <a-tooltip placement="top" :title="$t('kFh6GIcqxV90k3QFVdol8')">
     <img
       @click="refreshCode"
       class="graphValidateCodeImage"
@@ -13,6 +13,7 @@
 <script setup>
 import { authCode } from '@/api/user'
 import defaultGraphCode from '@/assets/captcha.png'
+const { t } = useI18n()
 const props = defineProps({
   open: {
     type: Boolean,
@@ -43,11 +44,11 @@ onMounted(() => {
   refreshCode()
 })
 
-watch(() => props.open,() => {
+watch(() => props.open, ()=>{
   if(props.open) {
     refreshCode()
   }
-},{ immediate:true })
+},{ immediate: true })
 
 </script>
 
