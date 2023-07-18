@@ -40,10 +40,6 @@ const refreshCode = async () => {
   }
 }
 
-onMounted(() => {
-  refreshCode()
-})
-
 watch(() => props.open, ()=>{
   if(props.open) {
     refreshCode()
