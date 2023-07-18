@@ -18,6 +18,8 @@ const rules = computed(() => ({
 }))
 const loading = ref(false)
 
+const emit = defineEmits(['reset'])
+
 const { handleValidate, validateInfos } = useForm(formState, rules)
 
 const router = useRouter()
@@ -37,12 +39,11 @@ const handleSubmit = async () => {
         ifFirstLogin,
         name
       } = content
-      if (ifCheckGoogleSecretKey) {
-
+      if (ifCheckGoogleSecretKey) {     
       } else {
         if (ifFirstLogin) {
           // reset password
-          router.replace({ name: 'Reset', query: {username: name} })
+						emit('reset', name)
         } else {
           router.replace({ name: 'Dashboard' })
         }

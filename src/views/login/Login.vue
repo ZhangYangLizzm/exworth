@@ -4,8 +4,16 @@ import Logo from '@/libs/components/logo'
 import { SUPPORT_LOCALES_MAP } from '@/plugins/i18n'
 import { useAppStore } from '@/libs/stores/modules/app'
 import LoginForm from './LoginForm.vue'
+import ResetForm from './ResetForm.vue'
 
 const thisYear = computed(() => dayjs().year())
+
+const step = ref('login')
+const name = ref('')
+const reset = value => {
+  name.value = value
+  step.value = 'reset'
+}
 
 const appStore = useAppStore()
 
@@ -40,7 +48,8 @@ const handleLocaleClick = ({ key }) => {
         </div>
         <div class="text-center text-lg">{{ $t('uRZHmMHGIbHs9TMJtbzT6') }}</div>
         <div class="mt-20">
-          <LoginForm />
+          <LoginForm v-if="step === 'login'" @reset="reset" />
+          <ResetForm v-else-if="step === 'reset'" :name="name" />
         </div>
       </div>
     </a-layout-content>
