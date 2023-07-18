@@ -89,11 +89,11 @@ const handleSubmit = async () => {
 </script>
 <template>
  <a-form class="mx-auto max-w-[368px]" :rules="rules" :ref="formRef">
-  <a-form-item label="賬號">{{ name }}</a-form-item>
+  <a-form-item :label="t('akxcRV8N1NeQJRjWoFalJ')">{{ name }}</a-form-item>
     <a-form-item v-bind="validateInfos.oldPassword">
       <a-input-password
         size="large"
-        placeholder="初始密碼"
+        :placeholder="t('AkYvt09TzAKTkYL1On_p3')"
         v-model:value="formState.oldPassword"
       >
       </a-input-password>
@@ -101,7 +101,7 @@ const handleSubmit = async () => {
     <a-form-item v-bind="validateInfos.password">
       <a-input-password
         size="large"
-        placeholder="新密碼"
+        :placeholder="t('mAEK8HwUsfygHzyJxo4ON')"
         v-model:value="formState.password"
       >
       </a-input-password>
@@ -109,7 +109,7 @@ const handleSubmit = async () => {
     <a-form-item v-bind="validateInfos.confirm">
       <a-input-password
         size="large"
-        placeholder="確認密碼"
+        :placeholder="t('vIf00-9pMhlLRdqg_iRi1')"
         v-model:value="formState.confirm"
         @blur="handleConfirmBlur"
       >
@@ -120,7 +120,7 @@ const handleSubmit = async () => {
       <a-form-item v-bind="validateInfos.code" :style="{display: 'inline-block', width: '248px'}">
         <a-input-password
           size="large"
-          placeholder="验证码"
+          :placeholder="t('0rfxEuvqAP2QeroIih9yC')"
           v-model:value="formState.code"
         >
         </a-input-password>
@@ -141,7 +141,7 @@ const handleSubmit = async () => {
       block
       :loading="loading"
     >
-       提交
+       {{ $t('jLzFLAlFFSK9y4A-QE8Ye') }}
     </a-button>
  </a-form>
 </template>

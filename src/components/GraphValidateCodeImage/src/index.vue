@@ -1,5 +1,5 @@
 <template>
-  <ATooltip placement="top" title="点击刷新">
+  <a-tooltip placement="top" :title="t('kFh6GIcqxV90k3QFVdol8')">
     <img
       @click="refreshCode"
       class="graphValidateCodeImage"
@@ -7,13 +7,12 @@
       alt="图形验证码"
       :style="{ width }"
     >
-  </ATooltip>
+  </a-tooltip>
 </template>
 
 <script setup>
 import { authCode } from '@/api/user'
 import defaultGraphCode from '@/assets/captcha.png'
-import { watch } from 'vue'
 const props = defineProps({
   open: {
     type: Boolean,
@@ -29,7 +28,7 @@ const props = defineProps({
 
 let graphValidateCode = ref(defaultGraphCode)
 
-const refreshCode = async() => {
+const refreshCode = async () => {
   if(props.open) {
     const { statusCode, content } = await authCode({'_t': Date.now()})
     if(statusCode === 200) {
@@ -37,17 +36,18 @@ const refreshCode = async() => {
     } else {
       graphValidateCode.value = defaultGraphCode
     }
-    console.log(graphValidateCode)
   }
 }
 
 onMounted(() => {
-  watch(() => props.open,()=>{
+  refreshCode()
+})
+
+watch(() => props.open,() => {
   if(props.open) {
     refreshCode()
   }
-  },{ immediate:true })
-})
+},{ immediate:true })
 
 </script>
 

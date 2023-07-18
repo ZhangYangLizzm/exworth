@@ -43,7 +43,7 @@ const handleSubmit = async () => {
       } else {
         if (ifFirstLogin) {
           // reset password
-						emit('reset', name)
+				  emit('reset', name)
         } else {
           router.replace({ name: 'Dashboard' })
         }
