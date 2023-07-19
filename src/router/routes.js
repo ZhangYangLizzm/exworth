@@ -3,6 +3,9 @@ import MainLayout from '@/layouts/MainLayout.vue'
 
 import Dashboard from '@/views/dashboard/Dashboard.vue'
 import Wallet from '@/views/account/Wallet.vue'
+
+import Invitation from '@/views/member/invitation/Invitation.vue'
+
 import CoinList from '@/views/account/CoinList.vue'
 import Coin from '@/views/account/Coin.vue'
 import Setting from '@/views/setting/Setting.vue'
@@ -47,6 +50,10 @@ const routes = [
         ]
       },
       {
+        path: 'member/invitation',
+        component: Invitation
+      },
+      {
         path: 'my',
         name: 'Setting',
         component: Setting
@@ -55,6 +62,7 @@ const routes = [
   },
   {
     path: '/test',
+    name: 'Test',
     component: () => import('@/views/test/Test.vue')
   }
 ]
