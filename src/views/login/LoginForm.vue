@@ -18,7 +18,7 @@ const rules = computed(() => ({
 }))
 const loading = ref(false)
 
-const emit = defineEmits(['reset'])
+const emit = defineEmits(['reset', 'mfa'])
 
 const { handleValidate, validateInfos } = useForm(formState, rules)
 
@@ -39,7 +39,16 @@ const handleSubmit = async () => {
         ifFirstLogin,
         name
       } = content
-      if (ifCheckGoogleSecretKey) {     
+      if (ifCheckGoogleSecretKey) {
+        if (ifGoogleSecretKeyBound) {
+          if (ifFirstLogin) {
+            emit('reset', name)
+          } else {
+            emit('mfa')
+          }
+        } else {
+          message.warning(t('8jnmiDecv_inomSIVKpDF'))
+        }
       } else {
         if (ifFirstLogin) {
           // reset password

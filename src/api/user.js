@@ -27,3 +27,9 @@ export const firstLogin = data => request({
   method: 'POST',
   data
 })
+
+export const checkAuthcode =  data => request({
+  url: 'login/checkAuthcode',
+  method: 'POST',
+  data
+})

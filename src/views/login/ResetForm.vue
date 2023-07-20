@@ -5,7 +5,7 @@ import { useForm } from '@/libs/hooks/useForm'
 import GraphValidateCodeImage from '@/components/GraphValidateCodeImage'
 const { t } = useI18n()
 
-const formRef = ref();
+const formRef = ref()
 
 const formState = reactive({
   oldPassword: undefined,
@@ -34,8 +34,6 @@ const compareToOldPassword = async (_, value) => {
 }
 
 const compareToFirstPassword = async (_, value) => {
-  console.log(value)
-  console.log(formState.password)
   if (value && value !== formState.password) {
     return Promise.reject(t('_i4wrqvdjvlH7txojo-Y6'))
   } else {
@@ -44,7 +42,6 @@ const compareToFirstPassword = async (_, value) => {
 }
 
 const handleConfirmBlur = async (e) => {
-  console.log(e.target.value)
   const value = e.target.value
   confirmDirty.value = confirmDirty.value || !!value
 }
@@ -78,10 +75,10 @@ const handleSubmit = async () => {
   const { values } = await handleValidate()
   if (values) {
     loading.value = true
-    const { statusCode } = await firstLogin({ ...values, name })
+    const { statusCode } = await firstLogin({ ...values, name: props.name })
     loading.value = false
     if (statusCode === 200) {
-      router.replace({ name: 'Login' })
+      window.location.reload()
     }
   }
 }
