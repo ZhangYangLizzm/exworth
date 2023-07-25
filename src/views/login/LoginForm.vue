@@ -18,6 +18,8 @@ const rules = computed(() => ({
 }))
 const loading = ref(false)
 
+const emit = defineEmits(['reset', 'mfa'])
+
 const { handleValidate, validateInfos } = useForm(formState, rules)
 
 const router = useRouter()
@@ -34,15 +36,23 @@ const handleSubmit = async () => {
         // need bind mfa
         ifGoogleSecretKeyBound,
         // first login
-        ifFirstLogin
+        ifFirstLogin,
+        name
       } = content
       if (ifCheckGoogleSecretKey) {
-
+        if (ifGoogleSecretKeyBound) {
+          if (ifFirstLogin) {
+            emit('reset', name)
+          } else {
+            emit('mfa')
+          }
+        } else {
+          message.warning(t('8jnmiDecv_inomSIVKpDF'))
+        }
       } else {
         if (ifFirstLogin) {
           // reset password
-          message.warning(res.message)
-
+				  emit('reset', name)
         } else {
           router.replace({ name: 'Dashboard' })
         }

@@ -1,4 +1,5 @@
 import Login from '@/views/login/Login.vue'
+// import Reset from '@/views/login/Reset.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 
 import Dashboard from '@/views/dashboard/Dashboard.vue'
