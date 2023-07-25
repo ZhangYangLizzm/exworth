@@ -23,28 +23,35 @@ const selectedKeys = computed(() => [ ...route.matched.map(i => i.name) ])
             <template #icon>
               <home-outlined />
             </template>
-            首頁
+            {{ $t('FBZ5wdhtJo7L2Xj7FJEQ8') }}
           </a-menu-item>
 
           <a-menu-item class="rounded" key="Wallet">
             <template #icon>
               <wallet-outlined />
             </template>
-            錢包
+            {{ $t('JMrHbl_ei1CFmRIw8N60f') }}
+          </a-menu-item>
+
+          <a-menu-item class="rounded" key="Member">
+            <template #icon>
+              <user-outlined />
+            </template>
+            {{ $t('DJA8mXTnjyyt6SpiAbvhO') }}
           </a-menu-item>
 
           <a-menu-item class="rounded" key="Card">
             <template #icon>
               <credit-card-outlined />
             </template>
-            發卡
+            {{ $t('DPlif46hxBTM2cr51Heqt') }}
           </a-menu-item>
 
           <a-menu-item class="rounded" key="Setting">
             <template #icon>
               <setting-outlined />
             </template>
-            設置
+            {{ $t('tn1dw0_d4hpGoJZiMaCjB') }}
           </a-menu-item>
         </a-menu>
       </div>

@@ -1,12 +1,12 @@
 <script setup>
-import i18n from '@/plugins/i18n'
-const antLocale = computed(() => i18n.messages?.[locale.value]?.antLocale)
+const { messages, locale } = useI18n()
+const antLocale = computed(() => unref(messages)?.[unref(locale)]?.antLocale)
 const configProvider = computed(() => ({
   locale: antLocale.value,
   autoInsertSpaseInButton: false,
 }))
-watch(antLocale, val => dayjs.locale(val.locale))
 
+watch(antLocale, val => dayjs.locale(val.locale))
 </script>
 
 <template>

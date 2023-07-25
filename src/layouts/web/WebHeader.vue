@@ -25,7 +25,7 @@ const handleMenuClick = ({ key }) => {
 }
 </script>
 <template>
-  <a-layout-header class="bg-transparent absolute z-10 w-full">
+  <a-layout-header class="bg-transparent absolute z-10 w-full !px-4">
     <div class="flex justify-between">
       <div class=""></div>
       <div class="">
@@ -61,7 +61,7 @@ const handleMenuClick = ({ key }) => {
                 <template #icon>
                   <logout-outlined />
                 </template>
-                退出登錄
+                {{ $t('6b77_1yTm-gggQW0eZnOy') }}
               </a-menu-item>
             </a-menu>
           </template>

@@ -11,7 +11,10 @@ const appStore = useAppStore()
 
 const { t } = useI18n()
 
-const { MEMBER_INVITATION_STATUS_TEXT } = useMember()
+const {
+  MEMBER_INVITATION_STATUS_TEXT,
+  MEMBER_INVITATION_STATUS_BADGE
+} = useMember()
 
 const statusOptions = computed(() => [
   { label: t('T8jku5XFeq-1ZPcuDe_7B'), value: '' },
@@ -23,11 +26,13 @@ const statusOptions = computed(() => [
 const columns = computed(() => [
   {
     title: t('KrbBTqrNaiFpKSs1Hs3FC'),
-    dataIndex: 'email'
+    dataIndex: 'email',
+    key: 'email'
   },
   {
     title: t('2azhTayaBBC1zqWCc8lq5'),
-    dataIndex: 'status'
+    dataIndex: 'status',
+    key: 'status'
   }
 ])
 
@@ -36,7 +41,11 @@ const filterOptions = reactive({
   status: ''
 })
 
-const { list, fetch, loading } = useList(loadInvitation, filterOptions)
+const { list: _list, fetch, loading, pageID, totalCount, onPageChange } = useList(loadInvitation, filterOptions)
+const list = [
+  { id: 1, email: 'lichin.it@gmail.com', status: MEMBER_INVITATION_STATUS_INVITED },
+  { id: 2, email: 'xk@exworth.group', status: MEMBER_INVITATION_STATUS_JOINED }
+]
 
 const modalRef = ref()
 
@@ -66,6 +75,10 @@ const handleSubmit = () => {
       btnLoading.value = true
       const { statusCode } = await invite(values)
       btnLoading.value = false
+      if (statusCode === 200) {
+        handleCancel()
+        fetch()
+      }
     }
   }, 300)
   
@@ -76,7 +89,9 @@ const handleCancel = () => {
     modalRef.value?.close()
   }, 300)
 }
-
+onMounted(() => {
+  fetch()
+})
 </script>
 <template>
   <div class="p-4">
@@ -113,7 +128,18 @@ const handleCancel = () => {
       <a-table
         :dataSource="list"
         :columns="columns"
-      ></a-table>
+        :pagination="false"
+      >
+        <template #bodyCell="{ column, text }">
+          <template v-if="column.key === 'status'">
+            <a-badge
+              :status="MEMBER_INVITATION_STATUS_BADGE(text)"
+              :text="MEMBER_INVITATION_STATUS_TEXT(text)"
+            />
+          </template>
+        </template>
+      </a-table>
+      <a-pagination hideOnSinglePage class="g-pagination" size="small" :current="pageID" :total="totalCount" show-less-items @change="onPageChange" />
     </div>
     <ExModal
       ref="modalRef"
@@ -122,8 +148,11 @@ const handleCancel = () => {
       :customTitle="$t('VPTp-QATJSurGdzHeGrXT')"
       @beforeClose="resetFields"
     >
-      <div class="p-4">
-        <a-form layout="vertical">
+      <div class="px-4">
+        <a-form
+          layout="vertical"
+          class="py-4 border-t border-b-0 border-gray-200 border-solid border-x-0"
+        >
           <a-form-item
             :label="$t('kXAMWI86h-rooSEuCAow-')"
             v-bind="validateInfos.email"
@@ -141,7 +170,7 @@ const handleCancel = () => {
           </a-form-item>
 
           <div class="font-bold text-red-500">{{ $t('1NLFL8YdPqQXonj5lQxvT') }}</div>
-          <div class="">{{ $t('irfv2QgrQafS_6Zl73s2N') }}</div>
+          <div class="text-[#BFBFBF]">{{ $t('irfv2QgrQafS_6Zl73s2N') }}</div>
         </a-form>
       </div>
       <template #footer>

@@ -1,10 +1,12 @@
 import Login from '@/views/login/Login.vue'
 // import Reset from '@/views/login/Reset.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
+import BlankLayout from '@/layouts/BlankLayout.vue'
 
 import Dashboard from '@/views/dashboard/Dashboard.vue'
 import Wallet from '@/views/account/Wallet.vue'
 
+import Member from '@/views/member/member/Member.vue'
 import Invitation from '@/views/member/invitation/Invitation.vue'
 
 import CoinList from '@/views/account/CoinList.vue'
@@ -51,8 +53,19 @@ const routes = [
         ]
       },
       {
-        path: 'member/invitation',
-        component: Invitation
+        path: 'member',
+        component: BlankLayout,
+        children: [
+          {
+            path: '',
+            component: Member,
+            name: 'Member'
+          },
+          {
+            path: 'invitation',
+            component: Invitation
+          }
+        ]
       },
       {
         path: 'my',
