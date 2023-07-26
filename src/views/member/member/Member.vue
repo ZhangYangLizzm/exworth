@@ -4,7 +4,7 @@ import { useMember } from '@/stores/modules/member'
 import { loadMember } from '@/api/member'
 
 const { t } = useI18n()
-
+const router = useRouter()
 const filterOptions = reactive({
   name: undefined,
 })
@@ -45,7 +45,7 @@ onMounted(() => {
       <div class="grow">
         <a-input
           size="large"
-          :placeholder="$t('Er9kDy2nZOKg_F7tgzvff')"
+          :placeholder="$t('rNuiRMYhJmBtD-Nz0KEkt')"
           class="max-w-[220px] mr-2"
           v-model:value="filterOptions.name"
           @blur="fetch"
@@ -69,7 +69,7 @@ onMounted(() => {
               <credit-card-filled :class="[record.available.includes('physical') ? 'text-primary' : 'text-gray-400']" />
               <credit-card-outlined :class="[record.available.includes('virtual') ? 'text-primary' : 'text-gray-400']" />
               <swap-outlined  :class="[record.available.includes('transfer') ? 'text-primary' : 'text-gray-400']"  />
-              <a-button type="text">
+              <a-button type="text" @click="router.push({ name: 'MemberProfile', params: { uid: record.id } })">
                 <template #icon>
                   <right-outlined />
                 </template>

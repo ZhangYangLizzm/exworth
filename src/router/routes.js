@@ -7,6 +7,7 @@ import Dashboard from '@/views/dashboard/Dashboard.vue'
 import Wallet from '@/views/account/Wallet.vue'
 
 import Member from '@/views/member/member/Member.vue'
+import Profile from '@/views/member/member/Profile.vue'
 import Invitation from '@/views/member/invitation/Invitation.vue'
 
 import CoinList from '@/views/account/CoinList.vue'
@@ -64,6 +65,11 @@ const routes = [
           {
             path: 'invitation',
             component: Invitation
+          },
+          {
+            path: ':uid',
+            component: Profile,
+            name: 'MemberProfile'
           }
         ]
       },
