@@ -2,7 +2,7 @@ import useRequest from '@/hooks/useRequest'
 const { request } = useRequest('/api/member')
 
 export const loadMember = params => request({
-  url: 'member',
+  url: params.uuid ? `member/${params.uuid}` : 'member',
   params
 })
 

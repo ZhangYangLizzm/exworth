@@ -67,7 +67,7 @@ const routes = [
             component: Invitation
           },
           {
-            path: ':uid',
+            path: ':uuid',
             component: Profile,
             name: 'MemberProfile'
           }

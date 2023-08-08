@@ -7,7 +7,7 @@ const router = useRouter()
 const selectedKeys = computed(() => [ ...route.matched.map(i => i.name) ])
 </script>
 <template>
-  <a-layout class="min-h-screen !bg-white">
+  <a-layout class="min-h-screen">
     <a-layout-sider v-if="!route.meta.hideSider">
       <div class="p-4 ">
         <Logo class="w-full px-4 pt-2 pb-1 bg-gray-700 rounded" />
@@ -58,7 +58,7 @@ const selectedKeys = computed(() => [ ...route.matched.map(i => i.name) ])
     </a-layout-sider>
     <a-layout class="!bg-transparent relative">
       <WebHeader></WebHeader>
-      <a-layout-content class="!bg-transparent pt-16">
+      <a-layout-content class="!bg-transparent pt-16 !bg-white">
         <router-view v-slot="{ Component }">
           <component :is="Component"></component>
         </router-view>

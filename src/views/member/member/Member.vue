@@ -9,28 +9,23 @@ const filterOptions = reactive({
   name: undefined,
 })
 
-const { list: _list, fetch, loading, pageID, totalCount, onPageChange } = useList(loadMember, filterOptions)
-const list = [
-  { id: 1, uid: '40E79390BBCD4E6C', available: ['virtual', 'physical', 'transfer'], name: 'HAO LI' },
-  { id: 2, uid: '40E79390BBCD4E6C', available: ['virtual', 'physical'], name: 'HAO LI' },
-  { id: 3, uid: '40E79390BBCD4E6C', available: ['transfer'], name: 'HAO LI' },
-  { id: 4, uid: '40E79390BBCD4E6C', available: [], name: 'HAO LI' },
-]
+const { list, fetch, loading, pageID, totalCount, onPageChange } = useList(loadMember, filterOptions)
+
 
 const columns = computed(() => [
   {
     title: t('rNuiRMYhJmBtD-Nz0KEkt'),
-    key: 'name',
-    dataIndex: 'name'
+    key: 'fullName',
+    dataIndex: 'fullName'
   },
   {
     title: 'PROUID',
-    key: 'uid',
-    dataIndex: 'uid'
+    key: 'uuid',
+    dataIndex: 'uuid'
   },
   {
     title: [t('OnPSpwMATKuG2io4jQP3a'), t('S2OrYOKW-4S0okv_ixAu-'), t('_iMQNMQatEhTi4yWkEjxs')].join(' / '),
-    key: 'available',
+    key: 'functions',
     align: 'right'
   }
 ])
@@ -64,12 +59,12 @@ onMounted(() => {
         :pagination="false"
       >
         <template #bodyCell="{ column, record }">
-          <template v-if="column.key === 'available'">
+          <template v-if="column.key === 'functions'">
             <div class="flex items-center justify-end gap-x-2">
-              <credit-card-filled :class="[record.available.includes('physical') ? 'text-primary' : 'text-gray-400']" />
-              <credit-card-outlined :class="[record.available.includes('virtual') ? 'text-primary' : 'text-gray-400']" />
-              <swap-outlined  :class="[record.available.includes('transfer') ? 'text-primary' : 'text-gray-400']"  />
-              <a-button type="text" @click="router.push({ name: 'MemberProfile', params: { uid: record.id } })">
+              <credit-card-filled :class="[record?.functions.ppc ? 'text-primary' : 'text-gray-400']" />
+              <credit-card-outlined :class="[record?.functions.vvc ? 'text-primary' : 'text-gray-400']" />
+              <swap-outlined  :class="[record?.functions.transfer ? 'text-primary' : 'text-gray-400']"  />
+              <a-button type="text" @click="router.push({ name: 'MemberProfile', params: { uuid: record.uuid } })">
                 <template #icon>
                   <right-outlined />
                 </template>

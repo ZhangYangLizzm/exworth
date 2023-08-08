@@ -4,3 +4,7 @@ svg {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ant-btn-text:hover {
+  color: var(--ex-primary-color);
+}
