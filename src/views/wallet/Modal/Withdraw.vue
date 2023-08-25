@@ -1,5 +1,6 @@
 <script setup>
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
+import { Format } from "@/libs/hooks/useUtil.js";
 import { getOtcRate, postCurrencyWithdraw } from "@/api/wallet";
 import useFormRules from "@/hooks/useFormRules.js";
 import AmountLabel from "@/components/AmountLabel.vue";
@@ -99,8 +100,8 @@ const onCurrencyChange = async (value) => {
                     </a-form-item>
                     <a-form-item class="flex flex-col gap-y-2" v-bind="validateInfos.amount">
                         <template #label>
-                            <AmountLabel :title="t('-Q-u4nDHLreIjo2-6Z4MW')" :balanceAmount="walletInfo.balanceAmount"
-                                :currency="withdrawState.currency" />
+                            <AmountLabel :title="t('-Q-u4nDHLreIjo2-6Z4MW')"
+                                :balanceAmount="Format(walletInfo.balanceAmount)" :currency="withdrawState.currency" />
                         </template>
                         <a-input v-model:value="withdrawState.amount" :disabled="step" />
                         <div class="mt-2 text-gray-400">

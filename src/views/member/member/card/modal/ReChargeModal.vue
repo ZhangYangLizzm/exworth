@@ -80,14 +80,13 @@ const fee = computed(
         <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" v-bind="validateInfos.currency">
           <CurrencySelect v-model:currency="rechargeState.currency" />
         </a-form-item>
-        <a-form-item :label="$t('NI3dffhiC9cI6NmBo_UBh')" v-bind="validateInfos.amount">
+        <a-form-item v-bind="validateInfos.amount">
+          <template #label>
+            <AmountLabel :title="$t('NI3dffhiC9cI6NmBo_UBh')" :balanceAmount="Format(available)"
+              :currency="rechargeState.currency" />
+          </template>
           <a-input :placeholder="$t('_aLRJTwT0z5fy-yMREIle')" v-model:value="rechargeState.amount" />
-          <div class="text-gray-400 mt-2">
-            <span>{{ t("e8DgaMG0nnSK1cxzTVxp1") }}:</span>
-            <span class="float-right">{{
-              Format(available) + " " + rechargeState.currency
-            }}</span>
-          </div>
+
           <div class="text-gray-400">
             <span>{{ t("Q_l0QsgefHPkwvxse3yaA") }}:</span>
             <span class="float-right">{{
@@ -124,4 +123,8 @@ const fee = computed(
   </ExModal>
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+:deep(.ant-form-item-required) {
+  width: 100%
+}
+</style>

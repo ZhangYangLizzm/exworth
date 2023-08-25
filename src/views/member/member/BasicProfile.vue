@@ -94,14 +94,13 @@ const handleTransfer = async () => {
           <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" required>
             <CurrencySelect v-model:value="transferState.currency" />
           </a-form-item>
-          <a-form-item :label="$t('aT1xkA__dmUFiEHrDNAph')" v-bind="validateInfos.amount">
+          <a-form-item v-bind="validateInfos.amount">
+            <template #label>
+              <AmountLabel :title="$t('aT1xkA__dmUFiEHrDNAph')" :balanceAmount="Format(available)"
+                :currency="transferState.currency" />
+            </template>
             <a-input :placeholder="$t('sMkxYlIlj4SgxGAKFOjgJ')" v-model:value="transferState.amount" />
-            <div class="text-gray-400 mt-2">
-              <span>{{ t("e8DgaMG0nnSK1cxzTVxp1") }}:</span>
-              <span class="float-right">{{
-                Format(available) + " " + transferState.currency
-              }}</span>
-            </div>
+
           </a-form-item>
           <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password">
             <a-input-password :placeholder="$t('L8_JRGabLnJGC2tBI9Hqc')" v-model:value="transferState.password" />
@@ -123,3 +122,9 @@ const handleTransfer = async () => {
     </ExModal>
   </div>
 </template>
+
+<style scoped lang="less">
+:deep(.ant-form-item-required) {
+  width: 100%
+}
+</style>
