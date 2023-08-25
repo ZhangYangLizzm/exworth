@@ -16,7 +16,7 @@ defineProps({
 
       {{ $t("pGrhTXj8A84ieJpHf6k3L") }}</span>
     <span>
-      <credit-card-filled :class="[functions.ppc ? 'text-primary' : 'text-gray-400']" />
+      <credit-card-filled :class="[functions?.ppc ? 'text-primary' : 'text-gray-400']" />
 
       {{ $t("OnPSpwMATKuG2io4jQP3a") }}
     </span>

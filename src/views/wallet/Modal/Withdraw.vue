@@ -79,18 +79,18 @@ const onCurrencyChange = async (value) => {
 <template>
     <div class="px-4">
         <a-steps :current="step">
-            <a-step title="填寫提幣信息"> </a-step>
-            <a-step title="確認提幣"></a-step>
-            <a-step title="完成"></a-step>
+            <a-step :title="t('B1ftJdtGLf6xSUi3t2p7r')"> </a-step>
+            <a-step :title="t('oyDbxcO8c-ULaGfjTH3ow')"></a-step>
+            <a-step :title="t('ndAUMg4ukM6GeAPDbOXC-')"></a-step>
         </a-steps>
         <div class="flex justify-center">
             <template v-if="step !== 2">
                 <a-form layout="vertical" :rules="rules" class="mt-2 w-1/2">
-                    <a-form-item label="提幣類型" required v-bind="validateInfos.currency">
+                    <a-form-item :label="t('uvkFcBBBuvd5CdyItcTYp')" required v-bind="validateInfos.currency">
                         <CurrencySelect v-model:currency="withdrawState.currency" :disabled="step"
                             @selectChange="onCurrencyChange" />
                     </a-form-item>
-                    <a-form-item label="鏈名稱" v-bind="validateInfos.network">
+                    <a-form-item :label="t('MSer02pUVq2JGDAxQxERb')" v-bind="validateInfos.network">
                         <a-radio-group v-model:value="withdrawState.network" :disabled="step">
                             <a-radio-button v-for="chain in chainOptions" :key="chain" :value="chain">
                                 {{ chain }}
@@ -104,16 +104,17 @@ const onCurrencyChange = async (value) => {
                         </template>
                         <a-input v-model:value="withdrawState.amount" :disabled="step" />
                         <div class="mt-2 text-gray-400">
-                            <span>手續費:</span>
+                            <span>{{ t('Q_l0QsgefHPkwvxse3yaA') }}:</span>
                             <span class="float-right">{{ walletInfo.fee }} {{ withdrawState.currency }}</span>
                         </div>
                         <div class="mt-2 text-gray-400">
-                            <span>實際到帳:</span>
+                            <span>{{ t('AhZ8ItHb7nCGWMqoQNgDa') }}:</span>
                             <span class="float-right">{{ walletInfo.receiptAmount }} {{ withdrawState.currency }}</span>
                         </div>
                     </a-form-item>
-                    <a-form-item label="提幣地址" v-bind="validateInfos.address">
-                        <a-input v-model:value="withdrawState.address" placeholder="請輸入提幣地址" :disabled="step" />
+                    <a-form-item :label="t('vURu3r49iRvVFMlYEC5Gg')" v-bind="validateInfos.address">
+                        <a-input v-model:value="withdrawState.address" :placeholder="t('OGq2FiMO8fYn0FBusYtRz')"
+                            :disabled="step" />
                     </a-form-item>
                     <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password" v-if="step === 1">
                         <a-input-password :placeholder="$t('g-CkGyBqori4UAmxL4HS5')"
@@ -129,22 +130,23 @@ const onCurrencyChange = async (value) => {
                 <div class="flex flex-col items-center py-4 w-1/2">
                     <div class="flex justify-center items-center ">
                         <check-circle-two-tone class="text-3xl " two-tone-color="#37BF53" />
-                        <span class="ml-2">提現中</span>
+                        <span class="ml-2">{{ t('qvT3UQtygmHRlM616X5rh') }}</span>
                     </div>
                     <div class="rounded w-full p-4 m-4 text-md bg-slate-50 text-center">
-                        <p>扣除資產 : {{ confirmResult.dealAmount }}</p>
-                        <p>手續費 : {{ confirmResult.fee }}</p>
+                        <p>{{ t('CiN3_LpKa2dGv99rkld0l', { dealAmout: confirmResult.dealAmount }) }}</p>
+                        <p>{{ t('ZRqUQYGeMW9mdJidJSS69', { fee: confirmResult.fee }) }} </p>
                     </div>
 
                 </div>
             </template>
         </div>
         <div class="flex justify-center gap-x-2">
-            <a-button type="primary" @click="next" v-if="step === 0">下一步</a-button>
-            <a-button type="primary" @click="prev" v-if="step === 1">上一步</a-button>
-            <a-button type="primary" @click="handleConfirm" v-if="step === 1" :loading="confirmLoading">確認</a-button>
-            <a-button type="primary" v-if="step === 2" @click="step = 0">再提一筆</a-button>
-            <a-button @click="prev" v-if="step === 2">查看記錄</a-button>
+            <a-button type="primary" @click="next" v-if="step === 0">{{ t('SHwfMHPgueW7ATn2nN332') }}</a-button>
+            <a-button type="primary" @click="prev" v-if="step === 1">{{ t('c0ShiFkw3869sTmgT4xwe') }}</a-button>
+            <a-button type="primary" @click="handleConfirm" v-if="step === 1" :loading="confirmLoading">{{
+                t('utkQ-uv-4gXBHkFXvGL5u') }}</a-button>
+            <a-button type="primary" v-if="step === 2" @click="step = 0">{{ t('TK_RAyPkWgdIN3oBxXG2o') }}</a-button>
+            <a-button @click="prev" v-if="step === 2">{{ t('Qf7LLz2Qtk3OdMvNmJs_2') }}</a-button>
         </div>
     </div>
 </template>

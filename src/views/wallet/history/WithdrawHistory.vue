@@ -22,33 +22,33 @@ const columns = computed(() => [
         key: "createTime",
     },
     {
-        title: "記錄編號",
+        title: t('68cZ9T56Bq7_rLweZH-Nv'),
         dataIndex: "outOrderId",
         key: "outOrderId",
     },
     {
-        title: "實際到帳",
+        title: t('AhZ8ItHb7nCGWMqoQNgDa'),
         dataIndex: "amount",
         key: "amount",
         align: "right"
 
     },
     {
-        title: "扣減數量",
+        title: t('823w_JREWdviiwDY32yMX'),
         dataIndex: "frozenBalance",
         key: "frozenBalance",
         align: "right"
 
     },
     {
-        title: "手續費",
+        title: t('Q_l0QsgefHPkwvxse3yaA'),
         dataIndex: "fee",
         key: "fee",
         align: "right"
     },
 
     {
-        title: "狀態",
+        title: t('2azhTayaBBC1zqWCc8lq5'),
         dataIndex: "status",
         key: "status",
     },
@@ -103,7 +103,8 @@ onMounted(() => {
                 <span>{{ record.receiverAccountInfo }}</span>
             </template>
             <template v-if="column.key === 'status'">
-                <span>{{ status === '1' ? "已完成" : "申請中" }}</span>
+                <span>{{ status === '1' ? t('MZ7wxk5bd6rZILy4eQ2UK') : t('Applying') }}</span>
+
             </template>
         </template>
     </a-table>

@@ -13,7 +13,7 @@ defineProps({
 const router = useRouter()
 const columns = computed(() => [
   {
-    title: "郵箱",
+    title: t('kXAMWI86h-rooSEuCAow-'),
     key: "email",
     dataIndex: "email",
   },

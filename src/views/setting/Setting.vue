@@ -5,9 +5,8 @@ import ResetPassword from "./components/ResetPassword.vue";
 import GoogleAuthGuide from "@/components/GoogleAuth/GoogleAuthGuide.vue";
 import BindGoogleAuth from "./components/BindGoogleAuth.vue";
 import Cell from "./components/Cell.vue";
-import { useSettingStore } from "../../stores/modules/setting";
-// import { useUserStore } from "@/stores/modules/user";
-// const userStore = useUserStore();
+import { useSettingStore } from "@/stores/modules/setting";
+import ResetCode from "./components/ResetCode.vue";
 
 import { getGoogleSecretKey } from "@/api/setting";
 const settingStore = useSettingStore();
@@ -30,6 +29,10 @@ const showDrawer = async () => {
     loading.value = false;
     visible.value = true;
   }
+};
+const resetCodeRef = ref();
+const resetCode = () => {
+  resetCodeRef?.value.show();
 };
 
 const loading = ref(false);
@@ -74,21 +77,6 @@ const loading = ref(false);
       </Cell>
 
       <BindGoogleAuth v-model:visible="visible" :codeImgUrl="res?.codeImgUrl" :secretKey="res?.secretKey" />
-
-      <!-- <ComponentTitle :text="t('ypfmRVfabCXrjYEsaHSgc')" />
-      <Cell :title="t('buu0ilKrihPvPo-ICWP_I')">
-        <template #content>
-          <a-descriptions :column="1" :content-style="{ color: '#00000073' }">
-            <a-descriptions-item :label="t('C8e-GonL-voVt9790n5Dw')">{{
-              userStore.uid
-            }}</a-descriptions-item>
-            <a-descriptions-item :label="t('6bCEBw4YLXZV25VFtfJJI')">{{
-              userStore.username
-            }}</a-descriptions-item>
-          </a-descriptions>
-        </template>
-      </Cell> -->
-
       <Cell :title="t('4Pf3mZrhh3LiqO5ocQQ3T')" :divider="true">
         <template #content>
           <p class="text-[#00000073]">
@@ -106,11 +94,19 @@ const loading = ref(false);
           <p class="text-[#00000073]">
             {{ t("FPnQ4woLU-EYPfpsY6oX6") }}<br />
             {{ t("A6kNlDZAbmYayenIODMIj") }}
-            <a>{{ t("_CD1ho41rkMxFKnIKKvKk") }}</a>
+            <a @click="settingStore.fetchConfig()">{{ t("_CD1ho41rkMxFKnIKKvKk") }}</a>
             {{ t("5GYt-vY5CTG3o72Y5GCxr") }}
           </p>
         </template>
+        <template #action>
+          <a-button type="primary" @click="resetCode" v-if="!settingStore.config.isSetWithdrawPassword">
+            {{ t('mcPGcZyC7QxBRP9o_nR9i') }}
+          </a-button>
+        </template>
       </Cell>
+      <ExModal ref="resetCodeRef" :customTitle="t('y1TuxkHrhkk1OLo6_jtVB')">
+        <ResetCode />
+      </ExModal>
     </div>
   </div>
 </template>

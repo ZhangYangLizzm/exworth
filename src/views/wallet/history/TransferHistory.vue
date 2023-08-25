@@ -18,26 +18,26 @@ const columns = computed(() => [
         key: "createTime",
     },
     {
-        title: "記錄編號",
+        title: t('68cZ9T56Bq7_rLweZH-Nv'),
         dataIndex: "outOrderId",
         key: "outOrderId",
     },
     {
-        title: "實際到帳",
+        title: t('AhZ8ItHb7nCGWMqoQNgDa'),
         dataIndex: "amount",
         key: "amount",
         align: "right"
 
     },
     {
-        title: "轉帳對象",
+        title: t('tOfYePGWd06TTHZ9HxG5V'),
         dataIndex: "receiverAccountInfo",
         key: "receiverAccountInfo",
 
     },
 
     {
-        title: "狀態",
+        title: t('2azhTayaBBC1zqWCc8lq5'),
         dataIndex: "status",
         key: "status",
     },
@@ -49,7 +49,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <ComponentTitle text="轉帳記錄" class="mt-4" />
+    <ComponentTitle :text="t('jjnbgg59C6u1sYpfLLfTt')" class="mt-4" />
 
     <a-form class="mb-4" layout="inline">
         <a-form-item>
@@ -80,7 +80,7 @@ onMounted(() => {
                 </div>
             </template>
             <template v-if="column.key === 'status'">
-                <span>{{ status === '1' ? "已完成" : "申請中" }}</span>
+                <span>{{ status === '1' ? t('MZ7wxk5bd6rZILy4eQ2UK') : t('Applying') }}</span>
             </template>
         </template>
     </a-table>

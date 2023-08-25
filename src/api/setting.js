@@ -16,3 +16,9 @@ export const postGoogleAuth = data => request({
     method: 'POST',
     data
 })
+
+export const postSetCode = data => request({
+    url: 'withdraw/config/user/withdrawPassword',
+    method: 'POST',
+    data
+})

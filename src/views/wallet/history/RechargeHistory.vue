@@ -14,7 +14,7 @@ const { fetch, list, loading, pageID, pageSize, totalCount, onPageChange } =
     useList(getDepositHistory, filterOptions);
 const columns = computed(() => [
     {
-        title: "交易哈希",
+        title: t('4Jogg03YNl3gG3ZgAQlml'),
         dataIndex: "transactionId",
         key: "transactionId",
     },
@@ -24,16 +24,16 @@ const columns = computed(() => [
         key: "createTime",
     },
     {
-        title: "數量",
+        title: t('yy1yXH9_kRAEgge-neEtR'),
         dataIndex: "amount",
         key: "amount",
     },
     {
-        title: "鏈類型",
+        title: t('f4ngMoxswjtXR3cxuoIuO'),
         dataIndex: "chain",
         key: "chain",
     }, {
-        title: "狀態",
+        title: t('2azhTayaBBC1zqWCc8lq5'),
         dataIndex: "status",
         key: "status",
     },
@@ -44,7 +44,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <ComponentTitle text="充值記錄" class="mt-4" />
+    <ComponentTitle :text="t('sS7varQIq515z7YNPBvaA')" class="mt-4" />
 
     <a-form class="mb-4" layout="inline">
         <a-form-item>
@@ -82,7 +82,7 @@ onMounted(() => {
                 <span>{{ record.amount + " " + record.currency }}</span>
             </template>
             <template v-if="column.key === 'status'">
-                <span>{{ status === '1' ? "已完成" : "申請中" }}</span>
+                <span>{{ status === '1' ? t('MZ7wxk5bd6rZILy4eQ2UK') : t('Applying') }}</span>
             </template>
         </template>
     </a-table>

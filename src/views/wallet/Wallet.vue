@@ -27,12 +27,12 @@ const onClick = ({ currency, type }) => {
   modalRef?.value.show();
 };
 
-const historyItems = reactive([
-  { label: "動帳明細", routeName: "AccountDetails" },
-  { label: "充值記錄", routeName: "RechargeHistory" },
-  { label: "提現記錄", routeName: "WithdrawHistory" },
-  { label: "轉帳記錄", routeName: "TransferHistory" },
-]);
+const historyItems = computed(() => [
+  { label: t('ovLktXuIHMUA7a1STIy3X'), routeName: "AccountDetails" },
+  { label: t('sS7varQIq515z7YNPBvaA'), routeName: "RechargeHistory" },
+  { label: t('GgpJxbBFrls3s9evmmpJ1'), routeName: "WithdrawHistory" },
+  { label: t('jjnbgg59C6u1sYpfLLfTt'), routeName: "TransferHistory" },
+])
 
 </script>
 
@@ -41,7 +41,7 @@ const historyItems = reactive([
     <ComponentTitle :text="t('VxYFMoZm9I6D7n_8ojjV4')">
       <template #extra>
         <span class="text-sm text-gray-400" @click="router.push({ name: 'MobileAccountDetails' })">
-          账单明细
+          {{ t('ovLktXuIHMUA7a1STIy3X') }}
           <right-outlined /></span>
       </template>
     </ComponentTitle>
@@ -57,7 +57,7 @@ const historyItems = reactive([
         <WebCurrency :loading="accountStore.loading" :walletAccounts="accountStore.walletAccounts" @click="onClick" />
       </div>
       <div class="basis-1/6">
-        <ComponentTitle text="更多記錄" />
+        <ComponentTitle :text="t('pGN7niqKqLJ9j_GQv3oVq')" />
         <div class="flex flex-col gap-y-2">
           <div v-for="item in historyItems"
             class="py-2 px-4 cursor-pointer bg-slate-100 rounded hover:shadow flex hover:text-primary"

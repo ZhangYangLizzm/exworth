@@ -13,7 +13,6 @@ defineProps({
             {{ title }}
         </div>
         <div class="text-gray-400 ">
-
             {{ t('S6nuH-d4J2j0ZUct_xepo', { balanceAmount, currency }) }}
         </div>
     </div>
