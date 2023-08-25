@@ -1,85 +1,63 @@
 <script setup>
-import Card from '@/core/card/components/card'
-import {
-  CARD_MODE_PHYSICAL,
-  CARD_MODE_VIRTUAL,
-  CARD_STATUS_NORMAL,
-  CARD_STATUS_BINDING,
-  CARD_STATUS_TEXT,
-  CARD_STATUS_BADGE_MAP,
-} from '@/core/card/stores/models/card'
-import { loadPhysicalCard } from '@/api/card'
-import { useList } from '@/libs/hooks/useList'
-import { encryptStr } from '@/libs/hooks/useUtil'
+import { loadMemberPhysicalCard } from "@/api/member";
+import { useList } from "@/libs/hooks/useList";
+import { ReChargeModal, ReplaceModal, CardLossModal } from "./modal";
+import ImgTextContainer from "./modeContainer/ImgTextContainer.vue";
+import ListContainer from "./modeContainer/ListContainer.vue";
 
 const props = defineProps({
-  uuid: String
-})
-const { list: physicalList, loading, fetch: fetchPhysicalCard } = useList(loadPhysicalCard, { uuid: props.uuid })
+  mode: String,
+});
+
+const route = useRoute();
+// TODO：针对于成员的卡片列表，现为所有的实体卡列表
+const {
+  list: physicalList,
+  loading,
+  fetch: fetchPhysicalCard,
+} = useList(loadMemberPhysicalCard, { uuid: route.params.uuid });
 
 onMounted(() => {
-  fetchPhysicalCard()
-})
+  fetchPhysicalCard();
+});
+const cardInfo = ref();
+
+const rechargeModalRef = ref();
+const replaceModalRef = ref();
+const cardLossModalRef = ref();
+const modalRefs = {
+  recharge: rechargeModalRef,
+  replace: replaceModalRef,
+  cardLoss: cardLossModalRef,
+};
+
+const onClick = ({ item, type }) => {
+  cardInfo.value = item;
+  const modalRef = modalRefs[type];
+  modalRef?.value.show();
+};
 </script>
 <template>
   <div class="p-4 bg-[#f9f9f9] rounded-sm">
-    
-    <div class="flex pb-4 overflow-x-auto overflow-y-auto gap-x-2">
-      <div
-        class="bg-gray-200 basis-[360px] shrink-0 rounded-lg"
-        v-for="(item, index) in physicalList"
-        :key="index"
-      >
-        <Card
-          :brand="item.cardType"
-          :mode="CARD_MODE_PHYSICAL"
-          class=""
-        >
-          <template #footer>
-            <div class="flex items-center justify-between">
-              <div class="drop-shadow text-[20px]">
-                {{ encryptStr(item?.maskCardNo, 4, 4, ' **** **** ') }}
-              </div>
+    <ComponentTitle :text="$t('OnPSpwMATKuG2io4jQP3a')" class="text-xl mt-4" />
 
-              <a-badge
-                :status="CARD_STATUS_BADGE_MAP(item?.cardStatus)"
-                :text="CARD_STATUS_TEXT(item?.cardStatus)"
-              />
-            </div>
-          </template>
-        </Card>
-        <div class="flex justify-between p-2">
-          <a-button
-            type="text"
-            v-if="[CARD_STATUS_NORMAL].includes(item?.cardStatus)"
-          >
-            {{ $t('10QBrQYST8DUjmNhn5e4_') }}
-          </a-button>
-          <a-button
-            type="text"
-            v-if="[CARD_STATUS_BINDING].includes(item?.cardStatus)"
-          >
-            {{ $t('gVPkNpXqcOdkRBKMOR_9i') }}
-          </a-button>
-          <a-button
-            type="text"
-          >
-            {{ $t('h0EQGD5w6L9xSdGkk4eG0') }}
-          </a-button>
-          <a-button
-            type="text"
-          >
-            {{ $t('jQc6AAJLq2w_8X55HDOoe') }}
-          </a-button>
-          <a-button
-            type="text"
-          >
-            {{ $t('mAchytkaFYfJvmezgSc1-') }}
-          </a-button>
-        </div>
-      </div>
-      
-    </div>
-    
+    <template v-if="mode === 'imgTextMode'">
+      <ImgTextContainer :dataSource="physicalList" @onClick="onClick" :loading="loading" />
+    </template>
+    <template v-else-if="mode === 'listMode'">
+      <ListContainer :dataSource="physicalList" @onClick="onClick" :loading="loading" />
+    </template>
+
+    <!-- <ComponentTitle :text="$t('S2OrYOKW-4S0okv_ixAu-')" class="text-xl mt-4" /> -->
   </div>
+
+  <ReChargeModal ref="rechargeModalRef" :cardInfo="cardInfo" />
+  <ReplaceModal ref="replaceModalRef" :cardInfo="cardInfo" />
+  <CardLossModal ref="cardLossModalRef" :cardInfo="cardInfo" />
 </template>
+
+<style scoped>
+:deep(.ant-badge-status-text) {
+  color: #fff;
+}
+</style>

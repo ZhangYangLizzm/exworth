@@ -16,6 +16,7 @@ export const useAppStore = defineStore('app', () => {
     Storage.set(STORAGE_LOCALE, value)
     loadLocaleMessages(i18n, value)
   }
+
   return {
     locale,
     localeText,

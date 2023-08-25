@@ -1,134 +1,183 @@
 <script setup>
-import { useList } from '@/libs/hooks/useList'
-import { loadInvitation, invite } from '@/api/member'
-import { MEMBER_INVITATION_STATUS_JOINED, MEMBER_INVITATION_STATUS_INVITED } from '@/stores/models/member'
-import { useMember } from '@/stores/modules/member'
-import ExModal from '@/libs/components/antd/modal/ExModal.vue'
-import { useAppStore } from '@/stores/modules/app'
-import { useForm } from '@/libs/hooks/useForm'
+import { useList } from "@/libs/hooks/useList";
+import { loadInvitation, invite } from "@/api/member";
+import {
+  MEMBER_INVITATION_STATUS_JOINED,
+  MEMBER_INVITATION_STATUS_INVITED,
+} from "@/stores/models/member";
+import { useMember } from "@/stores/modules/member";
+import ExModal from "@/libs/components/antd/modal/ExModal.vue";
+import { useAppStore } from "@/stores/modules/app";
+import { useForm } from "@/libs/hooks/useForm";
 
-const appStore = useAppStore()
+const appStore = useAppStore();
 
-const { t } = useI18n()
+const { t } = useI18n();
 
-const {
-  MEMBER_INVITATION_STATUS_TEXT,
-  MEMBER_INVITATION_STATUS_BADGE
-} = useMember()
+const { MEMBER_INVITATION_STATUS_TEXT, MEMBER_INVITATION_STATUS_BADGE } =
+  useMember();
 
-const statusOptions = computed(() => [
-  { label: t('T8jku5XFeq-1ZPcuDe_7B'), value: '' },
-].concat([
-  { label: MEMBER_INVITATION_STATUS_TEXT(MEMBER_INVITATION_STATUS_JOINED), value: MEMBER_INVITATION_STATUS_JOINED },
-  { label: MEMBER_INVITATION_STATUS_TEXT(MEMBER_INVITATION_STATUS_INVITED), value: MEMBER_INVITATION_STATUS_INVITED }
-]))
+const statusOptions = computed(() =>
+  [{ label: t("T8jku5XFeq-1ZPcuDe_7B"), value: undefined }].concat([
+    {
+      label: MEMBER_INVITATION_STATUS_TEXT(MEMBER_INVITATION_STATUS_JOINED),
+      value: MEMBER_INVITATION_STATUS_JOINED,
+    },
+    {
+      label: MEMBER_INVITATION_STATUS_TEXT(MEMBER_INVITATION_STATUS_INVITED),
+      value: MEMBER_INVITATION_STATUS_INVITED,
+    },
+  ])
+);
 
 const columns = computed(() => [
   {
-    title: t('KrbBTqrNaiFpKSs1Hs3FC'),
-    dataIndex: 'email',
-    key: 'email'
+    title: t("KrbBTqrNaiFpKSs1Hs3FC"),
+    dataIndex: "email",
+    key: "email",
+    align: "center",
   },
   {
-    title: t('2azhTayaBBC1zqWCc8lq5'),
-    dataIndex: 'status',
-    key: 'status'
-  }
-])
+    title: t("2azhTayaBBC1zqWCc8lq5"),
+    dataIndex: "status",
+    key: "status",
+    align: "center",
+  },
+]);
 
 const filterOptions = reactive({
   email: undefined,
-  status: ''
-})
+  status: undefined,
+});
 
-const { list: _list, fetch, loading, pageID, totalCount, onPageChange } = useList(loadInvitation, filterOptions)
+//TODO：需要邀请记录的列表接口
+const {
+  list: _list,
+  fetch,
+  loading,
+  pageID,
+  totalCount,
+  onPageChange,
+} = useList(loadInvitation, filterOptions);
+
 const list = [
-  { id: 1, email: 'lichin.it@gmail.com', status: MEMBER_INVITATION_STATUS_INVITED },
-  { id: 2, email: 'xk@exworth.group', status: MEMBER_INVITATION_STATUS_JOINED }
-]
+  {
+    id: 1,
+    email: "lichin.it@gmail.com",
+    status: MEMBER_INVITATION_STATUS_INVITED,
+  },
+  {
+    id: 2,
+    email: "xk@exworth.group",
+    status: MEMBER_INVITATION_STATUS_JOINED,
+  },
+];
 
-const modalRef = ref()
+const modalRef = ref();
 
 const formState = reactive({
-  email: []
-})
+  email: [],
+});
 
 const arrayValidator = async (_, value) => {
   if (value.length === 0) {
-    return Promise.reject(t('8dRn48_9RTO6Q2804fgFp'))
+    return Promise.reject(t("8dRn48_9RTO6Q2804fgFp"));
   }
-  return Promise.resolve()
-}
+  return Promise.resolve();
+};
 const rules = computed(() => ({
-  email: [
-    { required: true, message: t('8dRn48_9RTO6Q2804fgFp') }
-  ]
-}))
-const { handleValidate, validateInfos, resetFields } = useForm(formState, rules)
+  email: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
+}));
+const { handleValidate, validateInfos, resetFields } = useForm(
+  formState,
+  rules
+);
 
-const btnLoading = ref(false)
+const btnLoading = ref(false);
+
+// TODO：邀请成员加入接口
 const handleSubmit = () => {
   // select 失去焦点需要时间
   setTimeout(async () => {
-    const { values } = await handleValidate()
+    const { values } = await handleValidate();
     if (values) {
-      btnLoading.value = true
-      const { statusCode } = await invite(values)
-      btnLoading.value = false
+      btnLoading.value = true;
+      const { statusCode } = await invite(values);
+      btnLoading.value = false;
       if (statusCode === 200) {
-        handleCancel()
-        fetch()
+        handleCancel();
+        fetch();
       }
     }
-  }, 300)
-  
-}
+  }, 300);
+};
 const handleCancel = () => {
   setTimeout(() => {
-    resetFields()
-    modalRef.value?.close()
-  }, 300)
-}
+    resetFields();
+    modalRef.value?.close();
+  }, 300);
+};
 onMounted(() => {
-  fetch()
-})
+  fetch();
+});
 </script>
 <template>
   <div class="p-4">
-    <div class="flex justify-between">
-      <div class="grow">
-        <a-input
-          size="large"
-          :placeholder="$t('kXAMWI86h-rooSEuCAow-')"
-          class="max-w-[220px] mr-2"
-          v-model:value="filterOptions.email"
-          @blur="fetch"
-        >
-          <template #prefix>
-            <search-outlined />
-          </template>
-        </a-input>
-        <a-radio-group
-          v-model:value="filterOptions.status"
-          size="large"
-          :options="statusOptions"
-          optionType="button"
-          @change="fetch"
-        />
-      </div>
+    <template v-if="appStore.isMobile">
+      <a-form>
+        <a-form-item>
+          <a-input
+            :placeholder="t('HdqCyzznm7hS5EZblV5Xr')"
+            v-model:value="filterOptions.email"
+            @keyup.enter="fetch"
+            allow-clear
+          >
+            <template #prefix>
+              <search-outlined />
+            </template>
+          </a-input>
+        </a-form-item>
+      </a-form>
+    </template>
+    <template v-else>
+      <a-form layout="inline" class="grow">
+        <a-form-item>
+          <a-input
+            :placeholder="t('HdqCyzznm7hS5EZblV5Xr')"
+            class="mr-2"
+            v-model:value="filterOptions.email"
+            @keyup.enter="fetch"
+            allow-clear
+          >
+            <template #prefix>
+              <search-outlined />
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-radio-group
+            v-model:value="filterOptions.status"
+            :options="statusOptions"
+            optionType="button"
+            @change="fetch"
+          />
+        </a-form-item>
+      </a-form>
       <a-button
-        size="large"
         @click="modalRef?.show()"
         type="primary"
+        class="float-right my-2"
       >
-        {{ $t('VPTp-QATJSurGdzHeGrXT') }}
+        {{ $t("VPTp-QATJSurGdzHeGrXT") }}
       </a-button>
-    </div>
+    </template>
+
     <div class="my-4">
       <a-table
         :dataSource="list"
         :columns="columns"
         :pagination="false"
+        :loading="loading"
       >
         <template #bodyCell="{ column, text }">
           <template v-if="column.key === 'status'">
@@ -139,8 +188,22 @@ onMounted(() => {
           </template>
         </template>
       </a-table>
-      <a-pagination hideOnSinglePage class="g-pagination" size="small" :current="pageID" :total="totalCount" show-less-items @change="onPageChange" />
+      <a-pagination
+        class="float-right my-2"
+        :current="pageID"
+        :total="totalCount"
+        show-less-items
+        @change="onPageChange"
+      />
+      <a-button
+        type="primary"
+        @click="modalRef?.show()"
+        class="w-full"
+        v-if="appStore.isMobile"
+        >{{ t("VPTp-QATJSurGdzHeGrXT") }}</a-button
+      >
     </div>
+
     <ExModal
       ref="modalRef"
       isBottom
@@ -168,19 +231,23 @@ onMounted(() => {
             >
             </a-select>
           </a-form-item>
-
-          <div class="font-bold text-red-500">{{ $t('1NLFL8YdPqQXonj5lQxvT') }}</div>
-          <div class="text-[#BFBFBF]">{{ $t('irfv2QgrQafS_6Zl73s2N') }}</div>
+          <Tips
+            :title="t('1NLFL8YdPqQXonj5lQxvT')"
+            :contents="[t('irfv2QgrQafS_6Zl73s2N')]"
+          />
+          <!-- <div class="font-bold text-red-500">
+            {{ $t("1NLFL8YdPqQXonj5lQxvT") }}
+          </div>
+          <div class="text-[#BFBFBF]">{{ $t("irfv2QgrQafS_6Zl73s2N") }}</div> -->
         </a-form>
       </div>
       <template #footer>
         <div class="px-4">
-          <div class="flex justify-center py-4 border-t border-b-0 border-gray-200 border-solid border-x-0 gap-x-2">
-            <a-button
-              @click="handleCancel"
-              size="large"
-            >
-              {{ $t('cT1QFWPt_d3RzSaZhjCUO') }}
+          <div
+            class="flex justify-center py-4 border-t border-b-0 border-gray-200 border-solid border-x-0 gap-x-2"
+          >
+            <a-button @click="handleCancel" size="large">
+              {{ $t("cT1QFWPt_d3RzSaZhjCUO") }}
             </a-button>
             <a-button
               type="primary"
@@ -188,10 +255,9 @@ onMounted(() => {
               size="large"
               :loading="btnLoading"
             >
-              {{ $t('VPTp-QATJSurGdzHeGrXT') }}
+              {{ $t("VPTp-QATJSurGdzHeGrXT") }}
             </a-button>
           </div>
-          
         </div>
       </template>
     </ExModal>

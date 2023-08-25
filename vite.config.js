@@ -2,7 +2,7 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+import { AntDesignVueResolver, VantResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
@@ -92,7 +92,8 @@ export default defineConfig({
         AntDesignVueResolver({
           importStyle: 'less',
           resolveIcons: true
-        })
+        }),
+        VantResolver()
       ]
     }),
     createSvgIconsPlugin({
@@ -109,13 +110,13 @@ export default defineConfig({
          * 自定义插入位置
          * @default: body-last
          */
-        // inject?: 'body-last' | 'body-first',
-  
-        /**
-         * custom dom id
-         * @default: __svg__icons__dom__
-         */
-        // customDomId: '__svg__icons__dom__',
+      // inject?: 'body-last' | 'body-first',
+
+      /**
+       * custom dom id
+       * @default: __svg__icons__dom__
+       */
+      // customDomId: '__svg__icons__dom__',
     })
   ],
   css: {

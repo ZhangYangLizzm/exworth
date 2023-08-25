@@ -28,8 +28,14 @@ export const firstLogin = data => request({
   data
 })
 
-export const checkAuthcode =  data => request({
+export const checkAuthcode = data => request({
   url: 'login/checkAuthcode',
+  method: 'POST',
+  data
+})
+
+export const postUpdatePassword = data => request({
+  url: 'user/updatePassword',
   method: 'POST',
   data
 })

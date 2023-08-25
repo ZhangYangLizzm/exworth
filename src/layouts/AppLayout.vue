@@ -33,7 +33,7 @@ const uid = ref('')
         mode="horizontal"
         :menus="appMenus"
         class="left-menu"
-        v-if="!appStore.isMobile"
+        v-if="!appStore.isMobile" 
       >
       </AppMenu>
       <template #settings>

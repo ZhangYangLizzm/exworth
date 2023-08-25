@@ -1,74 +1,125 @@
 <script setup>
+import ComponentTitle from "@/components/ComponentTitle.vue";
+import ExModal from "@/libs/components/antd/modal/ExModal.vue";
+import { useForm } from "@/libs/hooks/useForm";
+import CurrencySelect from "@/components/Select/CurrencySelect.vue";
+import { useAccountStore } from "@/stores/modules/accounts.js";
+import { Format } from "@/libs/hooks/useUtil.js";
+import useClipboard from "@/hooks/useClipboard.js";
+import { postMemberTransfer } from "@/api/wallet";
+import { useAppStore } from "@/libs/stores/modules/app";
+import useFormRules from "@/hooks/useFormRules.js";
+const appStore = useAppStore();
 
+const { copy } = useClipboard();
 const props = defineProps({
   profile: {
     type: Object,
-    default: () => ({})
-  }
-})
-const { t } = useI18n()
+    default: () => ({}),
+  },
+});
+const accountStore = useAccountStore();
+const route = useRoute();
+const modalRef = ref();
+const { t } = useI18n();
 
-const GENDER_FEMALE = 'FEMALE'
-const GENDER_MALE = 'MALE'
-const GENDER_TEXT = value => ({
-  [GENDER_FEMALE]: t('zsI7AnPGYhNCRUO68Jh4Q'),
-  [GENDER_MALE]: t('v_MiN453eZGh3TNJxMF7Z')
-}[value])
+const handleClick = () => {
+  modalRef?.value.show();
+};
+const transferState = reactive({
+  currency: props.initialCurrency || "USDE",
+  amount: undefined,
+  password: "",
+  authCode: "",
+});
+
+const available = computed(
+  () =>
+    accountStore.availableBalance(transferState.currency)
+);
+
+const { CurrencyRule, getAmountRule, SecurityPasswordRule, GoogleAuthCodeRule } = useFormRules()
+const AmountRule = computed(() => getAmountRule(available.value))
+const rules = reactive({
+  currency: CurrencyRule,
+  amount: AmountRule,
+  password: SecurityPasswordRule,
+  authCode: GoogleAuthCodeRule
+});
+
+const { validateInfos, validate } = useForm(
+  transferState,
+  rules
+);
+
+const transferConfirmLoading = ref(false);
+
+const handleTransfer = async () => {
+  try {
+    transferConfirmLoading.value = true;
+    await validate();
+    await postMemberTransfer({ uuid: route.params.uuid, ...transferState });
+    transferConfirmLoading.value = false;
+  } catch (e) {
+    transferConfirmLoading.value = false;
+    console.log(e);
+  }
+};
 </script>
 <template>
   <div class="p-4 bg-[#f9f9f9] rounded">
     <div class="flex items-end justify-between">
       <div class="grow">
-        <div class="flex items-stretch mb-4">
-          <div class="inline-block w-1 mr-1 bg-gray-300"></div>
-          <div class="text-lg leading-none text-primary">{{ $t('fl9JwgO1UOla0ZUK0NjAl') }}</div>
-        </div>
-
-        <div class="max-w-[800px] flex justify-between w-full">
-          <div class="">
-            <div class="mt-3 item">
-              <div class="text-gray-400">{{ $t('rNuiRMYhJmBtD-Nz0KEkt') }}</div>
-              <div class="">{{ profile.fullName }}</div>
-            </div>
-            <div class="mt-3 item">
-              <div class="text-gray-400">{{ $t('QF9BSS4QK0GPJ59pPUdTY') }}</div>
-              <div class="">{{ GENDER_TEXT(profile.gender) }}</div>
-            </div>
-            <div class="mt-3 item">
-              <div class="text-gray-400">{{ $t('efzwMiR8OeC0nd98Ke0SG') }}</div>
-              <div class="">+86 131****8231</div>
-            </div>
-            <div class="mt-3 item">
-              <div class="text-gray-400">{{ $t('SreiC9yRSXuJ0EDsT5t0z') }}</div>
-              <div class="">{{ profile.proEmail }}</div>
-            </div>
+        <ComponentTitle :text="$t('fl9JwgO1UOla0ZUK0NjAl')" />
+        <!-- TODO:成员详情的接口 -->
+        <div class="max-w-[800px] flex justify-between w-full flex-wrap">
+          <div>
+            {{ $t("SreiC9yRSXuJ0EDsT5t0z") }}: {{ profile.email
+            }}<span><copy-outlined class="cursor-pointer" @click="copy(profile.proEmail)" /></span>
           </div>
-          <div class="">
-            <div class="mt-3 item">
-              <div class="text-gray-400">{{ $t('4jHHpKkSXuLoZfWYURCIv') }}</div>
-              <div class="">馬耳他</div>
-            </div>
-            <div class="mt-3 item">
-              <div class="text-gray-400">{{ $t('omlg63lk4rZ8WJoXU1TRo') }}</div>
-              <div class="">1999-10-05</div>
-            </div>
-            <div class="mt-3 item">
-              <div class="text-gray-400">{{ $t('YC1J1op5Bh0i9lNpolBEJ') }}</div>
-              <div class="">E5****09</div>
-            </div>
-            <div class="mt-3 item">
-              <div class="text-gray-400">PROUID</div>
-              <div class="">{{ profile.uuid }}</div>
-            </div>
-          </div>
-          <div class=""></div>
+          <div>{{ $t("Zb57X_a6-Ikylh5coBdYs") }} : {{ profile.fullName }}</div>
         </div>
       </div>
-      <a-button
-        type="primary"
-      >
-        {{ $t('_iMQNMQatEhTi4yWkEjxs') }}
+      <a-button type="primary" @click="handleClick">
+        {{ $t("_iMQNMQatEhTi4yWkEjxs") }}
       </a-button>
     </div>
+
+    <ExModal :customTitle="$t('pGrhTXj8A84ieJpHf6k3L')" ref="modalRef" :isMobile="appStore.isMobile">
+      <div class="p-4">
+        <a-form layout="vertical" :rules="rules">
+          <a-form-item :label="$t('tOfYePGWd06TTHZ9HxG5V')" required>
+            <a-input disabled :placeholder="route.params.uuid" />
+          </a-form-item>
+          <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" required>
+            <CurrencySelect v-model:value="transferState.currency" />
+          </a-form-item>
+          <a-form-item :label="$t('aT1xkA__dmUFiEHrDNAph')" v-bind="validateInfos.amount">
+            <a-input :placeholder="$t('sMkxYlIlj4SgxGAKFOjgJ')" v-model:value="transferState.amount" />
+            <div class="text-gray-400 mt-2">
+              <span>{{ t("e8DgaMG0nnSK1cxzTVxp1") }}:</span>
+              <span class="float-right">{{
+                Format(available) + " " + transferState.currency
+              }}</span>
+            </div>
+          </a-form-item>
+          <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password">
+            <a-input-password :placeholder="$t('L8_JRGabLnJGC2tBI9Hqc')" v-model:value="transferState.password" />
+          </a-form-item>
+          <a-form-item :label="$t('SlJFgfv49xSHi9mbjdw4e')" v-bind="validateInfos.authCode">
+            <a-input-password :placeholder="$t('RN0u-0ie4LuZ1u5aetix9')" v-model:value="transferState.authCode" />
+          </a-form-item>
+        </a-form>
+      </div>
+      <template #footer>
+        <div class="px-4">
+          <div class="flex justify-center py-4 border-t border-b-0 border-gray-200 border-solid border-x-0 gap-x-2">
+            <a-button type="primary" @click="handleTransfer" :loading="transferConfirmLoading">
+              {{ $t("utkQ-uv-4gXBHkFXvGL5u") }}
+            </a-button>
+          </div>
+        </div>
+      </template>
+    </ExModal>
   </div>
 </template>

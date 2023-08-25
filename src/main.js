@@ -14,6 +14,7 @@ const app = createApp(App)
 app.config.productionTip = false
 
 setupStore(app)
+
 app.use(router)
 app.use(i18n)
 app.use(bootstrap)

@@ -1,49 +1,50 @@
 <script setup>
-import { useAppStore } from '@/stores/modules/app.js'
-import { SUPPORT_LOCALES, SUPPORT_LOCALES_MAP } from '@/plugins/i18n'
-import { map } from 'lodash-es'
-import { useUserStore } from '@/stores/modules/user.js'
+import { useAppStore } from "@/stores/modules/app.js";
+import { SUPPORT_LOCALES, SUPPORT_LOCALES_MAP } from "@/plugins/i18n";
+import { map } from "lodash-es";
+import { useUserStore } from "@/stores/modules/user.js";
 
-const userStore = useUserStore()
-const appStore = useAppStore()
-const localeList = computed(() => map(SUPPORT_LOCALES_MAP, ((label, value) => ({ label, value }))))
+const userStore = useUserStore();
+const appStore = useAppStore();
+const localeList = computed(() =>
+  map(SUPPORT_LOCALES_MAP, (label, value) => ({ label, value }))
+);
 
 const handleLocaleSelect = ({ key }) => {
-  appStore.setLocale(key)
-  window.location.reload()
-}
+  appStore.setLocale(key);
+  window.location.reload();
+};
 
 const handleMenuClick = ({ key }) => {
   switch (key) {
-    case 'Logout':
-      userStore.logout()
+    case "Logout":
+      userStore.logout();
       break;
-  
+
     default:
       break;
   }
-}
+};
 </script>
 <template>
   <a-layout-header class="bg-transparent absolute z-10 w-full !px-4">
     <div class="flex justify-between">
-      <div class=""></div>
-      <div class="">
-        <a-dropdown
-          placement="bottom"
-        >
+      <div>
+        <router-view v-slot="{ Component }" name="header-extra">
+          <component :is="Component"></component>
+        </router-view>
+      </div>
+      <div>
+        <a-dropdown placement="bottom">
           <a-button type="text">
+            {{ appStore.localeText }}
             <template #icon>
               <global-outlined />
             </template>
           </a-button>
           <template #overlay>
             <a-menu @click="handleLocaleSelect">
-              <a-menu-item
-                v-for="locale in localeList"
-                :key="locale.value"
-                :disabled="appStore.locale === locale.value"
-              >
+              <a-menu-item v-for="locale in localeList" :key="locale.value" :disabled="appStore.locale === locale.value">
                 {{ locale.label }}
               </a-menu-item>
             </a-menu>
@@ -52,7 +53,7 @@ const handleMenuClick = ({ key }) => {
 
         <a-dropdown>
           <a-button type="text">
-            <span>{{ userStore.username }}</span>
+            <span>{{ userStore.username || "username" }}</span>
             <down-outlined />
           </a-button>
           <template #overlay>
@@ -61,7 +62,7 @@ const handleMenuClick = ({ key }) => {
                 <template #icon>
                   <logout-outlined />
                 </template>
-                {{ $t('6b77_1yTm-gggQW0eZnOy') }}
+                {{ $t("6b77_1yTm-gggQW0eZnOy") }}
               </a-menu-item>
             </a-menu>
           </template>

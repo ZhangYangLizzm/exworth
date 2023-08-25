@@ -3,15 +3,17 @@ import Login from '@/views/login/Login.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import BlankLayout from '@/layouts/BlankLayout.vue'
 
-import Dashboard from '@/views/dashboard/Dashboard.vue'
-import Wallet from '@/views/account/Wallet.vue'
+import Wallet from '@/views/wallet/Wallet.vue'
+import AccountDetails from '@/views/wallet/history/AccountDetails.vue'
+import MobileAccountDetails from "@/views/wallet/mobile/AccountDetails.vue"
 
-import Member from '@/views/member/member/Member.vue'
+import MemberLayout from '@/views/member/MemberLayout.vue'
+import MemberList from "@/views/member/member/MemberList.vue";
 import Profile from '@/views/member/member/Profile.vue'
 import Invitation from '@/views/member/invitation/Invitation.vue'
 
-import CoinList from '@/views/account/CoinList.vue'
-import Coin from '@/views/account/Coin.vue'
+import CardManagement from "@/views/card/CardManagement.vue"
+
 import Setting from '@/views/setting/Setting.vue'
 
 /**
@@ -27,63 +29,75 @@ const routes = [
   },
   {
     path: '/',
+    redirect: "/wallet",
     component: MainLayout,
     children: [
       {
-        path: '',
-        name: 'Dashboard',
-        component: Dashboard
-      },
-      {
         path: 'wallet',
+        name: 'Wallet',
         component: Wallet,
-        // meta: { hideBottom: true },
         children: [
           {
             path: '',
-            name: 'Wallet',
-            component: CoinList
+            name: 'AccountDetails',
+            component: AccountDetails,
           },
           {
-            path: ':coin',
-            name: 'Coin',
-            component: Coin,
-            props: true,
-            meta: { hideBottom: true }
+            path: 'recharge-history',
+            name: 'RechargeHistory',
+            component: () => import("@/views/wallet/history/RechargeHistory.vue"),
+          },
+          {
+            path: 'transfer-history',
+            name: 'TransferHistory',
+            component: () => import("@/views/wallet/history/TransferHistory.vue"),
+          }, {
+            path: 'withdraw-history',
+            name: 'WithdrawHistory',
+            component: () => import("@/views/wallet/history/WithdrawHistory.vue"),
           }
-        ]
+        ],
+
       },
+      { path: 'mobile-account-details', component: MobileAccountDetails, name: 'MobileAccountDetails' },
+
       {
         path: 'member',
-        component: BlankLayout,
+        components: { default: BlankLayout, 'header-extra': MemberLayout },
+        name: "Member",
+        meta: {
+          "headerExtra": true
+        },
         children: [
           {
-            path: '',
-            component: Member,
-            name: 'Member'
+            path: 'member-list',
+            component: MemberList,
+            name: 'MemberList',
           },
           {
             path: 'invitation',
+            name: "Invitation",
             component: Invitation
           },
           {
             path: ':uuid',
-            component: Profile,
+            component: () => import("@/views/member/member/Profile.vue"),
             name: 'MemberProfile'
-          }
+          },
         ]
       },
       {
         path: 'my',
         name: 'Setting',
-        component: Setting
+        component: Setting,
+      },
+      {
+        path: "card",
+        name: "Card",
+        component: CardManagement,
       }
     ]
   },
-  {
-    path: '/test',
-    name: 'Test',
-    component: () => import('@/views/test/Test.vue')
-  }
+
 ]
 export default routes
