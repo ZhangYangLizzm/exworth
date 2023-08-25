@@ -1,6 +1,6 @@
 [submodule "src/libs"]
 	path = src/libs
-	url = http://192.168.2.8/root/exw-libs.git
+	url = https://gitlab.exworth.group/exworth/exw-libs.git
 [submodule "src/core/card"]
 	path = src/core/card
-	url = http://192.168.2.8/root/exw-libs-card.git
+	url = https://gitlab.exworth.group/exworth/exw-libs-card.git
