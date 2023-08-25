@@ -53,7 +53,7 @@ const handleMenuClick = ({ key }) => {
 
         <a-dropdown>
           <a-button type="text">
-            <span>{{ userStore.username || "username" }}</span>
+            <span>{{ userStore.accountName }} {{ userStore.uid }}</span>
             <down-outlined />
           </a-button>
           <template #overlay>
