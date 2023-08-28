@@ -88,7 +88,8 @@ const columns = computed(() => [
       <CurrencySelect v-model:currency="filterOptions.currency" />
     </a-form-item>
     <a-form-item class="w-1/6">
-      <a-input v-model:value="filterOptions.affectOrderNo" :addon-before="t('Lt2Yb3nacWIDdbk1RYlMf')" />
+      <a-input autocomplete="off" v-model:value="filterOptions.affectOrderNo"
+        :addon-before="t('Lt2Yb3nacWIDdbk1RYlMf')" />
     </a-form-item>
     <a-form-item>
       <a-button type="primary" @click="fetch">

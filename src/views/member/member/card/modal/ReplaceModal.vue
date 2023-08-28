@@ -59,10 +59,10 @@ const handleConfirm = async () => {
     <div class="px-4">
       <a-form layout="vertical" :rules="rules">
         <a-form-item :label="$t('JGMmRjIFXA9BpazlDrQQr')">
-          <a-input disabled :placeholder="props.cardInfo.maskCardNo"> </a-input>
+          <a-input autocomplete="off" disabled :placeholder="props.cardInfo.maskCardNo"> </a-input>
         </a-form-item>
         <a-form-item :label="$t('Haq1op8REl1tV-OrgcFFA')" v-bind="validateInfos.newCardKey">
-          <a-input :placeholder="$t('TyYIPcHZX7JYtUZtDeM8Q')" v-model:value="replaceState.newCardKey">
+          <a-input autocomplete="off" :placeholder="$t('TyYIPcHZX7JYtUZtDeM8Q')" v-model:value="replaceState.newCardKey">
           </a-input>
         </a-form-item>
         <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password">

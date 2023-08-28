@@ -77,7 +77,7 @@ const fee = computed(
     <div class="px-4">
       <a-form layout="vertical" :rules="rules">
         <a-form-item :label="$t('kc9q5L7zBW4hpYFxJwx6H')">
-          <a-input disabled :placeholder="props.cardInfo.maskCardNo" :autoComplete="off"> </a-input>
+          <a-input autocomplete="off" disabled :placeholder="props.cardInfo.maskCardNo" :autoComplete="off"> </a-input>
         </a-form-item>
         <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" v-bind="validateInfos.currency">
           <CurrencySelect v-model:currency="rechargeState.currency" />
@@ -87,7 +87,7 @@ const fee = computed(
             <AmountLabel :title="$t('NI3dffhiC9cI6NmBo_UBh')" :balanceAmount="Format(available)"
               :currency="rechargeState.currency" />
           </template>
-          <a-input :placeholder="$t('_aLRJTwT0z5fy-yMREIle')" v-model:value="rechargeState.amount" />
+          <a-input autocomplete="off" :placeholder="$t('_aLRJTwT0z5fy-yMREIle')" v-model:value="rechargeState.amount" />
 
           <div class="text-gray-400">
             <span>{{ t("Q_l0QsgefHPkwvxse3yaA") }}:</span>

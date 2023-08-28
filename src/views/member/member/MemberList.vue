@@ -30,7 +30,8 @@ onMounted(() => {
   <div class="p-4">
     <a-form layout="inline">
       <a-form-item :class="[isMobile ? 'w-full' : '']">
-        <a-input :placeholder="t('OcfJlH4QmIPpM8_XAtT0h')" v-model:value="filterOptions.emailLike" @keyup.enter="fetch">
+        <a-input autocomplete="off" :placeholder="t('OcfJlH4QmIPpM8_XAtT0h')" v-model:value="filterOptions.emailLike"
+          @keyup.enter="fetch">
           <template #prefix>
             <search-outlined />
           </template>

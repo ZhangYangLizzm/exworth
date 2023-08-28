@@ -63,7 +63,7 @@ const handleSubmit = async () => {
 <template>
   <a-form class="mx-auto max-w-[368px]">
     <a-form-item v-bind="validateInfos.name">
-      <a-input size="large" :placeholder="$t('9_hTi5b-d57f8pixLc20n')" v-model:value="formState.name">
+      <a-input autocomplete="off" size="large" :placeholder="$t('9_hTi5b-d57f8pixLc20n')" v-model:value="formState.name">
         <template #prefix>
           <user-outlined type="user" />
         </template>

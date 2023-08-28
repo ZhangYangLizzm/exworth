@@ -46,11 +46,7 @@ onMounted(() => {
       </div>
       <div class="flex-1">
         <div class="flex-1 flex bg-slate-100 rounded-xl gap-x-4">
-          <Card
-            brand="masterCard"
-            :mode="CARD_MODE_VIRTUAL"
-            class="basis-2/5"
-          />
+          <Card brand="masterCard" :mode="CARD_MODE_VIRTUAL" class="basis-2/5" />
           <div>虚拟卡数量</div>
         </div>
       </div>
@@ -58,21 +54,16 @@ onMounted(() => {
 
     <a-form layout="inline">
       <a-form-item>
-        <a-input placeholder="請輸入卡ID"></a-input>
+        <a-input autocomplete="off" placeholder="請輸入卡ID"></a-input>
       </a-form-item>
       <a-form-item>
-        <a-input placeholder="請輸入持卡人編號"></a-input>
+        <a-input autocomplete="off" placeholder="請輸入持卡人編號"></a-input>
       </a-form-item>
       <a-form-item class="w-48">
         <a-select placeholder="選擇狀態"></a-select>
       </a-form-item>
     </a-form>
-    <a-table
-      :loading="loading"
-      :dataSource="physicalList"
-      :columns="columns"
-      :pagination="false"
-    ></a-table>
+    <a-table :loading="loading" :dataSource="physicalList" :columns="columns" :pagination="false"></a-table>
   </div>
 </template>
 

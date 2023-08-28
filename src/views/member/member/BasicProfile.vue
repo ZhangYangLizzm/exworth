@@ -91,7 +91,7 @@ const handleTransfer = async () => {
       <div class="p-4">
         <a-form layout="vertical" :rules="rules">
           <a-form-item :label="$t('tOfYePGWd06TTHZ9HxG5V')" required>
-            <a-input disabled :placeholder="route.params.uuid" />
+            <a-input autocomplete="off" disabled :placeholder="route.params.uuid" />
           </a-form-item>
           <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" required>
             <CurrencySelect v-model:value="transferState.currency" />
@@ -101,7 +101,7 @@ const handleTransfer = async () => {
               <AmountLabel :title="$t('aT1xkA__dmUFiEHrDNAph')" :balanceAmount="Format(available)"
                 :currency="transferState.currency" />
             </template>
-            <a-input :placeholder="$t('sMkxYlIlj4SgxGAKFOjgJ')" v-model:value="transferState.amount" />
+            <a-input autocomplete="off" :placeholder="$t('sMkxYlIlj4SgxGAKFOjgJ')" v-model:value="transferState.amount" />
 
           </a-form-item>
           <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password">

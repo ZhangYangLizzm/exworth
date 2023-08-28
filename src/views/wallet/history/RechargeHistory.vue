@@ -1,7 +1,7 @@
 <script setup>
 import { getDepositHistory } from "@/api/wallet"
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
-import {formatRangerPickerTime} from './formatRangerPickerTime'
+import { formatRangerPickerTime } from './formatRangerPickerTime'
 
 const filterOptions = reactive({
     createTime: undefined,
@@ -69,7 +69,8 @@ onMounted(() => {
             <CurrencySelect v-model:currency="filterOptions.currency" />
         </a-form-item>
         <a-form-item class="w-1/6">
-            <a-input v-model:value="filterOptions.transactionHash" :addon-before="t('4Jogg03YNl3gG3ZgAQlml')" />
+            <a-input autocomplete="off" v-model:value="filterOptions.transactionHash"
+                :addon-before="t('4Jogg03YNl3gG3ZgAQlml')" />
         </a-form-item>
         <a-form-item>
             <a-button type="primary" @click="fetch">

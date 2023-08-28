@@ -62,7 +62,7 @@ const handleConfirm = async () => {
     <div class="px-4">
       <a-form layout="vertical" :rules="rules">
         <a-form-item :label="t('kc9q5L7zBW4hpYFxJwx6H')">
-          <a-input disabled :placeholder="props.cardInfo.maskCardNo" />
+          <a-input autocomplete="off" disabled :placeholder="props.cardInfo.maskCardNo" />
           <div class="text-gray-400 mt-2">
             <span>{{ t("xL0Xq46pD4xDZv4kET1pb") }}:</span>
             <span class="float-right">10 USDT</span>

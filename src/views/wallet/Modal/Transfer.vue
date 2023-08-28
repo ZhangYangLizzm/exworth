@@ -60,7 +60,7 @@ const handleTransfer = async () => {
   <div class="p-4">
     <a-form layout="vertical" :rules="rules">
       <a-form-item :label="$t('tOfYePGWd06TTHZ9HxG5V')" v-bind="validateInfos.uuid">
-        <a-input v-model:value="transferState.uuid" :placeholder="t('_T9boCEgvfyd17ol1g2yp')" />
+        <a-input autocomplete="off" v-model:value="transferState.uuid" :placeholder="t('_T9boCEgvfyd17ol1g2yp')" />
       </a-form-item>
       <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" v-bind="validateInfos.currency">
         <CurrencySelect v-model:value="transferState.currency" />
@@ -70,7 +70,7 @@ const handleTransfer = async () => {
           <AmountLabel :title="$t('aT1xkA__dmUFiEHrDNAph')" :balanceAmount="Format(available)"
             :currency="transferState.currency" />
         </template>
-        <a-input :placeholder="$t('tdOb7WZfAthhIqC2_HIAg')" v-model:value="transferState.amount" />
+        <a-input autocomplete="off" :placeholder="$t('tdOb7WZfAthhIqC2_HIAg')" v-model:value="transferState.amount" />
       </a-form-item>
       <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password">
         <a-input-password :placeholder="$t('L8_JRGabLnJGC2tBI9Hqc')" v-model:value="transferState.password" />

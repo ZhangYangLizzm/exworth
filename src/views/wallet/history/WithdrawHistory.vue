@@ -80,7 +80,8 @@ onMounted(() => {
             <CurrencySelect v-model:currency="filterOptions.currency" />
         </a-form-item>
         <a-form-item class="w-1/6">
-            <a-input v-model:value="filterOptions.withdrawOrderId" :addon-before="t('68cZ9T56Bq7_rLweZH-Nv')" />
+            <a-input autocomplete="off" v-model:value="filterOptions.withdrawOrderId"
+                :addon-before="t('68cZ9T56Bq7_rLweZH-Nv')" />
         </a-form-item>
         <a-form-item>
             <a-button type="primary" @click="fetch">

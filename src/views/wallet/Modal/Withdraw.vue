@@ -88,7 +88,7 @@ const onCurrencyChange = async (value) => {
 const emits = defineEmits(["close"])
 const onView = () => {
     emits('close')
-    router.push({ name: 'WithdrawHistory',params:{} })
+    router.push({ name: 'WithdrawHistory', params: {} })
 }
 </script>
 
@@ -118,7 +118,8 @@ const onView = () => {
                             <AmountLabel :title="t('-Q-u4nDHLreIjo2-6Z4MW')"
                                 :balanceAmount="Format(walletInfo.balanceAmount)" :currency="withdrawState.currency" />
                         </template>
-                        <a-input v-model:value="withdrawState.amount" :disabled="step" @change="fetchOtcRate" />
+                        <a-input autocomplete="off" v-model:value="withdrawState.amount" :disabled="step"
+                            @change="fetchOtcRate" />
                         <div class="mt-2 text-gray-400">
                             <span>{{ t('Q_l0QsgefHPkwvxse3yaA') }}:</span>
                             <span class="float-right">{{ walletInfo.fee }} {{ withdrawState.currency }}</span>
@@ -129,8 +130,8 @@ const onView = () => {
                         </div>
                     </a-form-item>
                     <a-form-item :label="t('vURu3r49iRvVFMlYEC5Gg')" v-bind="validateInfos.address">
-                        <a-input v-model:value="withdrawState.address" :placeholder="t('OGq2FiMO8fYn0FBusYtRz')"
-                            :disabled="step" />
+                        <a-input autocomplete="off" v-model:value="withdrawState.address"
+                            :placeholder="t('OGq2FiMO8fYn0FBusYtRz')" :disabled="step" />
                     </a-form-item>
                     <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password" v-if="step === 1">
                         <a-input-password :placeholder="$t('g-CkGyBqori4UAmxL4HS5')"
