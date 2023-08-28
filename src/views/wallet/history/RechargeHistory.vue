@@ -28,6 +28,7 @@ const columns = computed(() => [
         title: t('yy1yXH9_kRAEgge-neEtR'),
         dataIndex: "amount",
         key: "amount",
+        align: "right"
     },
     {
         title: t('f4ngMoxswjtXR3cxuoIuO'),
@@ -73,7 +74,7 @@ onMounted(() => {
                 :addon-before="t('4Jogg03YNl3gG3ZgAQlml')" />
         </a-form-item>
         <a-form-item>
-            <a-button type="primary" @click="fetch">
+            <a-button type="primary" @click="fetch" :loading="loading">
                 {{ t("5NZo0upHiGpgDPaM_E9iu") }}
             </a-button>
         </a-form-item>

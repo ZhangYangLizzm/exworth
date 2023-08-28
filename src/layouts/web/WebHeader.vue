@@ -44,7 +44,11 @@ const handleMenuClick = ({ key }) => {
           </a-button>
           <template #overlay>
             <a-menu @click="handleLocaleSelect">
-              <a-menu-item v-for="locale in localeList" :key="locale.value" :disabled="appStore.locale === locale.value">
+              <a-menu-item
+                v-for="locale in localeList"
+                :key="locale.value"
+                :disabled="appStore.locale === locale.value"
+              >
                 {{ locale.label }}
               </a-menu-item>
             </a-menu>

@@ -61,10 +61,10 @@ const columns = [
   <a-table :dataSource="dataSource" :columns="columns" :loading="loading">
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'card'">
-        <Card :brand="record.cardType" :mode="CARD_MODE_PHYSICAL" class="h-32 w-64" size="small">
+        <Card :brand="record.cardType" :mode="CARD_MODE_PHYSICAL" class="w-64" size="small">
           <template #footer>
             <div class="flex items-center justify-between">
-              <div class="drop-shadow">
+              <div class="drop-shadow text-[18px]">
                 {{ encryptStr(record?.maskCardNo, 4, 4, " **** **** ") }}
               </div>
             </div>

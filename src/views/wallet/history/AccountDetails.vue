@@ -44,6 +44,7 @@ const columns = computed(() => [
     title: t("Mkm0fkecuM8cnOJaUOCP0"),
     dataIndex: "operateAmount",
     key: "operateAmount",
+    align: "right"
   },
   // {
   //   title: t("bggAC96HS1OvTEKsh9rg_"),
@@ -51,13 +52,10 @@ const columns = computed(() => [
   //   key: "currentBalanceAmount",
   // },
 ]);
-
-
 </script>
 
 <template>
   <!-- <ComponentTitle :text="t('ovLktXuIHMUA7a1STIy3X')" class="mt-4" /> -->
-
   <a-form class="mb-4" layout="inline">
     <a-form-item>
       <a-range-picker :value="filterOptions.createTime" valueFormat="YYYY-MM-DD"
@@ -92,7 +90,7 @@ const columns = computed(() => [
         :addon-before="t('Lt2Yb3nacWIDdbk1RYlMf')" />
     </a-form-item>
     <a-form-item>
-      <a-button type="primary" @click="fetch">
+      <a-button type="primary" @click="fetch" :loading="loading">
         {{ t("5NZo0upHiGpgDPaM_E9iu") }}
       </a-button>
     </a-form-item>

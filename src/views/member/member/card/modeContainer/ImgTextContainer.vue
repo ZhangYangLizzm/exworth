@@ -28,7 +28,7 @@ const onClick = (item, type) => {
   <a-spin :spinning="loading">
     <div class="flex pb-4 overflow-x-auto overflow-y-auto gap-x-4">
       <div class="bg-white shrink-0 rounded-2xl" v-for="(item, index) in dataSource"
-        :class="[appStore.isMobile ? 'basis-4/5' : 'basis-1/5']" :key="index">
+        :class="[appStore.isMobile ? 'basis-4/5' : 'basis-[280px]']" :key="index">
         <Card :brand="item.cardType" :mode="CARD_MODE_PHYSICAL">
           <template #footer>
             <div class="flex items-center justify-between">

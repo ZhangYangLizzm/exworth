@@ -28,15 +28,12 @@ const columns = computed(() => [
         dataIndex: "amount",
         key: "amount",
         align: "right"
-
     },
     {
         title: t('tOfYePGWd06TTHZ9HxG5V'),
         dataIndex: "receiverAccountInfo",
         key: "receiverAccountInfo",
-
     },
-
     {
         title: t('2azhTayaBBC1zqWCc8lq5'),
         dataIndex: "status",
@@ -68,7 +65,7 @@ onMounted(() => {
                 :addon-before="t('68cZ9T56Bq7_rLweZH-Nv')" />
         </a-form-item>
         <a-form-item>
-            <a-button type="primary" @click="fetch">
+            <a-button type="primary" @click="fetch" :loading="loading">
                 {{ t("5NZo0upHiGpgDPaM_E9iu") }}
             </a-button>
         </a-form-item>
