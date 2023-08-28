@@ -88,3 +88,10 @@ const handleTransfer = async () => {
     </div>
   </div>
 </template>
+
+<style scoped lang="less">
+:deep(.ant-form-item-required) {
+  width: 100%
+}
+</style>
+

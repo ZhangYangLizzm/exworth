@@ -3,7 +3,6 @@ import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 import { Format } from "@/libs/hooks/useUtil.js";
 import { getOtcRate, postCurrencyWithdraw } from "@/api/wallet";
 import useFormRules from "@/hooks/useFormRules.js";
-import AmountLabel from "@/components/AmountLabel.vue";
 import { useAccountStore } from "@/stores/modules/accounts.js";
 const accountStore = useAccountStore()
 const { CurrencyRule, getAmountRule, NetworkRule, AddressRule, SecurityPasswordRule, GoogleAuthCodeRule } = useFormRules()
