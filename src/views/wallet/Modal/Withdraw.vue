@@ -152,7 +152,10 @@ const onView = () => {
                         <p>{{ t('CiN3_LpKa2dGv99rkld0l', { dealAmount: confirmResult.dealAmount }) }} {{
                             withdrawState.currency }}</p>
                         <p>{{ t('ZRqUQYGeMW9mdJidJSS69', { fee: confirmResult.fee }) }} {{ withdrawState.currency }}</p>
-                        <p>{{ t('AhZ8ItHb7nCGWMqoQNgDa') }}</p>
+                        <p>{{ t('AhZ8ItHb7nCGWMqoQNgDt'), { actualAmount: confirmResult.actualAmount } }} {{
+                            withdrawState.currency }}</p>
+                        <p> {{ t('hlhSxU0JK4TJ4kP_-lBzh', { address: withdrawState.address }) }}
+                        </p>
                     </div>
                 </div>
             </template>
