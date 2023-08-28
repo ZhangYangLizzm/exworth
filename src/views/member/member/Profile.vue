@@ -28,9 +28,13 @@ onMounted(() => {
 const defaultMode = "imgTextMode";
 const mode = useStorage("Member_Mode", defaultMode);
 </script>
+
 <template>
-  <div class="p-4 mx-auto">
-    <BasicProfile :profile="userModel" class="shadow-md"></BasicProfile>
+  <div class="px-4 mx-auto">
+    <a-page-header :title="$t('5Bp1HBe0zDdIJBY94bD26')" @back="() => $router.go(-1)" />
+    <ComponentTitle :text="$t('MlClMV-uaiDTpeCLyrP7E')" class="text-xl" />
+
+    <BasicProfile :profile="userModel" class=""></BasicProfile>
 
     <ComponentTitle :text="$t('c9v0NvMxo7MffTy-TXDir')" class="text-xl mt-4">
       <template #extra v-if="!appStore.isMobile">

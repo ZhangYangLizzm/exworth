@@ -38,7 +38,7 @@ const onClick = ({ item, type }) => {
 };
 </script>
 <template>
-  <div class="p-4 bg-[#f9f9f9] rounded-sm">
+  <div class="p-4 shadow rounded-sm">
     <ComponentTitle :text="$t('OnPSpwMATKuG2io4jQP3a')" class="text-xl mt-4" />
 
     <template v-if="mode === 'imgTextMode'">

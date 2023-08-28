@@ -18,11 +18,11 @@ const onClick = (e, currency, type) => {
 </script>
 
 <template>
-    <div class="min-h-[188px] flex align-middle">
+    <div class="flex">
         <a-spin :spinning="props.loading">
             <div class="flex overflow-x-auto gap-x-4">
-                <div class="hover:bg-gray-200 py-4 bg-slate-100 rounded-lg text-center min-w-[250px] box-shadow"
-                    v-for="asset in props.walletAccounts" :key="asset.currency">
+                <div class="py-2 rounded text-center min-w-[250px] shadow my-2" v-for="asset in props.walletAccounts"
+                    :key="asset.currency">
                     <SvgIcon :name="`coin-${asset.currency}`" class="w-10 h-10" />
                     <div class="">{{ asset.currency }}</div>
                     <div class="mt-2 mb-1 text-base font-bold">
