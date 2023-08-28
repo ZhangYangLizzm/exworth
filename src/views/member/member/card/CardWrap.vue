@@ -10,7 +10,7 @@ const props = defineProps({
 });
 
 const route = useRoute();
-// TODO：针对于成员的卡片列表，现为所有的实体卡列表
+
 const {
   list: physicalList,
   loading,

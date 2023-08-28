@@ -46,6 +46,10 @@ const columns = computed(() => [
         align: "right"
     },
     {
+        title: t('ncJ7_1LvnFJnKTCn0SVLG'),
+        key: "receiverAccountInfo",
+    },
+    {
         title: t('2azhTayaBBC1zqWCc8lq5'),
         dataIndex: "status",
         key: "status",
@@ -99,7 +103,17 @@ onMounted(() => {
                 <span>{{ record.fee + " " + record.currency }}</span>
             </template>
             <template v-if="column.key === 'receiverAccountInfo'">
-                <span>{{ record.receiverAccountInfo }}</span>
+                <a-tooltip>
+                    <template #title>
+                        <div>
+                            <p>鏈名稱 {{ JSON.parse(record.receiverAccountInfo).network }}</p>
+                            <p>地址 {{ JSON.parse(record.receiverAccountInfo).address }}</p>
+                        </div>
+                    </template>
+                    <a-button type="link">
+                        查看
+                    </a-button>
+                </a-tooltip>
             </template>
             <template v-if="column.key === 'status'">
                 <span>{{ getOrderStatusLabel(record.status) }}</span>

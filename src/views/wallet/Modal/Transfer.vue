@@ -40,7 +40,9 @@ const { resetFields, handleValidate, validateInfos, validate } = useForm(
 );
 
 const emits = defineEmits(["close"])
+const loading = ref(false)
 const handleTransfer = async () => {
+  loading.value = true
   try {
     await validate();
     if (transferState.uuid.includes('@')) {
@@ -52,8 +54,12 @@ const handleTransfer = async () => {
     emits("close")
   } catch (e) {
     console.log(e);
+  } finally {
+    loading.value = false
   }
 };
+
+
 </script>
 
 <template>
@@ -82,7 +88,7 @@ const handleTransfer = async () => {
   </div>
   <div class="px-4">
     <div class="flex justify-center py-4 border-t border-b-0 border-gray-200 border-solid border-x-0 gap-x-2">
-      <a-button type="primary" @click="handleTransfer">
+      <a-button type="primary" @click="handleTransfer" :loading="loading">
         {{ $t("utkQ-uv-4gXBHkFXvGL5u") }}
       </a-button>
     </div>

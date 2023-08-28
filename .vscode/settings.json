@@ -1,0 +1,15 @@
+{
+  "i18n-ally.localesPaths": [
+    "src/locales",
+    "src/libs/locales",
+    "src/core/card/locales"
+  ],
+  "i18n-ally.keystyle": "flat",
+  "i18n-ally.translate.deepl.apiKey": "6939d146-a3a9-4c91-7287-78f2058bab00:fx",
+  "i18n-ally.translate.deepl.useFreeApiEntry": true,
+  "i18n-ally.translate.deepl.enableLog": false,
+  "i18n-ally.translate.engines": ["deepl"],
+  "i18n-ally.sourceLanguage": "zh-HK",
+  "vue3snippets.enable-compile-vue-file-on-did-save-code": false,
+  "editor.formatOnSave": true
+}

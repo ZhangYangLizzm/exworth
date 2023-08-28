@@ -60,7 +60,6 @@ const handleConfirm = async () => {
     await validate();
     await postRecharge({ ...rechargeState, cardKey: props.cardInfo.cardKey });
     await accountStore.fetchWalletAccount()
-
     modalRef?.value.close();
   } catch (e) {
     console.log(e);
@@ -70,6 +69,8 @@ const handleConfirm = async () => {
 const fee = computed(
   () => rechargeState.amount * props.cardInfo.topUpRate || 0
 );
+
+const actualAmount = computed(() => rechargeState.amount - fee.value || 0)
 </script>
 
 <template>
@@ -79,7 +80,7 @@ const fee = computed(
         <a-form-item :label="$t('kc9q5L7zBW4hpYFxJwx6H')">
           <a-input autocomplete="off" disabled :placeholder="props.cardInfo.maskCardNo" :autoComplete="off"> </a-input>
         </a-form-item>
-        <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" v-bind="validateInfos.currency">
+        <a-form-item :label="t('evuxmuH6llDaxntrGcczN')" v-bind="validateInfos.currency">
           <CurrencySelect v-model:currency="rechargeState.currency" />
         </a-form-item>
         <a-form-item v-bind="validateInfos.amount">
@@ -98,7 +99,7 @@ const fee = computed(
           <div class="text-gray-400">
             <span>{{ t("AhZ8ItHb7nCGWMqoQNgDa") }}:</span>
             <span class="float-right">{{
-              rechargeState.amount - fee || 0 + " " + rechargeState.currency
+              actualAmount + " " + rechargeState.currency
             }}</span>
           </div>
         </a-form-item>

@@ -1,6 +1,8 @@
 <script setup>
 import { useAppStore } from "@/libs/stores/modules/app";
 import Functions from "@/views/member/member/common/Functions.vue";
+import useClipboard from "@/hooks/useClipboard.js";
+const { copy } = useClipboard();
 
 const { isMobile } = useAppStore();
 const { t } = useI18n();
@@ -39,6 +41,9 @@ const columns = computed(() => [
 <template>
   <a-table :dataSource="dataSource" :columns="columns" :pagination="false" :loading="loading" v-if="!isMobile">
     <template #bodyCell="{ column, record }">
+      <template v-if="['email', 'uuid'].includes(column.key)">
+        {{ record[column.key] }} <copy-outlined class="cursor-pointer ml-2" @click="copy(record[column.key])" />
+      </template>
       <template v-if="column.key === 'memberFunction'">
         <Functions :functions="record.memberFunction" />
       </template>

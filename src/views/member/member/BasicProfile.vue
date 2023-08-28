@@ -78,7 +78,7 @@ const handleTransfer = async () => {
         <div class="max-w-[800px] flex justify-between w-full flex-wrap">
           <div>
             {{ $t("SreiC9yRSXuJ0EDsT5t0z") }}: {{ profile.email
-            }}<span><copy-outlined class="cursor-pointer" @click="copy(profile.email)" /></span>
+            }}<span><copy-outlined class="cursor-pointer ml-2" @click="copy(profile.email)" /></span>
           </div>
           <div>{{ $t("Zb57X_a6-Ikylh5coBdYs") }} : {{ profile.fullName }}</div>
         </div>
