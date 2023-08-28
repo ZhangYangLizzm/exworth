@@ -1,4 +1,5 @@
 <script setup>
+import dayjs from 'dayjs'
 const { messages, locale } = useI18n()
 const antLocale = computed(() => unref(messages)?.[unref(locale)]?.antLocale)
 const configProvider = computed(() => ({
@@ -6,7 +7,7 @@ const configProvider = computed(() => ({
   autoInsertSpaseInButton: false,
 }))
 
-watch(antLocale, val => dayjs.locale(val.locale))
+watch(antLocale, val => dayjs.locale(val.locale), { immediate: true })
 </script>
 
 <template>
