@@ -2,11 +2,10 @@
 import { useAccountStore } from "@/stores/modules/accounts.js";
 import { Format } from "@/libs/hooks/useUtil.js";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
-import { postWithdrwaTransfer } from "@/api/wallet";
+import { postWithdrawTransfer } from "@/api/wallet";
 import useFormRules from "@/hooks/useFormRules.js";
 
 const { UUIDRule, CurrencyRule, getAmountRule, SecurityPasswordRule, GoogleAuthCodeRule } = useFormRules()
-
 const { t } = useI18n();
 const accountStore = useAccountStore();
 const props = defineProps({
@@ -40,10 +39,17 @@ const { resetFields, handleValidate, validateInfos, validate } = useForm(
   rules
 );
 
+const emits = defineEmits(["close"])
 const handleTransfer = async () => {
   try {
     await validate();
-    await postWithdrwaTransfer({ ...transferState, type: "transfer" });
+    if (transferState.uuid.includes('@')) {
+      transferState.email = transferState.uuid
+      delete transferState.uuid
+    }
+    await postWithdrawTransfer({ ...transferState, type: "transfer" });
+    await accountStore.fetchWalletAccount()
+    emits("close")
   } catch (e) {
     console.log(e);
   }
@@ -82,9 +88,3 @@ const handleTransfer = async () => {
     </div>
   </div>
 </template>
-
-<style scoped >
-:deep(.ant-form-item-required) {
-  width: 100%
-}
-</style>

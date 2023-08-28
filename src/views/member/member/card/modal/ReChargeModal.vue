@@ -59,6 +59,8 @@ const handleConfirm = async () => {
   try {
     await validate();
     await postRecharge({ ...rechargeState, cardKey: props.cardInfo.cardKey });
+    await accountStore.fetchWalletAccount()
+
     modalRef?.value.close();
   } catch (e) {
     console.log(e);

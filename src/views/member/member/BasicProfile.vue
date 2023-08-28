@@ -59,6 +59,8 @@ const handleTransfer = async () => {
     transferConfirmLoading.value = true;
     await validate();
     await postMemberTransfer({ uuid: route.params.uuid, ...transferState });
+    await accountStore.fetchWalletAccount()
+
     transferConfirmLoading.value = false;
   } catch (e) {
     transferConfirmLoading.value = false;
@@ -67,7 +69,7 @@ const handleTransfer = async () => {
 };
 </script>
 <template>
-  <div class="p-4 bg-[#f9f9f9] rounded">
+  <div class="p-4 rounded shadow">
     <div class="flex items-end justify-between">
       <div class="grow">
         <ComponentTitle :text="$t('fl9JwgO1UOla0ZUK0NjAl')" />
@@ -75,7 +77,7 @@ const handleTransfer = async () => {
         <div class="max-w-[800px] flex justify-between w-full flex-wrap">
           <div>
             {{ $t("SreiC9yRSXuJ0EDsT5t0z") }}: {{ profile.email
-            }}<span><copy-outlined class="cursor-pointer" @click="copy(profile.proEmail)" /></span>
+            }}<span><copy-outlined class="cursor-pointer" @click="copy(profile.email)" /></span>
           </div>
           <div>{{ $t("Zb57X_a6-Ikylh5coBdYs") }} : {{ profile.fullName }}</div>
         </div>

@@ -4,6 +4,8 @@ import { Format } from "@/libs/hooks/useUtil.js";
 import { getOtcRate, postCurrencyWithdraw } from "@/api/wallet";
 import useFormRules from "@/hooks/useFormRules.js";
 import AmountLabel from "@/components/AmountLabel.vue";
+import { useAccountStore } from "@/stores/modules/accounts.js";
+const accountStore = useAccountStore()
 const { CurrencyRule, getAmountRule, NetworkRule, AddressRule, SecurityPasswordRule, GoogleAuthCodeRule } = useFormRules()
 const step = ref(0);
 const props = defineProps({
@@ -13,6 +15,7 @@ const props = defineProps({
     },
 });
 
+const router = useRouter()
 const chainOptions = computed(() => ["TRC20", "ERC20"]);
 const { t } = useI18n();
 const withdrawState = reactive({
@@ -24,9 +27,12 @@ const withdrawState = reactive({
     authCode: undefined,
 });
 const walletInfo = reactive({});
-onMounted(async () => {
+const fetchOtcRate = async () => {
     const res = await getOtcRate(withdrawState);
     Object.assign(walletInfo, res.content);
+}
+onMounted(async () => {
+    fetchOtcRate()
 });
 const AmountRule = computed(() => getAmountRule(walletInfo.balanceAmount))
 const rules = reactive({
@@ -49,6 +55,8 @@ const next = async () => {
     }
 };
 const prev = () => {
+    delete rules.password;
+    delete rules.authCode;
     step.value--;
 };
 const confirmResult = reactive({})
@@ -59,8 +67,10 @@ const handleConfirm = async () => {
         await validate();
         const res = await postCurrencyWithdraw({ ...withdrawState, type: "withdraw" })
         confirmLoading.value = false
-        Object.assign(confirmResult, res.content)
+
         if (res.statusCode === 200) {
+            Object.assign(confirmResult, res.content)
+            await accountStore.fetchWalletAccount()
             step.value++
         }
     } catch (e) {
@@ -74,6 +84,11 @@ const { resetFields, handleValidate, validateInfos, validate } = useForm(
 const onCurrencyChange = async (value) => {
     const res = await getOtcRate(withdrawState);
     Object.assign(walletInfo, res.content);
+}
+const emits = defineEmits(["close"])
+const onView = () => {
+    emits('close')
+    router.push({ name: 'WithdrawHistory',params:{} })
 }
 </script>
 
@@ -103,7 +118,7 @@ const onCurrencyChange = async (value) => {
                             <AmountLabel :title="t('-Q-u4nDHLreIjo2-6Z4MW')"
                                 :balanceAmount="Format(walletInfo.balanceAmount)" :currency="withdrawState.currency" />
                         </template>
-                        <a-input v-model:value="withdrawState.amount" :disabled="step" />
+                        <a-input v-model:value="withdrawState.amount" :disabled="step" @change="fetchOtcRate" />
                         <div class="mt-2 text-gray-400">
                             <span>{{ t('Q_l0QsgefHPkwvxse3yaA') }}:</span>
                             <span class="float-right">{{ walletInfo.fee }} {{ withdrawState.currency }}</span>
@@ -134,10 +149,11 @@ const onCurrencyChange = async (value) => {
                         <span class="ml-2">{{ t('qvT3UQtygmHRlM616X5rh') }}</span>
                     </div>
                     <div class="rounded w-full p-4 m-4 text-md bg-slate-50 text-center">
-                        <p>{{ t('CiN3_LpKa2dGv99rkld0l', { dealAmout: confirmResult.dealAmount }) }}</p>
-                        <p>{{ t('ZRqUQYGeMW9mdJidJSS69', { fee: confirmResult.fee }) }} </p>
+                        <p>{{ t('CiN3_LpKa2dGv99rkld0l', { dealAmount: confirmResult.dealAmount }) }} {{
+                            withdrawState.currency }}</p>
+                        <p>{{ t('ZRqUQYGeMW9mdJidJSS69', { fee: confirmResult.fee }) }} {{ withdrawState.currency }}</p>
+                        <p>{{ t('AhZ8ItHb7nCGWMqoQNgDa') }}</p>
                     </div>
-
                 </div>
             </template>
         </div>
@@ -147,7 +163,8 @@ const onCurrencyChange = async (value) => {
             <a-button type="primary" @click="handleConfirm" v-if="step === 1" :loading="confirmLoading">{{
                 t('utkQ-uv-4gXBHkFXvGL5u') }}</a-button>
             <a-button type="primary" v-if="step === 2" @click="step = 0">{{ t('TK_RAyPkWgdIN3oBxXG2o') }}</a-button>
-            <a-button @click="prev" v-if="step === 2">{{ t('Qf7LLz2Qtk3OdMvNmJs_2') }}</a-button>
+            <a-button @click="onView" v-if="step === 2">{{ t('Qf7LLz2Qtk3OdMvNmJs_2')
+            }}</a-button>
         </div>
     </div>
 </template>

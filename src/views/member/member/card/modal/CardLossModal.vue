@@ -7,7 +7,8 @@ import ExModal from "@/libs/components/antd/modal/ExModal.vue";
 import { useAppStore } from "@/libs/stores/modules/app";
 import useFormRules from "@/hooks/useFormRules.js";
 const { SecurityPasswordRule, GoogleAuthCodeRule } = useFormRules()
-
+import { useAccountStore } from "@/stores/modules/accounts"
+const accountStore = useAccountStore()
 const appStore = useAppStore();
 
 const props = defineProps({
@@ -46,7 +47,9 @@ const handleCancel = () => {
 const handleConfirm = async () => {
   try {
     await validate();
-    postReportLoss({ ...reportLossState, cardKey: props.cardInfo.cardKey });
+    await postReportLoss({ ...reportLossState, cardKey: props.cardInfo.cardKey });
+    await accountStore.fetchWalletAccount()
+
     modalRef?.value.close();
   } catch (e) {
     console.log(e);

@@ -1,7 +1,7 @@
 import useRequest from '@/hooks/useRequest'
 const { request } = useRequest('/api')
 
-export const postWithdrwaTransfer = data => request({
+export const postWithdrawTransfer = data => request({
     url: 'otc/withdraw',
     method: 'POST',
     data
