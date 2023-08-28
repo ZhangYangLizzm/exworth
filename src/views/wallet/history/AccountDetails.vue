@@ -3,7 +3,7 @@ import { useList } from "@/libs/hooks/useList";
 import { getBalanceHistory } from "@/api/wallet";
 import { useAccountDetails } from "./useAccountDetails.js";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
-import formatRangerPickerTime from './formatRangerPickerTime'
+import { formatRangerPickerTime } from './formatRangerPickerTime'
 const filterOptions = reactive({
   createTime: undefined,
   type: undefined,

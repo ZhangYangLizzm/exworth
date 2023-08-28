@@ -1,7 +1,7 @@
 <script setup>
 import { getTransferstory } from "@/api/wallet"
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
-import formatRangerPickerTime from './formatRangerPickerTime'
+import { formatRangerPickerTime } from './formatRangerPickerTime'
 
 const filterOptions = reactive({
     createTime: undefined,

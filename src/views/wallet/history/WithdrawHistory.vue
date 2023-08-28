@@ -2,7 +2,7 @@
 import { getWithdrawHistory } from "@/api/wallet"
 import { useOrderStatus } from "@/hooks/useOrderStatus"
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
-import formatRangerPickerTime from './formatRangerPickerTime'
+import { formatRangerPickerTime } from './formatRangerPickerTime'
 
 const filterOptions = reactive({
     createTime: undefined,
