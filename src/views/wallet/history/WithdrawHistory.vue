@@ -1,7 +1,8 @@
 <script setup>
 import { getWithdrawHistory } from "@/api/wallet"
-import { useOrderStatus } from "./enum"
+import { useOrderStatus } from "@/hooks/useOrderStatus"
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
+import formatRangerPickerTime from './formatRangerPickerTime'
 
 const filterOptions = reactive({
     createTime: undefined,
@@ -59,11 +60,11 @@ onMounted(() => {
 </script>
 
 <template>
-    <ComponentTitle text="提現記錄" class="mt-4" />
+    <!-- <ComponentTitle :text="t('GgpJxbBFrls3s9evmmpJ1')" class="mt-4" /> -->
     <a-form class="mb-4" layout="inline">
         <a-form-item>
-            <a-range-picker v-model:value="filterOptions.createTime" valueFormat="YYYY-MM-DDTHH:mm:ss.SSS[Z]">
-            </a-range-picker>
+            <a-range-picker :value="filterOptions.createTime" valueFormat="YYYY-MM-DD"
+                @change="(value) => filterOptions.createTime = formatRangerPickerTime(value)" />
         </a-form-item>
         <a-form-item class="w-48">
             <a-select v-model:value="filterOptions.status" :placeholder="t('KA634HBkYSrLFNgGwVCX8')">
@@ -103,7 +104,7 @@ onMounted(() => {
                 <span>{{ record.receiverAccountInfo }}</span>
             </template>
             <template v-if="column.key === 'status'">
-                <span>{{ status === '1' ? t('MZ7wxk5bd6rZILy4eQ2UK') : t('Applying') }}</span>
+                <span>{{ getOrderStatusLabel(record.status) }}</span>
 
             </template>
         </template>

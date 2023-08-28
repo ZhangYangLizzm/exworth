@@ -1,8 +1,9 @@
 <script setup>
 import { useList } from "@/libs/hooks/useList";
 import { getBalanceHistory } from "@/api/wallet";
-import { useAccountDetails } from "./enum.js";
+import { useAccountDetails } from "./useAccountDetails.js";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
+import formatRangerPickerTime from './formatRangerPickerTime'
 const filterOptions = reactive({
   createTime: undefined,
   type: undefined,
@@ -44,22 +45,23 @@ const columns = computed(() => [
     dataIndex: "operateAmount",
     key: "operateAmount",
   },
-  {
-    title: t("bggAC96HS1OvTEKsh9rg_"),
-    dataIndex: "currentBalanceAmount",
-    key: "currentBalanceAmount",
-  },
+  // {
+  //   title: t("bggAC96HS1OvTEKsh9rg_"),
+  //   dataIndex: "currentBalanceAmount",
+  //   key: "currentBalanceAmount",
+  // },
 ]);
+
 
 </script>
 
 <template>
-  <ComponentTitle :text="t('ovLktXuIHMUA7a1STIy3X')" class="mt-4" />
+  <!-- <ComponentTitle :text="t('ovLktXuIHMUA7a1STIy3X')" class="mt-4" /> -->
 
   <a-form class="mb-4" layout="inline">
     <a-form-item>
-      <a-range-picker v-model:value="filterOptions.createTime" valueFormat="YYYY-MM-DDTHH:mm:ss.SSS[Z]">
-      </a-range-picker>
+      <a-range-picker :value="filterOptions.createTime" valueFormat="YYYY-MM-DD"
+        @change="(value) => filterOptions.createTime = formatRangerPickerTime(value)" />
     </a-form-item>
 
     <a-form-item class="w-48">

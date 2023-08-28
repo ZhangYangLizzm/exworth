@@ -1,6 +1,7 @@
 <script setup>
 import { getTransferstory } from "@/api/wallet"
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
+import formatRangerPickerTime from './formatRangerPickerTime'
 
 const filterOptions = reactive({
     createTime: undefined,
@@ -46,15 +47,18 @@ const columns = computed(() => [
 onMounted(() => {
     fetch();
 });
+
+
 </script>
 
 <template>
-    <ComponentTitle :text="t('jjnbgg59C6u1sYpfLLfTt')" class="mt-4" />
+    <!-- <ComponentTitle :text="t('jjnbgg59C6u1sYpfLLfTt')" class="mt-4" /> -->
 
     <a-form class="mb-4" layout="inline">
         <a-form-item>
-            <a-range-picker v-model:value="filterOptions.createTime" valueFormat="YYYY-MM-DDTHH:mm:ss.SSS[Z]">
-            </a-range-picker>
+            <a-range-picker :value="filterOptions.createTime" valueFormat="YYYY-MM-DD"
+                @change="(value) => filterOptions.createTime = formatRangerPickerTime(value)" />
+
         </a-form-item>
         <a-form-item class="w-40">
             <CurrencySelect v-model:currency="filterOptions.currency" />
@@ -80,7 +84,7 @@ onMounted(() => {
                 </div>
             </template>
             <template v-if="column.key === 'status'">
-                <span>{{ status === '1' ? t('MZ7wxk5bd6rZILy4eQ2UK') : t('Applying') }}</span>
+                <span>{{ record.status === 2 ? t('Success') : t('Applying') }}</span>
             </template>
         </template>
     </a-table>

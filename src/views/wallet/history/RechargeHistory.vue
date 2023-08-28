@@ -1,6 +1,7 @@
 <script setup>
 import { getDepositHistory } from "@/api/wallet"
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
+import formatRangerPickerTime from './formatRangerPickerTime'
 
 const filterOptions = reactive({
     createTime: undefined,
@@ -44,12 +45,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <ComponentTitle :text="t('sS7varQIq515z7YNPBvaA')" class="mt-4" />
+    <!-- <ComponentTitle :text="t('sS7varQIq515z7YNPBvaA')" class="mt-4" /> -->
 
     <a-form class="mb-4" layout="inline">
         <a-form-item>
-            <a-range-picker v-model:value="filterOptions.createTime" valueFormat="YYYY-MM-DDTHH:mm:ss.SSS[Z]">
-            </a-range-picker>
+            <a-range-picker :value="filterOptions.createTime" valueFormat="YYYY-MM-DD"
+                @change="(value) => filterOptions.createTime = formatRangerPickerTime(value)" />
         </a-form-item>
 
 
@@ -82,7 +83,7 @@ onMounted(() => {
                 <span>{{ record.amount + " " + record.currency }}</span>
             </template>
             <template v-if="column.key === 'status'">
-                <span>{{ status === '1' ? t('MZ7wxk5bd6rZILy4eQ2UK') : t('Applying') }}</span>
+                <span>{{ record.status === 2 ? t('Success') : t('Applying') }}</span>
             </template>
         </template>
     </a-table>
