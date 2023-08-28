@@ -47,7 +47,7 @@ const rules = reactive({
   authCode: GoogleAuthCodeRule
 });
 
-const { validateInfos, validate } = useForm(
+const { resetFields, validateInfos, validate } = useForm(
   transferState,
   rules
 );
@@ -55,25 +55,26 @@ const { validateInfos, validate } = useForm(
 const transferConfirmLoading = ref(false);
 
 const handleTransfer = async () => {
+  transferConfirmLoading.value = true;
   try {
-    transferConfirmLoading.value = true;
     await validate();
     await postMemberTransfer({ uuid: route.params.uuid, ...transferState });
-    await accountStore.fetchWalletAccount()
-
+    await accountStore.fetchWalletAccount();
+    modalRef.value?.close();
+    resetFields();
+  } catch (error) {
+    console.error(error);
+  } finally {
     transferConfirmLoading.value = false;
-  } catch (e) {
-    transferConfirmLoading.value = false;
-    console.log(e);
   }
 };
+
 </script>
 <template>
   <div class="p-4 rounded shadow">
     <div class="flex items-end justify-between">
       <div class="grow">
         <ComponentTitle :text="$t('fl9JwgO1UOla0ZUK0NjAl')" />
-        <!-- TODO:成员详情的接口 -->
         <div class="max-w-[800px] flex justify-between w-full flex-wrap">
           <div>
             {{ $t("SreiC9yRSXuJ0EDsT5t0z") }}: {{ profile.email
