@@ -69,7 +69,7 @@ const handleTransfer = async () => {
         <a-input autocomplete="off" v-model:value="transferState.uuid" :placeholder="t('_T9boCEgvfyd17ol1g2yp')" />
       </a-form-item>
       <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" v-bind="validateInfos.currency">
-        <CurrencySelect v-model:value="transferState.currency" />
+        <CurrencySelect :walletAccounts="accountStore.walletAccounts" v-model:value="transferState.currency" />
       </a-form-item>
       <a-form-item v-bind="validateInfos.amount">
         <template #label>

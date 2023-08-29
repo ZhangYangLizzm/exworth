@@ -81,7 +81,7 @@ const actualAmount = computed(() => rechargeState.amount - fee.value || 0)
           <a-input autocomplete="off" disabled :placeholder="props.cardInfo.maskCardNo" :autoComplete="off"> </a-input>
         </a-form-item>
         <a-form-item :label="t('evuxmuH6llDaxntrGcczN')" v-bind="validateInfos.currency">
-          <CurrencySelect v-model:currency="rechargeState.currency" />
+          <CurrencySelect :walletAccounts="accountStore.walletAccounts" v-model:currency="rechargeState.currency" />
         </a-form-item>
         <a-form-item v-bind="validateInfos.amount">
           <template #label>

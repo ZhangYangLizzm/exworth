@@ -1,9 +1,8 @@
 <script setup>
 // 货币选择
 import SvgIcon from "@/libs/components/svgIcon";
-import { useAccountStore } from "@/stores/modules/accounts.js";
 
-const { currency, disabled } = defineProps({
+defineProps({
   currency: {
     type: String,
   },
@@ -11,11 +10,13 @@ const { currency, disabled } = defineProps({
     type: Boolean,
     default: false,
   },
+  walletAccounts: {
+    type: Array,
+    default: [],
+  },
 });
 
 const emit = defineEmits(["update:currency", "selectChange"]);
-
-const accountStore = useAccountStore();
 
 const handleChange = (value) => {
   emit("update:currency", value);
@@ -30,10 +31,7 @@ const handleChange = (value) => {
     :placeholder="$t('AsHuYNM5Ic6nO-wMh23Fi')"
     :disabled="disabled"
   >
-    <a-select-option
-      v-for="asset in accountStore.walletAccounts"
-      :key="asset.currency"
-    >
+    <a-select-option v-for="asset in walletAccounts" :key="asset.currency">
       <div class="flex items-center">
         <SvgIcon class="w-4 h-4 mr-2" :name="`coin-${asset.currency}`" />
         <span>{{ asset.currency }}</span>

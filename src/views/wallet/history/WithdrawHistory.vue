@@ -3,7 +3,8 @@ import { getWithdrawHistory } from "@/api/wallet";
 import { useOrderStatus } from "@/hooks/useOrderStatus";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 import { formatRangerPickerTime } from "./formatRangerPickerTime";
-
+import { useAccountStore } from "@/stores/modules/accounts.js";
+const accountStore = useAccountStore();
 const filterOptions = reactive({
   createTime: undefined,
   type: undefined,
@@ -86,7 +87,7 @@ onMounted(() => {
       </a-select>
     </a-form-item>
     <a-form-item class="w-40">
-      <CurrencySelect v-model:currency="filterOptions.currency" />
+      <CurrencySelect :walletAccounts="accountStore.walletAccounts" v-model:currency="filterOptions.currency" />
     </a-form-item>
     <a-form-item class="w-1/6">
       <a-input

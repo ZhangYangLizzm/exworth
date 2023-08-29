@@ -113,7 +113,7 @@ const onView = () => {
             required
             v-bind="validateInfos.currency"
           >
-            <CurrencySelect
+            <CurrencySelect :walletAccounts="accountStore.walletAccounts"
               v-model:currency="withdrawState.currency"
               :disabled="step"
               @selectChange="onCurrencyChange"

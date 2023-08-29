@@ -11,7 +11,6 @@ const props = defineProps({
 const emit = defineEmits("click")
 const onClick = (e, currency, type) => {
     e.stopPropagation();
-    console.log(currency, type)
     emit("click", { currency, type });
 }
 
