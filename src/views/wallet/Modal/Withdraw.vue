@@ -91,9 +91,9 @@ const onCurrencyChange = async (value) => {
   const res = await getOtcRate(withdrawState);
   Object.assign(walletInfo, res.content);
 };
-const emits = defineEmits(["close"]);
+const emit = defineEmits(["close"]);
 const onView = () => {
-  emits("close");
+  emit("close");
   router.push({ name: "WithdrawHistory", params: {} });
 };
 </script>

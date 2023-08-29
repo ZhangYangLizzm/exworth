@@ -4,9 +4,9 @@ defineProps({
     selectOption: Object,
     title: String
 })
-const emits = defineEmits(["click"])
+const emit = defineEmits(["click"])
 const onClick = (value) => {
-    emits("click", value)
+    emit("click", value)
 }
 </script>
 

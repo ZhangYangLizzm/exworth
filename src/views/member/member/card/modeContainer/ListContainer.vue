@@ -19,9 +19,9 @@ const { dataSource, loading } = defineProps({
   },
   loading: Boolean,
 });
-const emits = defineEmits(["onClick"]);
+const emit = defineEmits(["onClick"]);
 const onClick = (item, type) => {
-  emits("onClick", { item, type });
+  emit("onClick", { item, type });
 };
 const { t } = useI18n();
 const columns = [

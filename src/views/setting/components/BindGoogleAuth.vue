@@ -15,10 +15,10 @@ const props = defineProps({
   secretKey: String,
 });
 
-const emits = defineEmits(["update:visible"]);
+const emit = defineEmits(["update:visible"]);
 
 const closeDrawer = () => {
-  emits("update:visible", false);
+  emit("update:visible", false);
   code.value = new Array(6).fill("");
 };
 const mode = ref("scan");
@@ -32,7 +32,7 @@ const handleChange = async (index) => {
   }
   if (index === code.value.length - 1) {
     const completedCode = code.value.join("");
-    emits("update:visible", false);
+    emit("update:visible", false);
     await postGoogleAuth({
       authCode: completedCode,
       secretKey: props.secretKey,

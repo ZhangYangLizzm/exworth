@@ -39,7 +39,7 @@ const { resetFields, handleValidate, validateInfos, validate } = useForm(
   rules
 );
 
-const emits = defineEmits(["close"])
+const emit = defineEmits(["close"])
 const loading = ref(false)
 const handleTransfer = async () => {
   loading.value = true
@@ -51,7 +51,7 @@ const handleTransfer = async () => {
     }
     await postWithdrawTransfer({ ...transferState, type: "transfer" });
     await accountStore.fetchWalletAccount()
-    emits("close")
+    emit("close")
   } catch (e) {
     console.log(e);
   } finally {
