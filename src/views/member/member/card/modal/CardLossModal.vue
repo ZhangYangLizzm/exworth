@@ -76,7 +76,7 @@ const handleConfirm = async () => {
           <a-input-password :placeholder="$t('0A89nPyaGbq5-v9reFOzw')" v-model:value="reportLossState.authCode" />
         </a-form-item>
       </a-form>
-      <Tips :title="t('YW-jweHvcceM6FBkLk6c_')" :contents="[t('o7dSnn9J8P8x9GAle8MVI')]" />
+      <Tips :title="t('YW-jweHvcceM6FBkLk6c_')" :contents="t('o7dSnn9J8P8x9GAle8MVI')" />
     </div>
 
     <template #footer>

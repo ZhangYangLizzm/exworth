@@ -2,7 +2,6 @@
 import Copy from "@/libs/components/copy";
 // import { useAccountStore } from "@/stores/modules/accounts.js";
 import { loadWalletAddress } from "@/api/account.js";
-import Tips from "@/components/Tips.vue";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 // const accountStore = useAccountStore();
 
