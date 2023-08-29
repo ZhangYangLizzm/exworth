@@ -213,7 +213,7 @@ const onView = () => {
       <a-button type="primary" @click="next" v-if="step === 0">{{
         t("SHwfMHPgueW7ATn2nN332")
       }}</a-button>
-      <a-button type="primary" @click="prev" v-if="step === 1">{{
+      <a-button @click="prev" v-if="step === 1">{{
         t("c0ShiFkw3869sTmgT4xwe")
       }}</a-button>
       <a-button
