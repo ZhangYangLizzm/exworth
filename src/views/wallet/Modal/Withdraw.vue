@@ -189,7 +189,7 @@ const onView = () => {
             <check-circle-two-tone class="text-3xl" two-tone-color="#37BF53" />
             <span class="ml-2">{{ t("qvT3UQtygmHRlM616X5rh") }}</span>
           </div>
-          <div class="rounded w-full p-4 m-4 text-md bg-slate-50 text-center">
+          <div class="rounded w-full p-4 m-4 text-md bg-slate-50">
             <p>
               {{ t("CiN3_LpKa2dGv99rkld0l", { dealAmount: confirmResult.dealAmount }) }}
               {{ withdrawState.currency }}

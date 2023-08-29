@@ -64,7 +64,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- <ComponentTitle :text="t('GgpJxbBFrls3s9evmmpJ1')" class="mt-4" /> -->
   <a-form class="mb-4" layout="inline">
     <a-form-item>
       <a-range-picker
@@ -153,5 +152,3 @@ onMounted(() => {
     @change="onPageChange"
   />
 </template>
-
-<style scoped lang="less"></style>
