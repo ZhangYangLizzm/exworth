@@ -207,7 +207,7 @@
   "Qf7LLz2Qtk3OdMvNmJs_2": "View Records",
   "ndAUMg4ukM6GeAPDbOXC-": "Complete",
   "oyDbxcO8c-ULaGfjTH3ow": "Confirm",
-  "MSer02pUVq2JGDAxQxERb": "Chain Name",
+  "MSer02pUVq2JGDAxQxERb": "Network",
   "uvkFcBBBuvd5CdyItcTYp": "Coin Type",
   "mcPGcZyC7QxBRP9o_nR9i": "Set Up",
   "y1TuxkHrhkk1OLo6_jtVB": "Set Security Code",
@@ -218,5 +218,7 @@
   "-W19vaN4d5CN8PhP14EtE": "Reproduction success!",
   "ncJ7_1LvnFJnKTCn0SVLG": "Collection information",
   "AhZ8ItHb7nCGWMqoQNgDt": "actualAmount : { actualAmount }",
-  "hlhSxU0JK4TJ4kP_-lBzh": "Coin address : { address }"
+  "hlhSxU0JK4TJ4kP_-lBzh": "Coin address : { address }",
+  "3RM41OaFMrdni5UfIoF97": "address",
+  "BCdTnRlPIGxZAs9yB5BYP": "View"
 }

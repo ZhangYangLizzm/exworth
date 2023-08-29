@@ -4,7 +4,7 @@ const { title, contents } = defineProps({
     type: String,
   },
   contents: {
-    type: Array,
+    type: [Array, String],
     required: true,
   },
 });
@@ -16,9 +16,10 @@ const { title, contents } = defineProps({
       <exclamation-circle-outlined />
       <span class="ml-2">{{ title }}</span>
     </p>
-    <p class="mb-2" v-for="(content, index) in contents">
+    <p class="mb-2" v-for="(content, index) in contents" v-if="Array.isArray(contents)">
       {{ index + 1 + "、" + content }}
     </p>
+    <p v-else>{{ contents }}</p>
   </div>
 </template>
 

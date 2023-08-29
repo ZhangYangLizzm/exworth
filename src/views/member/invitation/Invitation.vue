@@ -233,7 +233,7 @@ onMounted(() => {
           </a-form-item>
           <Tips
             :title="t('1NLFL8YdPqQXonj5lQxvT')"
-            :contents="[t('irfv2QgrQafS_6Zl73s2N')]"
+            :contents="t('irfv2QgrQafS_6Zl73s2N')"
           />
           <!-- <div class="font-bold text-red-500">
             {{ $t("1NLFL8YdPqQXonj5lQxvT") }}

@@ -3,13 +3,14 @@ import { useAppStore } from "@/stores/modules/app.js";
 import { SUPPORT_LOCALES, SUPPORT_LOCALES_MAP } from "@/plugins/i18n";
 import { map } from "lodash-es";
 import { useUserStore } from "@/stores/modules/user.js";
-
+import useClipboard from "@/hooks/useClipboard.js";
 const userStore = useUserStore();
 const appStore = useAppStore();
 const localeList = computed(() =>
   map(SUPPORT_LOCALES_MAP, (label, value) => ({ label, value }))
 );
 
+const { copy } = useClipboard();
 const handleLocaleSelect = ({ key }) => {
   appStore.setLocale(key);
   window.location.reload();
@@ -20,7 +21,9 @@ const handleMenuClick = ({ key }) => {
     case "Logout":
       userStore.logout();
       break;
-
+    case "UID":
+      copy(userStore.uid);
+      break;
     default:
       break;
   }
@@ -57,11 +60,14 @@ const handleMenuClick = ({ key }) => {
 
         <a-dropdown>
           <a-button type="text">
-            <span>{{ userStore.accountName }} {{ userStore.uid }}</span>
+            <span>{{ userStore.accountName }} </span>
             <down-outlined />
           </a-button>
           <template #overlay>
             <a-menu @click="handleMenuClick">
+              <a-menu-item key="UID">
+                {{ $t("C8e-GonL-voVt9790n5Dw") }} : {{ userStore.uid }}
+              </a-menu-item>
               <a-menu-item key="Logout">
                 <template #icon>
                   <logout-outlined />

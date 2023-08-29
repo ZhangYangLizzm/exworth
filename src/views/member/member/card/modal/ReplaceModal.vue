@@ -72,7 +72,7 @@ const handleConfirm = async () => {
           <a-input-password :placeholder="$t('0A89nPyaGbq5-v9reFOzw')" v-model:value="replaceState.authCode" />
         </a-form-item>
       </a-form>
-      <Tips :title="t('8jNAI-2YZrfU_3AfYF278')" :contents="[t('bSCdj2cL-q5p7wrJiuAGw')]" />
+      <Tips :title="t('8jNAI-2YZrfU_3AfYF278')" :contents="t('bSCdj2cL-q5p7wrJiuAGw')" />
     </div>
 
     <template #footer>
