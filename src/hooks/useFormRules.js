@@ -1,22 +1,27 @@
 const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
+function amountValidator(available){
+    return async (_, value) => {
+        if (value < 0) {
+            return Promise.reject(t("GyCej78V5rwpEJ-WJaZhi"));
+        } else if (value > available) {
+            return Promise.reject(t("7JHpXFtB2h5hL2P-P9Zuy"));
+        }
+        return Promise.resolve();
+    }
+}
+
 const useFormRules = () => {
     const { t } = useI18n();
 
     const CurrencyRule = [{ required: true, message: t('QzD6F1l8Ue9UNPMHcBruL') }]
-
+    
     const getAmountRule = (available) => {
+        
         return [
             { required: true, message: t("MOVz2c0LFUl1-TpkPHZ22") },
             {
-                validator: async (_, value) => {
-                    if (value < 0) {
-                        return Promise.reject(t("GyCej78V5rwpEJ-WJaZhi"));
-                    } else if (value > available) {
-                        return Promise.reject(t("7JHpXFtB2h5hL2P-P9Zuy"));
-                    }
-                    return Promise.resolve();
-                },
+                validator: amountValidator(available),
                 trigger: "change",
             },
         ]

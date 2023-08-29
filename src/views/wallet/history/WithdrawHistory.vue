@@ -87,7 +87,10 @@ onMounted(() => {
       </a-select>
     </a-form-item>
     <a-form-item class="w-40">
-      <CurrencySelect :walletAccounts="accountStore.walletAccounts" v-model:currency="filterOptions.currency" />
+      <CurrencySelect
+        :walletAccounts="accountStore.walletAccounts"
+        v-model:currency="filterOptions.currency"
+      />
     </a-form-item>
     <a-form-item class="w-1/6">
       <a-input
