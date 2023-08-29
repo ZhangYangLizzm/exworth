@@ -175,7 +175,6 @@
   "sMkxYlIlj4SgxGAKFOjgJ": "請輸入轉賬金額",
   "4Jogg03YNl3gG3ZgAQlml": "交易哈希",
   "5T9IqkrF8DTnOiDZlrrIl": "請選擇鏈類型",
-  "68cZ9T56Bq7_rLweZH-Nv": "記錄編號",
   "KA634HBkYSrLFNgGwVCX8": "請選擇狀態",
   "Applying": "申請中",
   "Processing": "處理中",
@@ -213,5 +212,6 @@
   "mcPGcZyC7QxBRP9o_nR9i": "設置",
   "y1TuxkHrhkk1OLo6_jtVB": "設置安全密碼",
   "zTssdt-Ydi78yD4g1dX5R": "舊密碼",
-  "pGN7niqKqLJ9j_GQv3oVq": "更多記錄"
+  "pGN7niqKqLJ9j_GQv3oVq": "更多記錄",
+  "kgPFStTFzHw74ly6iKn8x": "實際到賬 : { actualAmount }"
 }

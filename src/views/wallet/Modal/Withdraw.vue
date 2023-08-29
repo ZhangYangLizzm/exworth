@@ -136,8 +136,8 @@ const onCurrencyChange = async (value) => {
                     <div class="rounded w-full p-4 m-4 text-md bg-slate-50 text-center">
                         <p>{{ t('CiN3_LpKa2dGv99rkld0l', { dealAmout: confirmResult.dealAmount }) }}</p>
                         <p>{{ t('ZRqUQYGeMW9mdJidJSS69', { fee: confirmResult.fee }) }} </p>
+                        <p>{{ t('kgPFStTFzHw74ly6iKn8x', { actualAmount: confirmResult.actualAmount }) }} </p>
                     </div>
-
                 </div>
             </template>
         </div>
