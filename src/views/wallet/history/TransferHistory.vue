@@ -3,6 +3,10 @@ import { getTransferstory } from "@/api/wallet";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 import { formatRangerPickerTime } from "@/utils/formatRangerPickerTime";
 import { useAccountStore } from "@/stores/modules/accounts.js";
+import { useOrderStatus } from "@/utils/useOrderStatus";
+
+const { getOrderStatusLabel } = useOrderStatus();
+
 const accountStore = useAccountStore();
 const filterOptions = reactive({
   createTime: undefined,
@@ -11,10 +15,8 @@ const filterOptions = reactive({
 });
 
 const { t } = useI18n();
-const { fetch, list, loading, pageID, pageSize, totalCount, onPageChange } = useList(
-  getTransferstory,
-  filterOptions
-);
+const { fetch, list, loading, pageID, pageSize, totalCount, onPageChange } =
+  useList(getTransferstory, filterOptions);
 const columns = computed(() => [
   {
     title: t("CHgqidHNn6_bzPEAQ52Xu"),
@@ -22,7 +24,7 @@ const columns = computed(() => [
     key: "createTime",
   },
   {
-    title: t("68cZ9T56Bq7_rLweZH-Nv"),
+    title: t("Lt2Yb3nacWIDdbk1RYlMf"),
     dataIndex: "outOrderId",
     key: "outOrderId",
   },
@@ -55,7 +57,9 @@ onMounted(() => {
       <a-range-picker
         :value="filterOptions.createTime"
         valueFormat="YYYY-MM-DD"
-        @change="(value) => (filterOptions.createTime = formatRangerPickerTime(value))"
+        @change="
+          (value) => (filterOptions.createTime = formatRangerPickerTime(value))
+        "
       />
     </a-form-item>
     <a-form-item class="w-40">
@@ -68,7 +72,7 @@ onMounted(() => {
       <a-input
         autocomplete="off"
         v-model:value="filterOptions.withdrawOrderId"
-        :addon-before="$t('68cZ9T56Bq7_rLweZH-Nv')"
+        :addon-before="$t('Lt2Yb3nacWIDdbk1RYlMf')"
       />
     </a-form-item>
     <a-form-item>
@@ -95,9 +99,7 @@ onMounted(() => {
         </div>
       </template>
       <template v-if="column.key === 'status'">
-        <span>{{
-          record.status === 2 ? $t("MEszo4sHm_yNnwjR6xENN") : $t("0kbRU9sC5sUbQNf6OekMk")
-        }}</span>
+        <span>{{ getOrderStatusLabel(record.status) }}</span>
       </template>
     </template>
   </a-table>

@@ -63,22 +63,37 @@ const handleSubmit = async () => {
 <template>
   <a-form class="mx-auto max-w-[368px]">
     <a-form-item v-bind="validateInfos.name">
-      <a-input autocomplete="off" size="large" :placeholder="$t('9_hTi5b-d57f8pixLc20n')" v-model:value="formState.name">
+      <a-input
+        autocomplete="off"
+        size="large"
+        :placeholder="$t('9_hTi5b-d57f8pixLc20n')"
+        v-model:value="formState.name"
+      >
         <template #prefix>
           <user-outlined type="user" />
         </template>
       </a-input>
     </a-form-item>
     <a-form-item v-bind="validateInfos.password">
-      <a-input-password size="large" :placeholder="$t('lg7GsvW9iI8NEF1TDTuxm')" v-model:value="formState.password"
-        @keyup.enter="handleSubmit">
+      <a-input-password
+        size="large"
+        :placeholder="$t('lg7GsvW9iI8NEF1TDTuxm')"
+        v-model:value="formState.password"
+        @keyup.enter="handleSubmit"
+      >
         <template #prefix>
           <lock-outlined />
         </template>
       </a-input-password>
     </a-form-item>
 
-    <a-button type="primary" size="large" @click="handleSubmit" block :loading="loading">
+    <a-button
+      type="primary"
+      size="large"
+      @click="handleSubmit"
+      block
+      :loading="loading"
+    >
       {{ $t("0qjtHGUfIBLV4LzHX8WWD") }}
     </a-button>
   </a-form>

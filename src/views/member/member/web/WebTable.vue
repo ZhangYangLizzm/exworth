@@ -4,18 +4,18 @@ import Functions from "@/views/member/member/common/Functions.vue";
 import useClipboard from "@/hooks/useClipboard.js";
 const { copy } = useClipboard();
 
-const { isMobile } = useAppStore();
 const { t } = useI18n();
 
 defineProps({
+  isMobile: Boolean,
   dataSource: Array,
   loading: Boolean,
 });
 
-const router = useRouter()
+const router = useRouter();
 const columns = computed(() => [
   {
-    title: t('kXAMWI86h-rooSEuCAow-'),
+    title: t("kXAMWI86h-rooSEuCAow-"),
     key: "email",
     dataIndex: "email",
   },
@@ -32,28 +32,42 @@ const columns = computed(() => [
   },
   {
     title: t("oUrKjFtbUi26i0Ags3eCG"),
-    key: "manipulate",
-    align: "right",
+    key: "operate",
+    align: "center",
   },
 ]);
 </script>
 
 <template>
-  <a-table :dataSource="dataSource" :columns="columns" :pagination="false" :loading="loading" v-if="!isMobile">
+  <a-table
+    :dataSource="dataSource"
+    :columns="columns"
+    :pagination="false"
+    :loading="loading"
+    v-if="!isMobile"
+  >
     <template #bodyCell="{ column, record }">
       <template v-if="['email', 'uuid'].includes(column.key)">
-        {{ record[column.key] }} <copy-outlined class="cursor-pointer ml-2" @click="copy(record[column.key])" />
+        {{ record[column.key] }}
+        <copy-outlined
+          class="cursor-pointer ml-2"
+          @click="copy(record[column.key])"
+        />
       </template>
       <template v-if="column.key === 'memberFunction'">
-        <Functions :functions="record.memberFunction" />
+        <Functions :functions="record.memberFunction" :isMobile="isMobile" />
       </template>
-      <template v-if="column.key === 'manipulate'">
-        <a-button type="text" class="text-primary" @click="
-          router.push({
-            name: 'MemberProfile',
-            params: { uuid: record.uuid },
-          })
-          ">
+      <template v-if="column.key === 'operate'">
+        <a-button
+          type="text"
+          class="text-primary"
+          @click="
+            router.push({
+              name: 'MemberProfile',
+              params: { uuid: record.uuid },
+            })
+          "
+        >
           {{ $t("4qOuSSUuFfw7tfi2LHgoz") }}
         </a-button>
       </template>

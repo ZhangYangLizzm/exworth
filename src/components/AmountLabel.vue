@@ -1,21 +1,20 @@
 <script setup>
-const { t } = useI18n()
 defineProps({
-    title: String,
-    balanceAmount: String,
-    currency: String
-})
+  title: String,
+  amount: String,
+  currency: String,
+});
 </script>
 
 <template>
-    <div class="flex w-full">
-        <div class="flex-grow">
-            {{ title }}
-        </div>
-        <div class="text-gray-400 ">
-            {{ t('S6nuH-d4J2j0ZUct_xepo', { balanceAmount, currency }) }}
-        </div>
-    </div>
+  <div class="mt-2 text-gray-400">
+    <span class="title">{{ title }}</span>
+    <span class="float-right">{{ amount }} {{ currency }}</span>
+  </div>
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.title::after {
+  content: ":";
+}
+</style>

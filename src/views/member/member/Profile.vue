@@ -10,8 +10,7 @@ const route = useRoute();
 
 const loading = ref(false);
 
-const userModel = reactive({
-});
+const userModel = reactive({});
 const fetch = async () => {
   loading.value = true;
   const { statusCode, content } = await loadMemberInfo({
@@ -31,20 +30,32 @@ const mode = useStorage("Member_Mode", defaultMode);
 
 <template>
   <div class="px-4 mx-auto">
-    <a-page-header :title="$t('5Bp1HBe0zDdIJBY94bD26')" @back="() => $router.go(-1)" />
+    <a-page-header
+      :title="$t('5Bp1HBe0zDdIJBY94bD26')"
+      @back="() => $router.go(-1)"
+    />
     <ComponentTitle :text="$t('MlClMV-uaiDTpeCLyrP7E')" class="text-xl" />
 
     <BasicProfile :profile="userModel" class="mb-8" />
 
     <ComponentTitle :text="$t('c9v0NvMxo7MffTy-TXDir')" class="text-xl mt-4">
       <template #extra v-if="!appStore.isMobile">
-        <appstore-outlined class="cursor-pointer ml-2 hover:text-primary"
-          :class="{ 'text-primary': mode === 'imgTextMode' }" @click="mode = 'imgTextMode'" />
-        <bars-outlined class="cursor-pointer ml-2 hover:text-primary" :class="{ 'text-primary': mode === 'listMode' }"
-          @click="mode = 'listMode'" />
+        <appstore-outlined
+          class="cursor-pointer ml-2 hover:text-primary"
+          :class="{ 'text-primary': mode === 'imgTextMode' }"
+          @click="mode = 'imgTextMode'"
+        />
+        <bars-outlined
+          class="cursor-pointer ml-2 hover:text-primary"
+          :class="{ 'text-primary': mode === 'listMode' }"
+          @click="mode = 'listMode'"
+        />
       </template>
     </ComponentTitle>
 
-    <CardWrap class="mt-2 shadow-md" :mode="appStore.isMobile ? 'imgTextMode' : mode" />
+    <CardWrap
+      class="mt-2 shadow-md"
+      :mode="appStore.isMobile ? 'imgTextMode' : mode"
+    />
   </div>
 </template>

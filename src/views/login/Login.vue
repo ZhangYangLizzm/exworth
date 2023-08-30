@@ -1,30 +1,30 @@
 <script setup>
-import Header from '@/libs/components/layouts/Header.vue'
-import Logo from '@/libs/components/logo'
-import { SUPPORT_LOCALES_MAP } from '@/plugins/i18n'
-import { useAppStore } from '@/libs/stores/modules/app'
-import LoginForm from './LoginForm.vue'
-import ResetForm from './ResetForm.vue'
-import MfaForm from './MfaForm.vue'
+import Header from "@/libs/components/layouts/Header.vue";
+import Logo from "@/libs/components/logo";
+import { SUPPORT_LOCALES_MAP } from "@/plugins/i18n";
+import { useAppStore } from "@/libs/stores/modules/app";
+import LoginForm from "./LoginForm.vue";
+import ResetForm from "./ResetForm.vue";
+import MfaForm from "./MfaForm.vue";
 
-const thisYear = computed(() => dayjs().year())
+const thisYear = computed(() => dayjs().year());
 
-const step = ref('login')
-const name = ref('')
-const reset = value => {
-  name.value = value
-  step.value = 'reset'
-}
+const step = ref("login");
+const name = ref("");
+const reset = (value) => {
+  name.value = value;
+  step.value = "reset";
+};
 const mfa = () => {
-  step.value = 'mfa'
-}
+  step.value = "mfa";
+};
 
-const appStore = useAppStore()
+const appStore = useAppStore();
 
 const handleLocaleClick = ({ key }) => {
-  appStore.setLocale(key)
-  window.location.reload()
-}
+  appStore.setLocale(key);
+  window.location.reload();
+};
 </script>
 <template>
   <a-layout class="login">
@@ -50,7 +50,7 @@ const handleLocaleClick = ({ key }) => {
         <div class="mx-auto max-w-[215px] mt-40 mb-10">
           <Logo dark />
         </div>
-        <div class="text-center text-lg">{{ $t('uRZHmMHGIbHs9TMJtbzT6') }}</div>
+        <div class="text-center text-lg">{{ $t("uRZHmMHGIbHs9TMJtbzT6") }}</div>
         <div class="mt-20">
           <LoginForm v-if="step === 'login'" @reset="reset" @mfa="mfa" />
           <ResetForm v-else-if="step === 'reset'" :name="name" />
@@ -58,7 +58,9 @@ const handleLocaleClick = ({ key }) => {
         </div>
       </div>
     </a-layout-content>
-    <a-layout-footer class="bg-transparent text-center fixed w-full bottom-0 text-gray-300">
+    <a-layout-footer
+      class="bg-transparent text-center fixed w-full bottom-0 text-gray-300"
+    >
       Copyright © 2017-{{ thisYear }} PPC
     </a-layout-footer>
   </a-layout>
@@ -67,7 +69,7 @@ const handleLocaleClick = ({ key }) => {
 <style lang="less" scoped>
 .login {
   min-height: 100vh;
-  background-image: url('/images/login/bg_pc.png');
+  background-image: url("/images/login/bg_pc.png");
   background-size: contain;
   background-position: center bottom;
   background-repeat: no-repeat;

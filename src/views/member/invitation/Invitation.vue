@@ -14,7 +14,8 @@ const appStore = useAppStore();
 
 const { t } = useI18n();
 
-const { MEMBER_INVITATION_STATUS_TEXT, MEMBER_INVITATION_STATUS_BADGE } = useMember();
+const { MEMBER_INVITATION_STATUS_TEXT, MEMBER_INVITATION_STATUS_BADGE } =
+  useMember();
 
 const statusOptions = computed(() =>
   [{ label: t("T8jku5XFeq-1ZPcuDe_7B"), value: undefined }].concat([
@@ -69,11 +70,13 @@ const arrayValidator = async (_, value) => {
 const rules = computed(() => ({
   email: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
 }));
-const { handleValidate, validateInfos, resetFields } = useForm(formState, rules);
+const { handleValidate, validateInfos, resetFields } = useForm(
+  formState,
+  rules
+);
 
 const btnLoading = ref(false);
 
-// TODO：邀请成员加入接口
 const handleSubmit = () => {
   // select 失去焦点需要时间
   setTimeout(async () => {
@@ -105,7 +108,7 @@ onMounted(() => {
       <a-form>
         <a-form-item>
           <a-input
-            :placeholder="t('HdqCyzznm7hS5EZblV5Xr')"
+            :placeholder="$t('HdqCyzznm7hS5EZblV5Xr')"
             v-model:value="filterOptions.email"
             @keyup.enter="fetch"
             allow-clear
@@ -121,7 +124,7 @@ onMounted(() => {
       <a-form layout="inline" class="grow">
         <a-form-item>
           <a-input
-            :placeholder="t('HdqCyzznm7hS5EZblV5Xr')"
+            :placeholder="$t('HdqCyzznm7hS5EZblV5Xr')"
             class="mr-2"
             v-model:value="filterOptions.email"
             @keyup.enter="fetch"
@@ -141,7 +144,11 @@ onMounted(() => {
           />
         </a-form-item>
       </a-form>
-      <a-button @click="modalRef?.show()" type="primary" class="float-right my-2">
+      <a-button
+        @click="modalRef?.show()"
+        type="primary"
+        class="float-right my-2"
+      >
         {{ $t("VPTp-QATJSurGdzHeGrXT") }}
       </a-button>
     </template>
@@ -174,7 +181,7 @@ onMounted(() => {
         @click="modalRef?.show()"
         class="w-full"
         v-if="appStore.isMobile"
-        >{{ t("VPTp-QATJSurGdzHeGrXT") }}</a-button
+        >{{ $t("VPTp-QATJSurGdzHeGrXT") }}</a-button
       >
     </div>
 
@@ -190,7 +197,10 @@ onMounted(() => {
           layout="vertical"
           class="py-4 border-t border-b-0 border-gray-200 border-solid border-x-0"
         >
-          <a-form-item :label="$t('kXAMWI86h-rooSEuCAow-')" v-bind="validateInfos.email">
+          <a-form-item
+            :label="$t('kXAMWI86h-rooSEuCAow-')"
+            v-bind="validateInfos.email"
+          >
             <a-select
               type="textarea"
               :open="false"
@@ -203,8 +213,8 @@ onMounted(() => {
             </a-select>
           </a-form-item>
           <Tips
-            :title="t('1NLFL8YdPqQXonj5lQxvT')"
-            :contents="t('irfv2QgrQafS_6Zl73s2N')"
+            :title="$t('1NLFL8YdPqQXonj5lQxvT')"
+            :contents="$t('irfv2QgrQafS_6Zl73s2N')"
           />
         </a-form>
       </div>

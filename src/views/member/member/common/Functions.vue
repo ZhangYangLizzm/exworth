@@ -4,19 +4,27 @@ const appStore = useAppStore();
 defineProps({
   functions: {
     type: Object,
-    default: () => { },
+    default: () => {},
   },
 });
 </script>
 
 <template>
-  <div class="flex items-center gap-x-4" :class="[!appStore.isMobile ? 'justify-center' : '']">
+  <div
+    class="flex items-center gap-x-4"
+    :class="[!appStore.isMobile ? 'justify-center' : '']"
+  >
     <span>
-      <swap-outlined :class="[functions?.transfer ? 'text-black' : 'text-gray-400']" />
+      <swap-outlined
+        :class="[functions?.transfer ? 'text-black' : 'text-gray-400']"
+      />
 
-      {{ $t("pGrhTXj8A84ieJpHf6k3L") }}</span>
+      {{ $t("pGrhTXj8A84ieJpHf6k3L") }}</span
+    >
     <span>
-      <credit-card-filled :class="[functions?.ppc ? 'text-black' : 'text-gray-400']" />
+      <credit-card-filled
+        :class="[functions?.ppc ? 'text-black' : 'text-gray-400']"
+      />
 
       {{ $t("OnPSpwMATKuG2io4jQP3a") }}
     </span>

@@ -71,23 +71,23 @@ const handleSubmit = async () => {
 
 <template>
   <a-form :rules="rules" class="px-4 py-2" layout="vertical">
-    <a-form-item v-bind="validateInfos.oldPassword" :label="t('zTssdt-Ydi78yD4g1dX5R')">
+    <a-form-item v-bind="validateInfos.oldPassword" :label="$t('zTssdt-Ydi78yD4g1dX5R')">
       <a-input-password
-        :placeholder="t('AkYvt09TzAKTkYL1On_p3')"
+        :placeholder="$t('AkYvt09TzAKTkYL1On_p3')"
         v-model:value="formState.oldPassword"
       >
       </a-input-password>
     </a-form-item>
-    <a-form-item v-bind="validateInfos.password" :label="t('mAEK8HwUsfygHzyJxo4ON')">
+    <a-form-item v-bind="validateInfos.password" :label="$t('mAEK8HwUsfygHzyJxo4ON')">
       <a-input-password
-        :placeholder="t('mAEK8HwUsfygHzyJxo4ON')"
+        :placeholder="$t('mAEK8HwUsfygHzyJxo4ON')"
         v-model:value="formState.password"
       >
       </a-input-password>
     </a-form-item>
-    <a-form-item v-bind="validateInfos.confirm" :label="t('vIf00-9pMhlLRdqg_iRi1')">
+    <a-form-item v-bind="validateInfos.confirm" :label="$t('vIf00-9pMhlLRdqg_iRi1')">
       <a-input-password
-        :placeholder="t('vIf00-9pMhlLRdqg_iRi1')"
+        :placeholder="$t('vIf00-9pMhlLRdqg_iRi1')"
         v-model:value="formState.confirm"
         @blur="handleConfirmBlur"
       >

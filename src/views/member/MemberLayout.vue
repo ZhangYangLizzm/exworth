@@ -1,15 +1,22 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
   <div class="flex">
-    <div class="flex text-[1rem]"><router-link :to="{ name: 'MemberList' }" active-class="active-link"
-        class="custom-link flex-1 text-center mr-4">
-        {{ $t("5Bp1HBe0zDdIJBY94bD26") }}
-      </router-link></div>
     <div class="flex text-[1rem]">
-      <router-link :to="{ name: 'Invitation' }" active-class="active-link" class="custom-link flex-1 text-center">
+      <router-link
+        :to="{ name: 'MemberList' }"
+        active-class="active-link"
+        class="custom-link flex-1 text-center mr-4"
+      >
+        {{ $t("5Bp1HBe0zDdIJBY94bD26") }}
+      </router-link>
+    </div>
+    <div class="flex text-[1rem]">
+      <router-link
+        :to="{ name: 'Invitation' }"
+        active-class="active-link"
+        class="custom-link flex-1 text-center"
+      >
         {{ $t("Q3Sv5rpbJ8n9mIeXLeqJk") }}
       </router-link>
     </div>

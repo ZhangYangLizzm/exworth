@@ -45,7 +45,7 @@ const depositTipsContent = computed(() => [
 </script>
 <template>
   <a-form layout="vertical">
-    <a-form-item :label="t('evuxmuH6llDaxntrGcczN')">
+    <a-form-item :label="$t('evuxmuH6llDaxntrGcczN')">
       <CurrencySelect
         :walletAccounts="accountStore.walletAccounts"
         v-model:currency="formState.currency"
@@ -53,9 +53,13 @@ const depositTipsContent = computed(() => [
       />
     </a-form-item>
 
-    <a-form-item :label="t('6cwCXkwYyh-ubcR0nZWea')">
+    <a-form-item :label="$t('6cwCXkwYyh-ubcR0nZWea')">
       <a-radio-group v-model:value="formState.chain" @change="fetchAddress">
-        <a-radio-button v-for="chain in chainOptions" :key="chain" :value="chain">
+        <a-radio-button
+          v-for="chain in chainOptions"
+          :key="chain"
+          :value="chain"
+        >
           {{ chain }}
         </a-radio-button>
       </a-radio-group>
@@ -68,7 +72,10 @@ const depositTipsContent = computed(() => [
           :alt="walletAddress.address"
           class="w-[200px] h-[200px]"
         />
-        <p>{{ walletAddress.address }} <Copy :text="walletAddress.address" /></p>
+        <p>
+          {{ walletAddress.address }}
+          <Copy :text="walletAddress.address" />
+        </p>
       </div>
     </a-spin>
     <Tips :title="$t('l75199YEqw9hJchJu1YXo')" :contents="depositTipsContent" />

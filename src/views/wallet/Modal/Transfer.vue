@@ -12,7 +12,6 @@ const {
   SecurityPasswordRule,
   GoogleAuthCodeRule,
 } = useFormRules();
-const { t } = useI18n();
 const accountStore = useAccountStore();
 const props = defineProps({
   initialCurrency: String,
@@ -26,7 +25,9 @@ const transferState = reactive({
   authCode: "",
 });
 
-const available = computed(() => accountStore.availableBalance(transferState.currency));
+const available = computed(() =>
+  accountStore.availableBalance(transferState.currency)
+);
 const AmountRule = computed(() => getAmountRule(available.value));
 
 const rules = reactive({
@@ -63,40 +64,53 @@ const handleTransfer = async () => {
 <template>
   <div class="p-4">
     <a-form layout="vertical" :rules="rules">
-      <a-form-item :label="$t('tOfYePGWd06TTHZ9HxG5V')" v-bind="validateInfos.uuid">
+      <a-form-item
+        :label="$t('tOfYePGWd06TTHZ9HxG5V')"
+        v-bind="validateInfos.uuid"
+      >
         <a-input
           autocomplete="off"
           v-model:value="transferState.uuid"
-          :placeholder="t('_T9boCEgvfyd17ol1g2yp')"
+          :placeholder="$t('_T9boCEgvfyd17ol1g2yp')"
         />
       </a-form-item>
-      <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" v-bind="validateInfos.currency">
+      <a-form-item
+        :label="$t('AMeo68ZI28aaFVqr0swF7')"
+        v-bind="validateInfos.currency"
+      >
         <CurrencySelect
           :walletAccounts="accountStore.walletAccounts"
           v-model:value="transferState.currency"
         />
       </a-form-item>
-      <a-form-item v-bind="validateInfos.amount">
-        <template #label>
-          <AmountLabel
-            :title="$t('aT1xkA__dmUFiEHrDNAph')"
-            :balanceAmount="Format(available)"
-            :currency="transferState.currency"
-          />
-        </template>
+      <a-form-item
+        v-bind="validateInfos.amount"
+        :label="$t('aT1xkA__dmUFiEHrDNAph')"
+      >
         <a-input
           autocomplete="off"
           :placeholder="$t('tdOb7WZfAthhIqC2_HIAg')"
           v-model:value="transferState.amount"
         />
+        <AmountLabel
+          :title="$t('e8DgaMG0nnSK1cxzTVxp1')"
+          :amount="Format(available)"
+          :currency="transferState.currency"
+        />
       </a-form-item>
-      <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password">
+      <a-form-item
+        :label="$t('yj74dO9iA9rD0NRDm8h2n')"
+        v-bind="validateInfos.password"
+      >
         <a-input-password
           :placeholder="$t('L8_JRGabLnJGC2tBI9Hqc')"
           v-model:value="transferState.password"
         />
       </a-form-item>
-      <a-form-item :label="$t('SlJFgfv49xSHi9mbjdw4e')" v-bind="validateInfos.authCode">
+      <a-form-item
+        :label="$t('SlJFgfv49xSHi9mbjdw4e')"
+        v-bind="validateInfos.authCode"
+      >
         <a-input-password
           :placeholder="$t('RN0u-0ie4LuZ1u5aetix9')"
           v-model:value="transferState.authCode"
@@ -114,9 +128,3 @@ const handleTransfer = async () => {
     </div>
   </div>
 </template>
-
-<style scoped lang="less">
-:deep(.ant-form-item-required) {
-  width: 100%;
-}
-</style>

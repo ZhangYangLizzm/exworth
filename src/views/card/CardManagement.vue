@@ -46,7 +46,11 @@ onMounted(() => {
       </div>
       <div class="flex-1">
         <div class="flex-1 flex bg-slate-100 rounded-xl gap-x-4">
-          <Card brand="masterCard" :mode="CARD_MODE_VIRTUAL" class="basis-2/5" />
+          <Card
+            brand="masterCard"
+            :mode="CARD_MODE_VIRTUAL"
+            class="basis-2/5"
+          />
           <div>虚拟卡数量</div>
         </div>
       </div>
@@ -63,7 +67,12 @@ onMounted(() => {
         <a-select placeholder="選擇狀態"></a-select>
       </a-form-item>
     </a-form>
-    <a-table :loading="loading" :dataSource="physicalList" :columns="columns" :pagination="false"></a-table>
+    <a-table
+      :loading="loading"
+      :dataSource="physicalList"
+      :columns="columns"
+      :pagination="false"
+    ></a-table>
   </div>
 </template>
 

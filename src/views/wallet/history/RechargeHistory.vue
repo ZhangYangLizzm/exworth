@@ -3,6 +3,9 @@ import { getDepositHistory } from "@/api/wallet";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 import { formatRangerPickerTime } from "@/utils/formatRangerPickerTime";
 import { useAccountStore } from "@/stores/modules/accounts.js";
+import { useOrderStatus } from "@/utils/useOrderStatus";
+
+const { getOrderStatusLabel } = useOrderStatus();
 const accountStore = useAccountStore();
 const filterOptions = reactive({
   createTime: undefined,
@@ -12,10 +15,8 @@ const filterOptions = reactive({
 });
 
 const { t } = useI18n();
-const { fetch, list, loading, pageID, pageSize, totalCount, onPageChange } = useList(
-  getDepositHistory,
-  filterOptions
-);
+const { fetch, list, loading, pageID, pageSize, totalCount, onPageChange } =
+  useList(getDepositHistory, filterOptions);
 const columns = computed(() => [
   {
     title: t("4Jogg03YNl3gG3ZgAQlml"),
@@ -55,35 +56,40 @@ onMounted(() => {
       <a-range-picker
         :value="filterOptions.createTime"
         valueFormat="YYYY-MM-DD"
-        @change="(value) => (filterOptions.createTime = formatRangerPickerTime(value))"
+        @change="
+          (value) => (filterOptions.createTime = formatRangerPickerTime(value))
+        "
       />
     </a-form-item>
 
     <a-form-item class="w-48">
       <a-select
         v-model:value="filterOptions.chain"
-        :placeholder="t('5T9IqkrF8DTnOiDZlrrIl')"
+        :placeholder="$t('5T9IqkrF8DTnOiDZlrrIl')"
       >
         <a-select-option :value="undefined">
-          <span>{{ t("T8jku5XFeq-1ZPcuDe_7B") }}</span>
+          <span>{{ $t("T8jku5XFeq-1ZPcuDe_7B") }}</span>
         </a-select-option>
         <a-select-option value="ERC20"> </a-select-option>
         <a-select-option value="TRC20"> </a-select-option>
       </a-select>
     </a-form-item>
     <a-form-item class="w-40">
-      <CurrencySelect :walletAccounts="accountStore.walletAccounts" v-model:currency="filterOptions.currency" />
+      <CurrencySelect
+        :walletAccounts="accountStore.walletAccounts"
+        v-model:currency="filterOptions.currency"
+      />
     </a-form-item>
     <a-form-item class="w-1/6">
       <a-input
         autocomplete="off"
         v-model:value="filterOptions.transactionHash"
-        :addon-before="t('4Jogg03YNl3gG3ZgAQlml')"
+        :addon-before="$t('4Jogg03YNl3gG3ZgAQlml')"
       />
     </a-form-item>
     <a-form-item>
       <a-button type="primary" @click="fetch" :loading="loading">
-        {{ t("5NZo0upHiGpgDPaM_E9iu") }}
+        {{ $t("5NZo0upHiGpgDPaM_E9iu") }}
       </a-button>
     </a-form-item>
   </a-form>
@@ -99,7 +105,7 @@ onMounted(() => {
         <span>{{ record.amount }} &nbsp; {{ record.currency }}</span>
       </template>
       <template v-if="column.key === 'status'">
-        <span>{{ record.status === 2 ? t("Success") : t("Applying") }}</span>
+        <span>{{ getOrderStatusLabel(record.status) }}</span>
       </template>
     </template>
   </a-table>

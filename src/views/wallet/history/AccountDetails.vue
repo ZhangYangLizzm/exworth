@@ -14,10 +14,8 @@ const filterOptions = reactive({
   affectOrderNo: undefined,
 });
 
-const { fetch, list, loading, pageID, pageSize, totalCount, onPageChange } = useList(
-  getBalanceHistory,
-  filterOptions
-);
+const { fetch, list, loading, pageID, pageSize, totalCount, onPageChange } =
+  useList(getBalanceHistory, filterOptions);
 
 onMounted(() => {
   fetch();
@@ -64,14 +62,16 @@ const getStyle = (direction) => {
       <a-range-picker
         :value="filterOptions.createTime"
         valueFormat="YYYY-MM-DD"
-        @change="(value) => (filterOptions.createTime = formatRangerPickerTime(value))"
+        @change="
+          (value) => (filterOptions.createTime = formatRangerPickerTime(value))
+        "
       />
     </a-form-item>
 
     <a-form-item class="w-48">
       <a-select
         v-model:value="filterOptions.type"
-        :placeholder="t('xPOa-lYXJ2QlRzV5wTa0r')"
+        :placeholder="$t('xPOa-lYXJ2QlRzV5wTa0r')"
       >
         <a-select-option :value="key" v-for="[key, value] in flowTypeList">
           <span>{{ value }}</span>
@@ -81,16 +81,16 @@ const getStyle = (direction) => {
     <a-form-item class="w-48">
       <a-select
         v-model:value="filterOptions.direction"
-        :placeholder="t('ef-fXqdN0JZ9J8CkUt2EK')"
+        :placeholder="$t('ef-fXqdN0JZ9J8CkUt2EK')"
       >
         <a-select-option :value="undefined">
-          <span>{{ t("T8jku5XFeq-1ZPcuDe_7B") }}</span>
+          <span>{{ $t("T8jku5XFeq-1ZPcuDe_7B") }}</span>
         </a-select-option>
         <a-select-option value="0">
-          <span>{{ t("UcXeZv4zwJo26xSvvjT3y") }}</span>
+          <span>{{ $t("UcXeZv4zwJo26xSvvjT3y") }}</span>
         </a-select-option>
         <a-select-option value="1">
-          <span>{{ t("98tLYPO1x3wORFEIzES2N") }}</span>
+          <span>{{ $t("98tLYPO1x3wORFEIzES2N") }}</span>
         </a-select-option>
       </a-select>
     </a-form-item>
@@ -104,12 +104,12 @@ const getStyle = (direction) => {
       <a-input
         autocomplete="off"
         v-model:value="filterOptions.affectOrderNo"
-        :addon-before="t('Lt2Yb3nacWIDdbk1RYlMf')"
+        :addon-before="$t('Lt2Yb3nacWIDdbk1RYlMf')"
       />
     </a-form-item>
     <a-form-item>
       <a-button type="primary" @click="fetch" :loading="loading">
-        {{ t("5NZo0upHiGpgDPaM_E9iu") }}
+        {{ $t("5NZo0upHiGpgDPaM_E9iu") }}
       </a-button>
     </a-form-item>
   </a-form>
@@ -146,15 +146,3 @@ const getStyle = (direction) => {
     @change="onPageChange"
   />
 </template>
-
-<style scoped lang="less">
-.text-plus::before {
-  content: "+";
-  margin-right: 2px; /* 添加一些间距，使其与按钮分开 */
-}
-
-.text-minus::before {
-  content: "-";
-  margin-right: 2px; /* 添加一些间距，使其与按钮分开 */
-}
-</style>

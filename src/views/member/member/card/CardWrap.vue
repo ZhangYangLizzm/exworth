@@ -42,10 +42,18 @@ const onClick = ({ item, type }) => {
     <ComponentTitle :text="$t('OnPSpwMATKuG2io4jQP3a')" class="text-xl mt-4" />
 
     <template v-if="mode === 'imgTextMode'">
-      <ImgTextContainer :dataSource="physicalList" @onClick="onClick" :loading="loading" />
+      <ImgTextContainer
+        :dataSource="physicalList"
+        @onClick="onClick"
+        :loading="loading"
+      />
     </template>
     <template v-else-if="mode === 'listMode'">
-      <ListContainer :dataSource="physicalList" @onClick="onClick" :loading="loading" />
+      <ListContainer
+        :dataSource="physicalList"
+        @onClick="onClick"
+        :loading="loading"
+      />
     </template>
 
     <!-- <ComponentTitle :text="$t('S2OrYOKW-4S0okv_ixAu-')" class="text-xl mt-4" /> -->

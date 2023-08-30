@@ -45,7 +45,10 @@ const handleConfirm = async () => {
   const { values } = await handleValidate();
   if (values) {
     btnLoading.value = true;
-    await postReportLoss({ ...reportLossState, cardKey: props.cardInfo.cardKey });
+    await postReportLoss({
+      ...reportLossState,
+      cardKey: props.cardInfo.cardKey,
+    });
     btnLoading.value = false;
     await accountStore.fetchWalletAccount();
     modalRef?.value.close();
@@ -62,20 +65,30 @@ const handleConfirm = async () => {
     <div class="px-4">
       <a-form layout="vertical" :rules="rules">
         <a-form-item :label="$t('kc9q5L7zBW4hpYFxJwx6H')">
-          <a-input autocomplete="off" disabled :placeholder="props.cardInfo.maskCardNo" />
+          <a-input
+            autocomplete="off"
+            disabled
+            :placeholder="props.cardInfo.maskCardNo"
+          />
           <div class="text-gray-400 mt-2">
             <span>{{ $t("xL0Xq46pD4xDZv4kET1pb") }}:</span>
             <span class="float-right">10 USDT</span>
           </div>
         </a-form-item>
 
-        <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password">
+        <a-form-item
+          :label="$t('yj74dO9iA9rD0NRDm8h2n')"
+          v-bind="validateInfos.password"
+        >
           <a-input-password
             :placeholder="$t('g-CkGyBqori4UAmxL4HS5')"
             v-model:value="reportLossState.password"
           />
         </a-form-item>
-        <a-form-item :label="$t('SlJFgfv49xSHi9mbjdw4e')" v-bind="validateInfos.authCode">
+        <a-form-item
+          :label="$t('SlJFgfv49xSHi9mbjdw4e')"
+          v-bind="validateInfos.authCode"
+        >
           <a-input-password
             :placeholder="$t('0A89nPyaGbq5-v9reFOzw')"
             v-model:value="reportLossState.authCode"

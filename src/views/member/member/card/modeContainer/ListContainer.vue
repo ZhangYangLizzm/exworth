@@ -84,7 +84,7 @@ const columns = [
           v-if="[CARD_STATUS_NORMAL].includes(record?.cardStatus)"
           @click="onClick(record, 'recharge')"
         >
-          {{ t("VVQaPte21XgxJXEM9H8gu") }}
+          {{ $t("VVQaPte21XgxJXEM9H8gu") }}
         </a-button>
         <a-button type="link" @click="onClick(record, 'replace')">
           {{ $t("gVPkNpXqcOdkRBKMOR_9i") }}

@@ -1,13 +1,13 @@
 <script setup>
-import dayjs from 'dayjs'
-const { messages, locale } = useI18n()
-const antLocale = computed(() => unref(messages)?.[unref(locale)]?.antLocale)
+import dayjs from "dayjs";
+const { messages, locale } = useI18n();
+const antLocale = computed(() => unref(messages)?.[unref(locale)]?.antLocale);
 const configProvider = computed(() => ({
   locale: antLocale.value,
   autoInsertSpaseInButton: false,
-}))
+}));
 
-watch(antLocale, val => dayjs.locale(val.locale), { immediate: true })
+watch(antLocale, (val) => dayjs.locale(val.locale), { immediate: true });
 </script>
 
 <template>
@@ -19,5 +19,5 @@ watch(antLocale, val => dayjs.locale(val.locale), { immediate: true })
 </template>
 
 <style lang="less">
-@import '@/libs/themes/global.less';
+@import "@/libs/themes/global.less";
 </style>

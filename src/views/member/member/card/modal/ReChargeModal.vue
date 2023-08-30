@@ -17,14 +17,17 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const { getAmountRule, SecurityPasswordRule, GoogleAuthCodeRule } = useFormRules();
+const { getAmountRule, SecurityPasswordRule, GoogleAuthCodeRule } =
+  useFormRules();
 const rechargeState = reactive({
   currency: "USDE",
   amount: 0,
   password: "",
   authCode: "",
 });
-const available = computed(() => accountStore.availableBalance(rechargeState.currency));
+const available = computed(() =>
+  accountStore.availableBalance(rechargeState.currency)
+);
 const AmountRule = computed(() => getAmountRule(available.value));
 
 const rules = reactive({
@@ -64,13 +67,13 @@ const fee = computed(() => {
   if (rechargeState.currency === "USDE") {
     return new Big(0).toFixed(2);
   }
-  const amount = new Big(rechargeState.amount);
+  const amount = new Big(rechargeState.amount || 0);
   const topUpRate = new Big(props.cardInfo.topUpRate);
   return amount.times(topUpRate).toFixed(2); // 控制保留两位小数
 });
 
 const actualAmount = computed(() => {
-  const amout = new Big(rechargeState.amount);
+  const amout = new Big(rechargeState.amount || 0);
   return amout.minus(fee.value).toFixed(2);
 });
 </script>
@@ -92,44 +95,53 @@ const actualAmount = computed(() => {
           >
           </a-input>
         </a-form-item>
-        <a-form-item :label="$t('evuxmuH6llDaxntrGcczN')" v-bind="validateInfos.currency">
+        <a-form-item
+          :label="$t('evuxmuH6llDaxntrGcczN')"
+          v-bind="validateInfos.currency"
+        >
           <CurrencySelect
             :walletAccounts="accountStore.walletAccounts"
             v-model:currency="rechargeState.currency"
           />
         </a-form-item>
-        <a-form-item v-bind="validateInfos.amount">
-          <template #label>
-            <AmountLabel
-              :title="$t('NI3dffhiC9cI6NmBo_UBh')"
-              :balanceAmount="Format(available)"
-              :currency="rechargeState.currency"
-            />
-          </template>
+        <a-form-item
+          v-bind="validateInfos.amount"
+          :label="$t('NI3dffhiC9cI6NmBo_UBh')"
+        >
           <a-input
             autocomplete="off"
             :placeholder="$t('_aLRJTwT0z5fy-yMREIle')"
             v-model:value="rechargeState.amount"
           />
-
-          <div class="text-gray-400">
-            <span>{{ $t("Q_l0QsgefHPkwvxse3yaA") }}:</span>
-            <span class="float-right">{{ fee }} &nbsp; {{ rechargeState.currency }}</span>
-          </div>
-          <div class="text-gray-400">
-            <span>{{ $t("AhZ8ItHb7nCGWMqoQNgDa") }}:</span>
-            <span class="float-right"
-              >{{ actualAmount }} &nbsp; {{ rechargeState.currency }}</span
-            >
-          </div>
+          <AmountLabel
+            :title="$t('e8DgaMG0nnSK1cxzTVxp1')"
+            :amount="Format(available)"
+            :currency="rechargeState.currency"
+          />
+          <AmountLabel
+            :title="$t('Q_l0QsgefHPkwvxse3yaA')"
+            :amount="Format(fee)"
+            :currency="rechargeState.currency"
+          />
+          <AmountLabel
+            :title="$t('AhZ8ItHb7nCGWMqoQNgDa')"
+            :amount="Format(actualAmount)"
+            :currency="rechargeState.currency"
+          />
         </a-form-item>
-        <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password">
+        <a-form-item
+          :label="$t('yj74dO9iA9rD0NRDm8h2n')"
+          v-bind="validateInfos.password"
+        >
           <a-input-password
             :placeholder="$t('g-CkGyBqori4UAmxL4HS5')"
             v-model:value="rechargeState.password"
           />
         </a-form-item>
-        <a-form-item :label="$t('SlJFgfv49xSHi9mbjdw4e')" v-bind="validateInfos.authCode">
+        <a-form-item
+          :label="$t('SlJFgfv49xSHi9mbjdw4e')"
+          v-bind="validateInfos.authCode"
+        >
           <a-input-password
             :placeholder="$t('0A89nPyaGbq5-v9reFOzw')"
             v-model:value="rechargeState.authCode"
@@ -153,9 +165,3 @@ const actualAmount = computed(() => {
     </template>
   </ExModal>
 </template>
-
-<style scoped lang="less">
-:deep(.ant-form-item-required) {
-  width: 100%;
-}
-</style>

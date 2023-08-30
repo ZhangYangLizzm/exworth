@@ -15,10 +15,8 @@ const filterOptions = reactive({
 
 const { t } = useI18n();
 const { getOrderStatusLabel, orderStatusList } = useOrderStatus();
-const { fetch, list, loading, pageID, pageSize, totalCount, onPageChange } = useList(
-  getWithdrawHistory,
-  filterOptions
-);
+const { fetch, list, loading, pageID, pageSize, totalCount, onPageChange } =
+  useList(getWithdrawHistory, filterOptions);
 const columns = computed(() => [
   {
     title: t("CHgqidHNn6_bzPEAQ52Xu"),
@@ -26,7 +24,7 @@ const columns = computed(() => [
     key: "createTime",
   },
   {
-    title: t("68cZ9T56Bq7_rLweZH-Nv"),
+    title: t("Lt2Yb3nacWIDdbk1RYlMf"),
     dataIndex: "outOrderId",
     key: "outOrderId",
   },
@@ -71,16 +69,18 @@ onMounted(() => {
       <a-range-picker
         :value="filterOptions.createTime"
         valueFormat="YYYY-MM-DD"
-        @change="(value) => (filterOptions.createTime = formatRangerPickerTime(value))"
+        @change="
+          (value) => (filterOptions.createTime = formatRangerPickerTime(value))
+        "
       />
     </a-form-item>
     <a-form-item class="w-48">
       <a-select
         v-model:value="filterOptions.status"
-        :placeholder="t('KA634HBkYSrLFNgGwVCX8')"
+        :placeholder="$t('KA634HBkYSrLFNgGwVCX8')"
       >
         <a-select-option :value="undefined">
-          <span>{{ t("T8jku5XFeq-1ZPcuDe_7B") }}</span>
+          <span>{{ $t("T8jku5XFeq-1ZPcuDe_7B") }}</span>
         </a-select-option>
         <a-select-option :value="key" v-for="[key, value] in orderStatusList">
           <span>{{ value }}</span>
@@ -97,12 +97,12 @@ onMounted(() => {
       <a-input
         autocomplete="off"
         v-model:value="filterOptions.withdrawOrderId"
-        :addon-before="t('68cZ9T56Bq7_rLweZH-Nv')"
+        :addon-before="$t('Lt2Yb3nacWIDdbk1RYlMf')"
       />
     </a-form-item>
     <a-form-item>
       <a-button type="primary" @click="fetch" :loading="loading">
-        {{ t("5NZo0upHiGpgDPaM_E9iu") }}
+        {{ $t("5NZo0upHiGpgDPaM_E9iu") }}
       </a-button>
     </a-form-item>
   </a-form>
@@ -129,11 +129,11 @@ onMounted(() => {
           <template #title>
             <div>
               <p>
-                {{ t("MSer02pUVq2JGDAxQxERb") }}
+                {{ $t("MSer02pUVq2JGDAxQxERb") }}
                 {{ JSON.parse(record.receiverAccountInfo).network }}
               </p>
               <p>
-                {{ t("3RM41OaFMrdni5UfIoF97") }}
+                {{ $t("3RM41OaFMrdni5UfIoF97") }}
                 {{ JSON.parse(record.receiverAccountInfo).address }}
               </p>
             </div>
