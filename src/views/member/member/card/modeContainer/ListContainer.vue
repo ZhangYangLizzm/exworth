@@ -37,12 +37,6 @@ const columns = [
     align: "center",
   },
   {
-    title: t("J_niWZulhSbsTsEikV9VK"),
-    dataIndex: "cardBalance",
-    key: "cardBalance",
-    align: "center",
-  },
-  {
     title: t("r8FVvX5IM4qjwRg1sseqI"),
     dataIndex: "cardStatus",
     key: "cardStatus",

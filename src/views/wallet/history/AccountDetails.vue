@@ -54,7 +54,7 @@ const getStyle = (direction) => {
   if (direction) {
     return "text-primary text-plus";
   }
-  return "text-red text-minus";
+  return "text-danger text-minus";
 };
 </script>
 
@@ -126,9 +126,8 @@ const getStyle = (direction) => {
         <span>{{ getFlowTypeLable(record.type) }}</span>
       </template>
       <template v-if="column.key === 'operateAmount'">
-        <span :class="[record.direction ? ' text-danger' : 'text-primary']"
-          >{{ record.direction ? "-" : "+" }}{{ record.operateAmount }}
-          {{ record.currency }}</span
+        <span :class="[getStyle(record.direction)]"
+          >{{ record.operateAmount }} {{ record.currency }}</span
         >
       </template>
       <template v-if="column.key === 'currentBalanceAmount'">
@@ -151,11 +150,11 @@ const getStyle = (direction) => {
 <style scoped lang="less">
 .text-plus::before {
   content: "+";
-  margin-right: 8px; /* 添加一些间距，使其与按钮分开 */
+  margin-right: 2px; /* 添加一些间距，使其与按钮分开 */
 }
 
 .text-minus::before {
   content: "-";
-  margin-right: 8px; /* 添加一些间距，使其与按钮分开 */
+  margin-right: 2px; /* 添加一些间距，使其与按钮分开 */
 }
 </style>

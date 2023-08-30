@@ -27,20 +27,31 @@ const onClick = (item, type) => {
 <template>
   <a-spin :spinning="loading">
     <div class="flex pb-4 overflow-x-auto overflow-y-auto gap-x-4">
-      <div class="bg-white shrink-0 rounded-2xl" v-for="(item, index) in dataSource"
-        :class="[appStore.isMobile ? 'basis-4/5' : 'basis-[280px]']" :key="index">
+      <div
+        class="bg-white shrink-0 rounded-2xl"
+        v-for="(item, index) in dataSource"
+        :class="[appStore.isMobile ? 'basis-4/5' : 'basis-[300px]']"
+        :key="index"
+      >
         <Card :brand="item.cardType" :mode="CARD_MODE_PHYSICAL">
           <template #footer>
             <div class="flex items-center justify-between">
               <div class="drop-shadow text-[20px]">
                 {{ encryptStr(item?.maskCardNo, 4, 4, " **** **** ") }}
               </div>
-              <a-badge :status="CARD_STATUS_BADGE_MAP(item?.cardStatus)" :text="CARD_STATUS_TEXT(item?.cardStatus)" />
+              <a-badge
+                :status="CARD_STATUS_BADGE_MAP(item?.cardStatus)"
+                :text="CARD_STATUS_TEXT(item?.cardStatus)"
+              />
             </div>
           </template>
         </Card>
         <div class="flex p-2">
-          <a-button type="text" v-if="[CARD_STATUS_NORMAL].includes(item?.cardStatus)" @click="onClick(item, 'recharge')">
+          <a-button
+            type="text"
+            v-if="[CARD_STATUS_NORMAL].includes(item?.cardStatus)"
+            @click="onClick(item, 'recharge')"
+          >
             {{ $t("VVQaPte21XgxJXEM9H8gu") }}
           </a-button>
           <a-button type="text" @click="onClick(item, 'replace')">
