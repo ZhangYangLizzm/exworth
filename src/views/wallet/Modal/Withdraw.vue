@@ -157,7 +157,7 @@ const onView = () => {
               @change="fetchOtcRate"
             />
             <AmountLabel
-              :title="$t('-Q-u4nDHLreIjo2-6Z4MW')"
+              :title="$t('e8DgaMG0nnSK1cxzTVxp1')"
               :amount="Format(walletInfo.balanceAmount)"
               :currency="withdrawState.currency"
             />

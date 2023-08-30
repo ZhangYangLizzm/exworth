@@ -16,7 +16,7 @@ export const useFlowType = () => {
         [`${INTERNAL}`]: t('pGrhTXj8A84ieJpHf6k3L'),
         [DEPOSIT]: t('p85LUkdtTlZNxvwxEVGX8'),
         [`${PPC_PREFIX}.${APPLYCARDS}`]: t('46XbjJJedfhvddlC3NTJ0'),
-        [`${PPC_PREFIX}.${RECHARGE}`]: t('10QBrQYST8DUjmNhn5e4_'),
+        [`${PPC_PREFIX}.${RECHARGE}`]: t('Y8Q4sAZg7x3OGpUJ7N-Wr'),
         [`${PPC_CANCEL_PREFIX}.${SEND}`]: t('Af035ZJECpXV2Eo5mGVlg'),
         [`${PPC_CANCEL_PREFIX}.${APPLYCARDS}`]: t('U8O12gFgVi5IgP7_ZxEoL'),
         [`${PPC_CANCEL_PREFIX}.${RECHARGE}`]: t('kOPo-JKT9YvFWURtL3glv'),
