@@ -3,8 +3,6 @@ import { postUpdatePassword } from "@/api/user";
 import { useForm } from "@/libs/hooks/useForm";
 const { t } = useI18n();
 
-const formRef = ref();
-
 const formState = reactive({
   oldPassword: undefined,
   password: undefined,
@@ -45,8 +43,7 @@ const rules = computed(() => ({
     { required: true, message: t("8dRn48_9RTO6Q2804fgFp") },
     { min: 8, max: 20, message: t("Zd-iK_4fwRetIFNm8Nd4M") },
     {
-      pattern:
-        /(?!.*[\u4E00-\u9FA5\s])(?!^[a-zA-Z]+$)(?!^[\d]+$)(?!^[^a-zA-Z\d]+$)^./,
+      pattern: /(?!.*[\u4E00-\u9FA5\s])(?!^[a-zA-Z]+$)(?!^[\d]+$)(?!^[^a-zA-Z\d]+$)^./,
       message: t("WWbPeuj1qLMohnCd5qzyw"),
     },
     { validator: validateToNextPassword },
@@ -66,18 +63,14 @@ const handleSubmit = async () => {
   const { values } = await handleValidate();
   if (values) {
     loading.value = true;
-    const { statusCode } = await postUpdatePassword({
-      ...values,
-    });
-    if (statusCode === 200) {
-      loading.value = false;
-    }
+    await postUpdatePassword({ ...values });
+    loading.value = false;
   }
 };
 </script>
 
 <template>
-  <a-form :rules="rules" :ref="formRef" class="px-4 py-2" layout="vertical">
+  <a-form :rules="rules" class="px-4 py-2" layout="vertical">
     <a-form-item v-bind="validateInfos.oldPassword" :label="t('zTssdt-Ydi78yD4g1dX5R')">
       <a-input-password
         :placeholder="t('AkYvt09TzAKTkYL1On_p3')"

@@ -177,12 +177,6 @@
   "5T9IqkrF8DTnOiDZlrrIl": "請選擇鏈類型",
   "68cZ9T56Bq7_rLweZH-Nv": "記錄編號",
   "KA634HBkYSrLFNgGwVCX8": "請選擇狀態",
-  "Applying": "申請中",
-  "Processing": "處理中",
-  "Success": "已完成",
-  "Failed": "失敗",
-  "Revoked": "已撤銷",
-  "Unconfirmed": "待確認",
   "OcfJlH4QmIPpM8_XAtT0h": "輸入郵箱搜索",
   "HdqCyzznm7hS5EZblV5Xr": "請輸入郵箱搜索",
   "QzD6F1l8Ue9UNPMHcBruL": "請選擇幣種",
@@ -221,5 +215,10 @@
   "AhZ8ItHb7nCGWMqoQNgDt": "實際到賬 : { actualAmount }",
   "hlhSxU0JK4TJ4kP_-lBzh": "提幣地址 : { address }",
   "3RM41OaFMrdni5UfIoF97": "地址",
-  "BCdTnRlPIGxZAs9yB5BYP": "查看"
+  "BCdTnRlPIGxZAs9yB5BYP": "查看",
+  "0kbRU9sC5sUbQNf6OekMk": "申請中",
+  "uh5V5mWXhqcS1mqd2KxNm": "處理中",
+  "MEszo4sHm_yNnwjR6xENN": "已完成",
+  "RbjdN0lNU_k-p4WYU7CH8": "已撤銷",
+  "mAjX90pEXRkWHJ1DhB9sV": "待確認"
 }

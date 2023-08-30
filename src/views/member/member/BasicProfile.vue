@@ -21,7 +21,6 @@ const props = defineProps({
 const accountStore = useAccountStore();
 const route = useRoute();
 const modalRef = ref();
-const { t } = useI18n();
 
 const handleClick = () => {
   modalRef?.value.show();
@@ -49,23 +48,21 @@ const rules = reactive({
   authCode: GoogleAuthCodeRule,
 });
 
-const { resetFields, validateInfos, validate } = useForm(transferState, rules);
+const { resetFields, validateInfos, handleValidate } = useForm(transferState, rules);
 
 const transferConfirmLoading = ref(false);
 
 const handleTransfer = async () => {
-  transferConfirmLoading.value = true;
-  try {
-    await validate();
+  const { values } = await handleValidate()
+  if (values) {
+    transferConfirmLoading.value = true;
     await postMemberTransfer({ uuid: route.params.uuid, ...transferState });
     await accountStore.fetchWalletAccount();
+    transferConfirmLoading.value = false;
     modalRef.value?.close();
     resetFields();
-  } catch (error) {
-    console.error(error);
-  } finally {
-    transferConfirmLoading.value = false;
   }
+
 };
 </script>
 <template>
@@ -76,9 +73,7 @@ const handleTransfer = async () => {
         <div class="max-w-[800px] flex justify-between w-full flex-wrap">
           <div>
             {{ $t("SreiC9yRSXuJ0EDsT5t0z") }}: {{ profile.email
-            }}<span
-              ><copy-outlined class="cursor-pointer ml-2" @click="copy(profile.email)"
-            /></span>
+            }}<span><copy-outlined class="cursor-pointer ml-2" @click="copy(profile.email)" /></span>
           </div>
           <div>{{ $t("Zb57X_a6-Ikylh5coBdYs") }} : {{ profile.fullName }}</div>
         </div>
@@ -88,66 +83,34 @@ const handleTransfer = async () => {
       </a-button>
     </div>
 
-    <ExModal
-      :customTitle="$t('pGrhTXj8A84ieJpHf6k3L')"
-      ref="modalRef"
-      :isMobile="appStore.isMobile"
-    >
+    <ExModal :customTitle="$t('pGrhTXj8A84ieJpHf6k3L')" ref="modalRef" :isMobile="appStore.isMobile">
       <div class="p-4">
         <a-form layout="vertical" :rules="rules">
           <a-form-item :label="$t('tOfYePGWd06TTHZ9HxG5V')" required>
             <a-input autocomplete="off" disabled :placeholder="route.params.uuid" />
           </a-form-item>
           <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" required>
-            <CurrencySelect
-              :walletAccounts="accountStore.walletAccounts"
-              v-model:value="transferState.currency"
-            />
+            <CurrencySelect :walletAccounts="accountStore.walletAccounts" v-model:value="transferState.currency" />
           </a-form-item>
           <a-form-item v-bind="validateInfos.amount">
             <template #label>
-              <AmountLabel
-                :title="$t('aT1xkA__dmUFiEHrDNAph')"
-                :balanceAmount="Format(available)"
-                :currency="transferState.currency"
-              />
+              <AmountLabel :title="$t('aT1xkA__dmUFiEHrDNAph')" :balanceAmount="Format(available)"
+                :currency="transferState.currency" />
             </template>
-            <a-input
-              autocomplete="off"
-              :placeholder="$t('sMkxYlIlj4SgxGAKFOjgJ')"
-              v-model:value="transferState.amount"
-            />
+            <a-input autocomplete="off" :placeholder="$t('sMkxYlIlj4SgxGAKFOjgJ')" v-model:value="transferState.amount" />
           </a-form-item>
-          <a-form-item
-            :label="$t('yj74dO9iA9rD0NRDm8h2n')"
-            v-bind="validateInfos.password"
-          >
-            <a-input-password
-              :placeholder="$t('L8_JRGabLnJGC2tBI9Hqc')"
-              v-model:value="transferState.password"
-            />
+          <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password">
+            <a-input-password :placeholder="$t('L8_JRGabLnJGC2tBI9Hqc')" v-model:value="transferState.password" />
           </a-form-item>
-          <a-form-item
-            :label="$t('SlJFgfv49xSHi9mbjdw4e')"
-            v-bind="validateInfos.authCode"
-          >
-            <a-input-password
-              :placeholder="$t('RN0u-0ie4LuZ1u5aetix9')"
-              v-model:value="transferState.authCode"
-            />
+          <a-form-item :label="$t('SlJFgfv49xSHi9mbjdw4e')" v-bind="validateInfos.authCode">
+            <a-input-password :placeholder="$t('RN0u-0ie4LuZ1u5aetix9')" v-model:value="transferState.authCode" />
           </a-form-item>
         </a-form>
       </div>
       <template #footer>
         <div class="px-4">
-          <div
-            class="flex justify-center py-4 border-t border-b-0 border-gray-200 border-solid border-x-0 gap-x-2"
-          >
-            <a-button
-              type="primary"
-              @click="handleTransfer"
-              :loading="transferConfirmLoading"
-            >
+          <div class="flex justify-center py-4 border-t border-b-0 border-gray-200 border-solid border-x-0 gap-x-2">
+            <a-button type="primary" @click="handleTransfer" :loading="transferConfirmLoading">
               {{ $t("utkQ-uv-4gXBHkFXvGL5u") }}
             </a-button>
           </div>

@@ -1,18 +1,17 @@
-// 動賬明細
-const PPC_PREFIX = "withdraw_ppc"
-const PPC_CANCEL_PREFIX = "withdraw_cancel_ppc"
-const RECHARGE = "recharge"
-const SEND = "send"
-const INTERNAL = "withdraw_internal"
-const ADJUST_PROFIT = "adjust_profit"
-const DEPOSIT = "deposit"
-const APPLYCARDS = "applycards"
-const REPORTLOSS = "reportloss"
-// 提現明細
-export const useAccountDetails = () => {
+export const PPC_PREFIX = "withdraw_ppc"
+export const PPC_CANCEL_PREFIX = "withdraw_cancel_ppc"
+export const RECHARGE = "recharge"
+export const SEND = "send"
+export const INTERNAL = "withdraw_internal"
+export const ADJUST_PROFIT = "adjust_profit"
+export const DEPOSIT = "deposit"
+export const APPLYCARDS = "applycards"
+export const REPORTLOSS = "reportloss"
+
+export const useFlowType = () => {
     const { t } = useI18n()
 
-    const defineType = () => ({
+    const FLOW_TYPES = {
         [`${PPC_PREFIX}.${SEND}`]: t('mtzd-o04L2UDLaN81GSRl'),
         [`${INTERNAL}`]: t('pGrhTXj8A84ieJpHf6k3L'),
         [DEPOSIT]: t('p85LUkdtTlZNxvwxEVGX8'),
@@ -23,13 +22,14 @@ export const useAccountDetails = () => {
         [`${PPC_CANCEL_PREFIX}.${RECHARGE}`]: t('kOPo-JKT9YvFWURtL3glv'),
         [`${PPC_PREFIX}.${REPORTLOSS}`]: t('V5iuTIMuFVZZsXSMMx4Tx'),
         [ADJUST_PROFIT]: t('Ecm5B6_7vgNubPB9PjhG3'),
-    })
-
-    const getList = () => {
-        const type = defineType()
-        return Object.entries(type)
     }
-    const getText = (key) => defineType()[key]
-    return { getList, getText }
+
+    const getFLowTypeList = () => Object.entries(FLOW_TYPES)
+
+    const flowTypeList = computed(() => getFLowTypeList())
+
+    const getFlowTypeLable = (key) => FLOW_TYPES[key]
+
+    return { flowTypeList, getFlowTypeLable }
 }
 

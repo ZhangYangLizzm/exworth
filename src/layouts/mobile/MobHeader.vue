@@ -92,7 +92,7 @@ const visible = ref(false);
               <template #icon>
                 <logout-outlined />
               </template>
-              退出登陸
+              退出登錄
             </a-menu-item>
           </a-menu>
         </a-drawer>
