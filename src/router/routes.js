@@ -63,8 +63,8 @@ const routes = [
 
       {
         path: 'member',
-        // components: { default: BlankLayout, 'header-extra': MemberLayout },
-        component: BlankLayout,
+        components: { default: BlankLayout, 'header-extra': MemberLayout },
+        // component: BlankLayout,
         name: "Member",
         meta: {
           "headerExtra": true

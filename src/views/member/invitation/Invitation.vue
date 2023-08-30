@@ -14,8 +14,7 @@ const appStore = useAppStore();
 
 const { t } = useI18n();
 
-const { MEMBER_INVITATION_STATUS_TEXT, MEMBER_INVITATION_STATUS_BADGE } =
-  useMember();
+const { MEMBER_INVITATION_STATUS_TEXT, MEMBER_INVITATION_STATUS_BADGE } = useMember();
 
 const statusOptions = computed(() =>
   [{ label: t("T8jku5XFeq-1ZPcuDe_7B"), value: undefined }].concat([
@@ -50,28 +49,10 @@ const filterOptions = reactive({
   status: undefined,
 });
 
-//TODO：需要邀请记录的列表接口
-const {
-  list: _list,
-  fetch,
-  loading,
-  pageID,
-  totalCount,
-  onPageChange,
-} = useList(loadInvitation, filterOptions);
-
-const list = [
-  {
-    id: 1,
-    email: "lichin.it@gmail.com",
-    status: MEMBER_INVITATION_STATUS_INVITED,
-  },
-  {
-    id: 2,
-    email: "xk@exworth.group",
-    status: MEMBER_INVITATION_STATUS_JOINED,
-  },
-];
+const { list, fetch, loading, pageID, totalCount, onPageChange } = useList(
+  loadInvitation,
+  filterOptions
+);
 
 const modalRef = ref();
 
@@ -88,10 +69,7 @@ const arrayValidator = async (_, value) => {
 const rules = computed(() => ({
   email: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
 }));
-const { handleValidate, validateInfos, resetFields } = useForm(
-  formState,
-  rules
-);
+const { handleValidate, validateInfos, resetFields } = useForm(formState, rules);
 
 const btnLoading = ref(false);
 
@@ -163,11 +141,7 @@ onMounted(() => {
           />
         </a-form-item>
       </a-form>
-      <a-button
-        @click="modalRef?.show()"
-        type="primary"
-        class="float-right my-2"
-      >
+      <a-button @click="modalRef?.show()" type="primary" class="float-right my-2">
         {{ $t("VPTp-QATJSurGdzHeGrXT") }}
       </a-button>
     </template>
@@ -216,10 +190,7 @@ onMounted(() => {
           layout="vertical"
           class="py-4 border-t border-b-0 border-gray-200 border-solid border-x-0"
         >
-          <a-form-item
-            :label="$t('kXAMWI86h-rooSEuCAow-')"
-            v-bind="validateInfos.email"
-          >
+          <a-form-item :label="$t('kXAMWI86h-rooSEuCAow-')" v-bind="validateInfos.email">
             <a-select
               type="textarea"
               :open="false"
@@ -235,10 +206,6 @@ onMounted(() => {
             :title="t('1NLFL8YdPqQXonj5lQxvT')"
             :contents="t('irfv2QgrQafS_6Zl73s2N')"
           />
-          <!-- <div class="font-bold text-red-500">
-            {{ $t("1NLFL8YdPqQXonj5lQxvT") }}
-          </div>
-          <div class="text-[#BFBFBF]">{{ $t("irfv2QgrQafS_6Zl73s2N") }}</div> -->
         </a-form>
       </div>
       <template #footer>

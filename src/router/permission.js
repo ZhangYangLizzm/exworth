@@ -7,7 +7,6 @@ export default function Permission() {
   const userStore = useUserStore()
 
   router.beforeEach(async (to, from, next) => {
-    console.log(to, from)
     if (!['Login'].includes(to.name)) {
       // 非登录页
       if (!from.name || ['Login'].includes(from.name)) {
