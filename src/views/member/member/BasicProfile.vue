@@ -21,7 +21,6 @@ const props = defineProps({
 const accountStore = useAccountStore();
 const route = useRoute();
 const modalRef = ref();
-const { t } = useI18n();
 
 const handleClick = () => {
   modalRef?.value.show();
@@ -33,42 +32,38 @@ const transferState = reactive({
   authCode: "",
 });
 
-const available = computed(
-  () =>
-    accountStore.availableBalance(transferState.currency)
-);
+const available = computed(() => accountStore.availableBalance(transferState.currency));
 
-const { CurrencyRule, getAmountRule, SecurityPasswordRule, GoogleAuthCodeRule } = useFormRules()
-const AmountRule = computed(() => getAmountRule(available.value))
+const {
+  CurrencyRule,
+  getAmountRule,
+  SecurityPasswordRule,
+  GoogleAuthCodeRule,
+} = useFormRules();
+const AmountRule = computed(() => getAmountRule(available.value));
 const rules = reactive({
   currency: CurrencyRule,
   amount: AmountRule,
   password: SecurityPasswordRule,
-  authCode: GoogleAuthCodeRule
+  authCode: GoogleAuthCodeRule,
 });
 
-const { resetFields, validateInfos, validate } = useForm(
-  transferState,
-  rules
-);
+const { resetFields, validateInfos, handleValidate } = useForm(transferState, rules);
 
 const transferConfirmLoading = ref(false);
 
 const handleTransfer = async () => {
-  transferConfirmLoading.value = true;
-  try {
-    await validate();
+  const { values } = await handleValidate()
+  if (values) {
+    transferConfirmLoading.value = true;
     await postMemberTransfer({ uuid: route.params.uuid, ...transferState });
     await accountStore.fetchWalletAccount();
+    transferConfirmLoading.value = false;
     modalRef.value?.close();
     resetFields();
-  } catch (error) {
-    console.error(error);
-  } finally {
-    transferConfirmLoading.value = false;
   }
-};
 
+};
 </script>
 <template>
   <div class="p-4 rounded shadow">
@@ -95,7 +90,7 @@ const handleTransfer = async () => {
             <a-input autocomplete="off" disabled :placeholder="route.params.uuid" />
           </a-form-item>
           <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" required>
-            <CurrencySelect v-model:value="transferState.currency" />
+            <CurrencySelect :walletAccounts="accountStore.walletAccounts" v-model:value="transferState.currency" />
           </a-form-item>
           <a-form-item v-bind="validateInfos.amount">
             <template #label>
@@ -103,7 +98,6 @@ const handleTransfer = async () => {
                 :currency="transferState.currency" />
             </template>
             <a-input autocomplete="off" :placeholder="$t('sMkxYlIlj4SgxGAKFOjgJ')" v-model:value="transferState.amount" />
-
           </a-form-item>
           <a-form-item :label="$t('yj74dO9iA9rD0NRDm8h2n')" v-bind="validateInfos.password">
             <a-input-password :placeholder="$t('L8_JRGabLnJGC2tBI9Hqc')" v-model:value="transferState.password" />
@@ -128,6 +122,6 @@ const handleTransfer = async () => {
 
 <style scoped lang="less">
 :deep(.ant-form-item-required) {
-  width: 100%
+  width: 100%;
 }
 </style>

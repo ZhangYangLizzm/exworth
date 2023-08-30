@@ -1,8 +1,9 @@
 <script setup>
 import { getDepositHistory } from "@/api/wallet";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
-import { formatRangerPickerTime } from "./formatRangerPickerTime";
-
+import { formatRangerPickerTime } from "@/utils/formatRangerPickerTime";
+import { useAccountStore } from "@/stores/modules/accounts.js";
+const accountStore = useAccountStore();
 const filterOptions = reactive({
   createTime: undefined,
   chain: undefined,
@@ -71,7 +72,7 @@ onMounted(() => {
       </a-select>
     </a-form-item>
     <a-form-item class="w-40">
-      <CurrencySelect v-model:currency="filterOptions.currency" />
+      <CurrencySelect :walletAccounts="accountStore.walletAccounts" v-model:currency="filterOptions.currency" />
     </a-form-item>
     <a-form-item class="w-1/6">
       <a-input
@@ -95,7 +96,7 @@ onMounted(() => {
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'amount'">
-        <span>{{ record.amount + " " + record.currency }}</span>
+        <span>{{ record.amount }} &nbsp; {{ record.currency }}</span>
       </template>
       <template v-if="column.key === 'status'">
         <span>{{ record.status === 2 ? t("Success") : t("Applying") }}</span>

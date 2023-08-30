@@ -10,9 +10,7 @@ import ResetCode from "./components/ResetCode.vue";
 
 import { getGoogleSecretKey } from "@/api/setting";
 const settingStore = useSettingStore();
-onMounted(() => {
-  settingStore.fetchConfig();
-});
+
 const { t } = useI18n();
 const resetPasswordRef = ref();
 const resetPassword = () => {
@@ -36,10 +34,17 @@ const resetCode = () => {
 };
 
 const loading = ref(false);
+
+onMounted(() => {
+  settingStore.fetchConfig();
+});
 </script>
 <template>
   <div class="p-4 h-full">
-    <div v-if="settingStore.loading" class="w-full h-full flex justify-center items-center">
+    <div
+      v-if="settingStore.loading"
+      class="w-full h-full flex justify-center items-center"
+    >
       <a-spin :spinning="settingStore.loading" size="large" />
     </div>
     <div v-else>
@@ -71,12 +76,21 @@ const loading = ref(false);
           </p>
         </template>
         <template #action>
-          <a-button :loading="loading" type="primary" @click="showDrawer"
-            v-if="!settingStore.config.ifGoogleSecretKeyBound">{{ t("pYAVunqd83mox12MvD_DW") }}</a-button>
+          <a-button
+            :loading="loading"
+            type="primary"
+            @click="showDrawer"
+            v-if="!settingStore.config.ifGoogleSecretKeyBound"
+            >{{ t("pYAVunqd83mox12MvD_DW") }}</a-button
+          >
         </template>
       </Cell>
 
-      <BindGoogleAuth v-model:visible="visible" :codeImgUrl="res?.codeImgUrl" :secretKey="res?.secretKey" />
+      <BindGoogleAuth
+        v-model:visible="visible"
+        :codeImgUrl="res?.codeImgUrl"
+        :secretKey="res?.secretKey"
+      />
       <Cell :title="t('4Pf3mZrhh3LiqO5ocQQ3T')" :divider="true">
         <template #content>
           <p class="text-[#00000073]">
@@ -99,8 +113,12 @@ const loading = ref(false);
           </p>
         </template>
         <template #action>
-          <a-button type="primary" @click="resetCode" v-if="!settingStore.config.isSetWithdrawPassword">
-            {{ t('mcPGcZyC7QxBRP9o_nR9i') }}
+          <a-button
+            type="primary"
+            @click="resetCode"
+            v-if="!settingStore.config.isSetWithdrawPassword"
+          >
+            {{ t("mcPGcZyC7QxBRP9o_nR9i") }}
           </a-button>
         </template>
       </Cell>

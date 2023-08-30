@@ -5,7 +5,7 @@ import { ReChargeModal, ReplaceModal, CardLossModal } from "./modal";
 import ImgTextContainer from "./modeContainer/ImgTextContainer.vue";
 import ListContainer from "./modeContainer/ListContainer.vue";
 
-const props = defineProps({
+defineProps({
   mode: String,
 });
 

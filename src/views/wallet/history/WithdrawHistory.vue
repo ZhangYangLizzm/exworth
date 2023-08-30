@@ -1,9 +1,10 @@
 <script setup>
 import { getWithdrawHistory } from "@/api/wallet";
-import { useOrderStatus } from "@/hooks/useOrderStatus";
+import { useOrderStatus } from "@/utils/useOrderStatus";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
-import { formatRangerPickerTime } from "./formatRangerPickerTime";
-
+import { formatRangerPickerTime } from "@/utils/formatRangerPickerTime";
+import { useAccountStore } from "@/stores/modules/accounts.js";
+const accountStore = useAccountStore();
 const filterOptions = reactive({
   createTime: undefined,
   type: undefined,
@@ -13,7 +14,7 @@ const filterOptions = reactive({
 });
 
 const { t } = useI18n();
-const { getOrderStatusLabel, getOrderStatusList } = useOrderStatus();
+const { getOrderStatusLabel, orderStatusList } = useOrderStatus();
 const { fetch, list, loading, pageID, pageSize, totalCount, onPageChange } = useList(
   getWithdrawHistory,
   filterOptions
@@ -58,6 +59,7 @@ const columns = computed(() => [
     key: "status",
   },
 ]);
+
 onMounted(() => {
   fetch();
 });
@@ -80,13 +82,16 @@ onMounted(() => {
         <a-select-option :value="undefined">
           <span>{{ t("T8jku5XFeq-1ZPcuDe_7B") }}</span>
         </a-select-option>
-        <a-select-option :value="key" v-for="{ key, value } in getOrderStatusList()">
+        <a-select-option :value="key" v-for="[key, value] in orderStatusList">
           <span>{{ value }}</span>
         </a-select-option>
       </a-select>
     </a-form-item>
     <a-form-item class="w-40">
-      <CurrencySelect v-model:currency="filterOptions.currency" />
+      <CurrencySelect
+        :walletAccounts="accountStore.walletAccounts"
+        v-model:currency="filterOptions.currency"
+      />
     </a-form-item>
     <a-form-item class="w-1/6">
       <a-input
@@ -111,13 +116,13 @@ onMounted(() => {
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'amount'">
-        <span>{{ record.amount + " " + record.currency }}</span>
+        <span>{{ record.amount }} &nbsp; {{ record.currency }}</span>
       </template>
       <template v-if="column.key === 'frozenBalance'">
-        <span>{{ record.frozenBalance + " " + record.currency }}</span>
+        <span>{{ record.frozenBalance }}&nbsp;{{ record.currency }}</span>
       </template>
       <template v-if="column.key === 'fee'">
-        <span>{{ record.fee + " " + record.currency }}</span>
+        <span>{{ record.fee }} &nbsp; {{ record.currency }}</span>
       </template>
       <template v-if="column.key === 'receiverAccountInfo'">
         <a-tooltip>

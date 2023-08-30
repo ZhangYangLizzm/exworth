@@ -1,6 +1,6 @@
 <script setup>
 import DownloadAuthenticator from "./DownloadAuthenticator.vue";
-const { text } = defineProps({
+defineProps({
   text: String,
 });
 </script>

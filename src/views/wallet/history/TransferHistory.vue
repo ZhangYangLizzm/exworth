@@ -1,8 +1,9 @@
 <script setup>
 import { getTransferstory } from "@/api/wallet";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
-import { formatRangerPickerTime } from "./formatRangerPickerTime";
-
+import { formatRangerPickerTime } from "@/utils/formatRangerPickerTime";
+import { useAccountStore } from "@/stores/modules/accounts.js";
+const accountStore = useAccountStore();
 const filterOptions = reactive({
   createTime: undefined,
   withdrawOrderId: undefined,
@@ -58,18 +59,21 @@ onMounted(() => {
       />
     </a-form-item>
     <a-form-item class="w-40">
-      <CurrencySelect v-model:currency="filterOptions.currency" />
+      <CurrencySelect
+        :walletAccounts="accountStore.walletAccounts"
+        v-model:currency="filterOptions.currency"
+      />
     </a-form-item>
     <a-form-item class="w-1/6">
       <a-input
         autocomplete="off"
         v-model:value="filterOptions.withdrawOrderId"
-        :addon-before="t('68cZ9T56Bq7_rLweZH-Nv')"
+        :addon-before="$t('68cZ9T56Bq7_rLweZH-Nv')"
       />
     </a-form-item>
     <a-form-item>
       <a-button type="primary" @click="fetch" :loading="loading">
-        {{ t("5NZo0upHiGpgDPaM_E9iu") }}
+        {{ $t("5NZo0upHiGpgDPaM_E9iu") }}
       </a-button>
     </a-form-item>
   </a-form>
@@ -82,7 +86,7 @@ onMounted(() => {
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'amount'">
-        <span>{{ record.amount + " " + record.currency }}</span>
+        <span>{{ record.amount }} &nbsp; {{ record.currency }}</span>
       </template>
       <template v-if="column.key === 'receiverAccountInfo'">
         <div class="flex flex-col">
@@ -91,7 +95,9 @@ onMounted(() => {
         </div>
       </template>
       <template v-if="column.key === 'status'">
-        <span>{{ record.status === 2 ? t("Success") : t("Applying") }}</span>
+        <span>{{
+          record.status === 2 ? $t("MEszo4sHm_yNnwjR6xENN") : $t("0kbRU9sC5sUbQNf6OekMk")
+        }}</span>
       </template>
     </template>
   </a-table>

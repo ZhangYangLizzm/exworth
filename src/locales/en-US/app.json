@@ -82,7 +82,7 @@
   "10QBrQYST8DUjmNhn5e4_": "Physical Card Recharge",
   "Y8Q4sAZg7x3OGpUJ7N-Wr": "Physical Card Recharge",
   "_aLRJTwT0z5fy-yMREIle": "Please enter the recharge amount",
-  "NI3dffhiC9cI6NmBo_UBh": "Recharge Amount",
+  "NI3dffhiC9cI6NmBo_UBh": "Top-up Amount",
   "g-CkGyBqori4UAmxL4HS5": "Please enter a secure password",
   "0A89nPyaGbq5-v9reFOzw": "Please enter your Google Authentication Code",
   "kc9q5L7zBW4hpYFxJwx6H": "Card Number",
@@ -173,12 +173,6 @@
   "10MvsZXdn3EOSKcFB4Fzf": "Flow Type",
   "bggAC96HS1OvTEKsh9rg_": "Balance",
   "sMkxYlIlj4SgxGAKFOjgJ": "Please enter the transfer amount",
-  "Applying": "Applying",
-  "Processing": "Processing",
-  "Success": "successed",
-  "Failed": "lose",
-  "Revoked": "Withdrawn",
-  "Unconfirmed": "To be confirmed",
   "OcfJlH4QmIPpM8_XAtT0h": "Input Email Search",
   "HdqCyzznm7hS5EZblV5Xr": "Please enter your e-mail address to search",
   "QzD6F1l8Ue9UNPMHcBruL": "Please select a currency",
@@ -220,5 +214,10 @@
   "AhZ8ItHb7nCGWMqoQNgDt": "actualAmount : { actualAmount }",
   "hlhSxU0JK4TJ4kP_-lBzh": "Coin address : { address }",
   "3RM41OaFMrdni5UfIoF97": "address",
-  "BCdTnRlPIGxZAs9yB5BYP": "View"
+  "BCdTnRlPIGxZAs9yB5BYP": "View",
+  "0kbRU9sC5sUbQNf6OekMk": "Applying",
+  "MEszo4sHm_yNnwjR6xENN": "successed",
+  "uh5V5mWXhqcS1mqd2KxNm": "Processing",
+  "RbjdN0lNU_k-p4WYU7CH8": "Revoked",
+  "mAjX90pEXRkWHJ1DhB9sV": "Unconfirmed"
 }

@@ -1,9 +1,11 @@
 <script setup>
 import { useList } from "@/libs/hooks/useList";
 import { getBalanceHistory } from "@/api/wallet";
-import { useAccountDetails } from "./useAccountDetails.js";
+import { useFlowType } from "@/utils/useFlowType.js";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
-import { formatRangerPickerTime } from "./formatRangerPickerTime";
+import { formatRangerPickerTime } from "@/utils/formatRangerPickerTime";
+import { useAccountStore } from "@/stores/modules/accounts.js";
+const accountStore = useAccountStore();
 const filterOptions = reactive({
   createTime: undefined,
   type: undefined,
@@ -22,7 +24,7 @@ onMounted(() => {
 });
 
 const { t } = useI18n();
-const { getText, getList } = useAccountDetails();
+const { getFlowTypeLable, flowTypeList } = useFlowType();
 
 const columns = computed(() => [
   {
@@ -47,6 +49,13 @@ const columns = computed(() => [
     align: "right",
   },
 ]);
+
+const getStyle = (direction) => {
+  if (direction) {
+    return "text-primary text-plus";
+  }
+  return "text-red text-minus";
+};
 </script>
 
 <template>
@@ -64,7 +73,7 @@ const columns = computed(() => [
         v-model:value="filterOptions.type"
         :placeholder="t('xPOa-lYXJ2QlRzV5wTa0r')"
       >
-        <a-select-option :value="key" v-for="[key, value] in getList()">
+        <a-select-option :value="key" v-for="[key, value] in flowTypeList">
           <span>{{ value }}</span>
         </a-select-option>
       </a-select>
@@ -86,7 +95,10 @@ const columns = computed(() => [
       </a-select>
     </a-form-item>
     <a-form-item class="w-40">
-      <CurrencySelect v-model:currency="filterOptions.currency" />
+      <CurrencySelect
+        :walletAccounts="accountStore.walletAccounts"
+        v-model:currency="filterOptions.currency"
+      />
     </a-form-item>
     <a-form-item class="w-1/6">
       <a-input
@@ -111,7 +123,7 @@ const columns = computed(() => [
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'type'">
-        <span>{{ getText(record.type) }}</span>
+        <span>{{ getFlowTypeLable(record.type) }}</span>
       </template>
       <template v-if="column.key === 'operateAmount'">
         <span :class="[record.direction ? ' text-danger' : 'text-primary']"
@@ -135,3 +147,15 @@ const columns = computed(() => [
     @change="onPageChange"
   />
 </template>
+
+<style scoped lang="less">
+.text-plus::before {
+  content: "+";
+  margin-right: 8px; /* 添加一些间距，使其与按钮分开 */
+}
+
+.text-minus::before {
+  content: "-";
+  margin-right: 8px; /* 添加一些间距，使其与按钮分开 */
+}
+</style>

@@ -18,3 +18,4 @@ export const useMember = () => {
     MEMBER_INVITATION_STATUS_BADGE
   }
 }
+

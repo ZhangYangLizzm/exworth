@@ -8,11 +8,10 @@ const props = defineProps({
     walletAccounts: Array,
 });
 
-const emits = defineEmits("click")
+const emit = defineEmits("click")
 const onClick = (e, currency, type) => {
     e.stopPropagation();
-    console.log(currency, type)
-    emits("click", { currency, type });
+    emit("click", { currency, type });
 }
 
 </script>

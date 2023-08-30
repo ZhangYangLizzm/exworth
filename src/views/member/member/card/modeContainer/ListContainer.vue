@@ -12,16 +12,16 @@ import { encryptStr } from "@/libs/hooks/useUtil";
 import { Format } from "@/libs/hooks/useUtil.js";
 import { useI18n } from "vue-i18n";
 
-const { dataSource, loading } = defineProps({
+defineProps({
   dataSource: {
     type: Array,
     default: () => [],
   },
   loading: Boolean,
 });
-const emits = defineEmits(["onClick"]);
+const emit = defineEmits(["onClick"]);
 const onClick = (item, type) => {
-  emits("onClick", { item, type });
+  emit("onClick", { item, type });
 };
 const { t } = useI18n();
 const columns = [
@@ -61,7 +61,12 @@ const columns = [
   <a-table :dataSource="dataSource" :columns="columns" :loading="loading">
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'card'">
-        <Card :brand="record.cardType" :mode="CARD_MODE_PHYSICAL" class="w-64" size="small">
+        <Card
+          :brand="record.cardType"
+          :mode="CARD_MODE_PHYSICAL"
+          class="w-64"
+          size="small"
+        >
           <template #footer>
             <div class="flex items-center justify-between">
               <div class="drop-shadow text-[18px]">
@@ -80,30 +85,11 @@ const columns = [
         </span>
       </template>
       <template v-if="column.key === 'actions'">
-        <!-- <a-dropdown>
-          <template #overlay>
-            <a-menu>
-              <a-menu-item key="1" @click="onClick(record, 'recharge')">
-                {{ $t("10QBrQYST8DUjmNhn5e4_") }}</a-menu-item
-              >
-              <a-menu-item key="2" @click="onClick(record, 'replace')">
-                {{ $t("gVPkNpXqcOdkRBKMOR_9i") }}
-              </a-menu-item>
-              <a-menu-item key="3" @click="onClick(record, 'cardLoss')">
-                {{ $t("h0EQGD5w6L9xSdGkk4eG0") }}
-              </a-menu-item>
-              <a-menu-item key="4" @click="onClick(record, 'history')">
-                {{ $t("jQc6AAJLq2w_8X55HDOoe") }}
-              </a-menu-item>
-            </a-menu>
-          </template>
-          <a-button>
-            {{ $t("vtYWVfIOk8Ldw8AtYOjq9") }}
-            <DownOutlined />
-          </a-button>
-        </a-dropdown> -->
-        <a-button type="link" v-if="[CARD_STATUS_NORMAL].includes(record?.cardStatus)"
-          @click="onClick(record, 'recharge')">
+        <a-button
+          type="link"
+          v-if="[CARD_STATUS_NORMAL].includes(record?.cardStatus)"
+          @click="onClick(record, 'recharge')"
+        >
           {{ t("VVQaPte21XgxJXEM9H8gu") }}
         </a-button>
         <a-button type="link" @click="onClick(record, 'replace')">

@@ -1,12 +1,12 @@
 <script setup>
-const { title, divider } = defineProps({
+defineProps({
   title: String,
   divider: Boolean,
 });
 </script>
 
 <template>
-  <div class="flex p-2" :class="{ divider: divider }">
+  <div class="flex p-2" :class="{ divider }">
     <div class="flex-grow">
       <p class="mb-2 text-base font-bold">
         {{ title }}
