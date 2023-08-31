@@ -2,13 +2,14 @@
 import { login } from "@/api/user";
 import { message } from "ant-design-vue";
 import { useForm } from "@/libs/hooks/useForm";
-import GraphValidateCodeImage from '@/components/GraphValidateCodeImage'
+import GraphValidateCodeImage from "@/components/GraphValidateCodeImage";
 import { nextTick } from "vue";
 const { t } = useI18n();
 
 const formState = reactive({
   name: undefined,
   password: undefined,
+  code: undefined,
 });
 const rules = computed(() => ({
   name: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
@@ -68,6 +69,7 @@ const handleSubmit = async () => {
       }
     } else {
       if (content.codeFlag) {
+        formState.code = "";
         validateCode.value = true;
         nextTick(() => {
           graphCode.value.refreshCode();
@@ -103,29 +105,24 @@ const handleSubmit = async () => {
     </a-form-item>
 
     <template v-if="validateCode">
-      <a-form-item >
-        <a-form-item
-          v-bind="validateInfos.code"
-          :style="{ display: 'inline-block', width: '248px' }"
+      <a-form-item :style="{ display: 'inline-block', width: '248px' }" v-bind="validateInfos.code">
+        <a-input
+          size="large"
+          :placeholder="$t('0rfxEuvqAP2QeroIih9yC')"
+          v-model:value="formState.code"
         >
-          <a-input
-            size="large"
-            :placeholder="$t('0rfxEuvqAP2QeroIih9yC')"
-            v-model:value="formState.code"
-          >
-          </a-input>
-        </a-form-item>
+        </a-input>
+      </a-form-item>
 
-        <a-form-item
-          :style="{
-            display: 'inline-block',
-            width: '100px',
-            marginLeft: '20px',
-            verticalAlign: 'middle',
-          }"
-        >
-          <GraphValidateCodeImage ref="graphCode" />
-        </a-form-item>
+      <a-form-item
+        :style="{
+          display: 'inline-block',
+          width: '100px',
+          marginLeft: '20px',
+          verticalAlign: 'middle',
+        }"
+      >
+        <GraphValidateCodeImage ref="graphCode" />
       </a-form-item>
     </template>
 
