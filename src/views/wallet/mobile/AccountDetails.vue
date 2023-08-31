@@ -1,12 +1,12 @@
 <script setup>
 import { useList } from "@/libs/hooks/useList";
 import SvgIcon from "@/libs/components/svgIcon";
-
 import { getBalanceHistory } from "@/api/wallet";
-import DateForm from "./DateForm.vue";
 import RadioSelect from "./RadioSelect.vue";
 import { useAccountDetails } from "@/views/wallet/history/enum.js";
 import { formatRangePickerTime } from "@/views/wallet/history/formatRangePickerTime";
+import { useInfiniteScroll } from "@vueuse/core";
+
 const { getText, getList } = useAccountDetails();
 const filterOptions = reactive({
   direction: undefined,
@@ -42,13 +42,16 @@ const flowType = computed(() => {
 const fetchOptions = computed(() => ({
   ...filterOptions,
   createTime:
-    formatRangePickerTime(filterOptions.createTime?.map((time) => time.join("-"))) ||
-    undefined,
+    formatRangePickerTime(
+      filterOptions.createTime?.map((time) => time.join("-"))
+    ) || undefined,
 }));
-const { fetch, list: dataSource, loading, pageID } = useList(
-  getBalanceHistory,
-  fetchOptions
-);
+const {
+  fetch,
+  list: dataSource,
+  loading,
+  fetchMore,
+} = useList(getBalanceHistory, fetchOptions);
 
 const onConfirm = async () => {
   fetch();
@@ -60,10 +63,12 @@ onMounted(() => {
 });
 
 const refreshLoading = ref(false);
+
 const onRefresh = async () => {
   await fetch();
   refreshLoading.value = false;
 };
+
 const onDateConfirm = () => {
   showDateSelect.value = false;
   fetch();
@@ -83,17 +88,22 @@ const onDateConfirm = () => {
           <span>全部账单</span><caret-down-outlined class="ml-1" />
         </a-button>
       </div>
-      <a-button type="text" class="text-primary text-base" @click="showDateSelect = true">
+      <a-button
+        type="text"
+        class="text-primary text-base"
+        @click="showDateSelect = true"
+      >
         <span>选择时间</span><down-outlined class="ml-1" />
       </a-button>
     </div>
     <div>
       <van-pull-refresh v-model="refreshLoading" @refresh="onRefresh">
-        <a-list :dataSource="dataSource" :loading="loading">
+        <a-list :dataSource="dataSource">
           <template #renderItem="{ item }">
-            <a-list-item class="rounded px-2 mb-2">
+            <a-list-item class="px-4 mb-4">
               <template #actions>
-                <span :class="[item.direction ? ' text-danger' : 'text-primary']"
+                <span
+                  :class="[item.direction ? ' text-danger' : 'text-primary']"
                   >{{ item.direction ? "-" : "+" }}{{ item.operateAmount }}
                   {{ item.currency }}</span
                 >
@@ -127,13 +137,22 @@ const onDateConfirm = () => {
         />
       </div>
       <div class="flex justify-center gap-x-4 my-8">
-        <a-button size="large" @click="showAccountSelect = false">取消</a-button>
+        <a-button size="large" @click="showAccountSelect = false"
+          >取消</a-button
+        >
         <a-button type="primary" size="large" @click="onConfirm">確定</a-button>
       </div>
     </div>
   </van-popup>
   <van-popup v-model:show="showDateSelect" position="bottom" round>
-    <DateForm v-model:value="filterOptions.createTime" @confirm="onDateConfirm" />
+    <van-picker-group
+      :tabs="['开始日期', '结束日期']"
+      title="选择日期"
+      @confirm="onConfirm"
+    >
+      <van-date-picker v-model="filterOptions.createTime[0]" />
+      <van-date-picker v-model="filterOptions.createTime[1]" />
+    </van-picker-group>
   </van-popup>
 </template>
 
