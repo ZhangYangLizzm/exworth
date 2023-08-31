@@ -28,7 +28,7 @@ const handleLocaleClick = ({ key }) => {
 </script>
 <template>
   <a-layout class="login">
-    <Header class="!bg-transparent fixed w-full top-0">
+    <Header class="!bg-transparent w-full top-0">
       <template #settings>
         <a-dropdown>
           <a>{{ appStore.localeText }}</a>
@@ -45,13 +45,13 @@ const handleLocaleClick = ({ key }) => {
         </a-dropdown>
       </template>
     </Header>
-    <a-layout-content class="bg-transparent">
-      <div class="mx-auto w-11/12">
-        <div class="mx-auto max-w-[215px] mt-40 mb-10">
+    <a-layout-content class="bg-transparent content">
+      <div class="mx-auto w-11/12 flex flex-col justify-center h-full">
+        <div class="mx-auto max-w-[215px] mb-10">
           <Logo dark />
         </div>
         <div class="text-center text-lg">{{ $t("uRZHmMHGIbHs9TMJtbzT6") }}</div>
-        <div class="mt-20">
+        <div class="mt-8">
           <LoginForm v-if="step === 'login'" @reset="reset" @mfa="mfa" />
           <ResetForm v-else-if="step === 'reset'" :name="name" />
           <MfaForm v-else-if="step === 'mfa'" />
@@ -59,7 +59,7 @@ const handleLocaleClick = ({ key }) => {
       </div>
     </a-layout-content>
     <a-layout-footer
-      class="bg-transparent text-center fixed w-full bottom-0 text-gray-300"
+      class="bg-transparent text-center w-full bottom-0 text-gray-300"
     >
       Copyright © 2017-{{ thisYear }} PPC
     </a-layout-footer>
@@ -71,8 +71,12 @@ const handleLocaleClick = ({ key }) => {
   min-height: 100vh;
   background-image: url("/images/login/bg_pc.png");
   background-size: contain;
-  background-position: center bottom;
+  background-position: center center;
   background-repeat: no-repeat;
   background-color: #fff;
+}
+
+.content {
+  height: calc(100vh - 64px - 70px);
 }
 </style>

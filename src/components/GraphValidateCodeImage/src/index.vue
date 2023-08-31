@@ -46,6 +46,7 @@ watch(() => props.open, ()=>{
   }
 },{ immediate: true })
 
+defineExpose({refreshCode})
 </script>
 
 <style lang="less" scoped>

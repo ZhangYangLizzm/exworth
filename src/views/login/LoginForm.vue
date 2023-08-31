@@ -2,16 +2,20 @@
 import { login } from "@/api/user";
 import { message } from "ant-design-vue";
 import { useForm } from "@/libs/hooks/useForm";
+import GraphValidateCodeImage from "@/components/GraphValidateCodeImage";
+
 const { t } = useI18n();
 
 const formState = reactive({
   name: undefined,
   password: undefined,
+  code: undefined,
 });
-const rules = computed(() => ({
+
+const rules = reactive({
   name: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
   password: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
-}));
+});
 const loading = ref(false);
 
 const emit = defineEmits(["reset", "mfa"]);
@@ -19,6 +23,10 @@ const emit = defineEmits(["reset", "mfa"]);
 const { handleValidate, validateInfos } = useForm(formState, rules);
 
 const router = useRouter();
+
+const validateCode = ref(false);
+const graphCode = ref();
+let firstValidateCode = true;
 const handleSubmit = async () => {
   const { values } = await handleValidate();
   if (values) {
@@ -38,6 +46,7 @@ const handleSubmit = async () => {
         ifFirstLogin,
         name,
       } = content;
+
       if (ifCheckGoogleSecretKey) {
         if (ifGoogleSecretKeyBound) {
           if (ifFirstLogin) {
@@ -54,6 +63,22 @@ const handleSubmit = async () => {
           emit("reset", name);
         } else {
           router.replace({ path: "/wallet" });
+        }
+      }
+    } else {
+      const { codeFlag } = content;
+      if (codeFlag) {
+        if (firstValidateCode) {
+          validateCode.value = true;
+          Object.assign(rules, {
+            code: [
+              { required: true, message: t("8dRn48_9RTO6Q2804fgFp") },
+              { len: 4, message: t("cWWvrwCrLJY6luPt-0_h8") },
+            ],
+          });
+          firstValidateCode = false;
+        } else {
+          graphCode.value.refreshCode();
         }
       }
     }
@@ -86,6 +111,33 @@ const handleSubmit = async () => {
         </template>
       </a-input-password>
     </a-form-item>
+
+    <template v-if="validateCode">
+      <a-form-item>
+        <a-form-item
+          v-bind="validateInfos.code"
+          :style="{ display: 'inline-block', width: '248px' }"
+        >
+          <a-input
+            size="large"
+            :placeholder="$t('0rfxEuvqAP2QeroIih9yC')"
+            v-model:value="formState.code"
+          >
+          </a-input>
+        </a-form-item>
+
+        <a-form-item
+          :style="{
+            display: 'inline-block',
+            width: '100px',
+            marginLeft: '20px',
+            verticalAlign: 'middle',
+          }"
+        >
+          <GraphValidateCodeImage open ref="graphCode" />
+        </a-form-item>
+      </a-form-item>
+    </template>
 
     <a-button
       type="primary"
