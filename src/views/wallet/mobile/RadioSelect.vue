@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+const props=defineProps({
   options: Array,
   value: String,
   title: String,

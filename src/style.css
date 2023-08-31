@@ -12,12 +12,10 @@ svg {
 
 .text-plus::before {
   content: "+";
-  margin-right: 4px;
-  /* 添加一些间距，使其与按钮分开 */
+  margin-right: 2px;
 }
 
 .text-minus::before {
   content: "-";
-  margin-right: 4px;
-  /* 添加一些间距，使其与按钮分开 */
+  margin-right: 2px;
 }

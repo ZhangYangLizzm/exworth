@@ -5,6 +5,7 @@ import { useFlowType } from "@/utils/useFlowType.js";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 import { formatRangerPickerTime } from "@/utils/formatRangerPickerTime";
 import { useAccountStore } from "@/stores/modules/accounts.js";
+import { getDirectionStyle } from "@/utils/styles";
 const accountStore = useAccountStore();
 const filterOptions = reactive({
   createTime: undefined,
@@ -48,12 +49,6 @@ const columns = computed(() => [
   },
 ]);
 
-const getStyle = (direction) => {
-  if (direction) {
-    return "text-primary text-plus";
-  }
-  return "text-danger text-minus";
-};
 </script>
 
 <template>
@@ -126,7 +121,7 @@ const getStyle = (direction) => {
         <span>{{ getFlowTypeLable(record.type) }}</span>
       </template>
       <template v-if="column.key === 'operateAmount'">
-        <span :class="[getStyle(record.direction)]"
+        <span :class="[getDirectionStyle(record.direction)]"
           >{{ record.operateAmount }} {{ record.currency }}</span
         >
       </template>

@@ -24,6 +24,59 @@ export const useFlowType = () => {
         [ADJUST_PROFIT]: t('Ecm5B6_7vgNubPB9PjhG3'),
     }
 
+    const FLOW_TYPE_GROUPS = [
+        {
+            label: "钱包",
+            options: [
+                {
+                    label: t('mtzd-o04L2UDLaN81GSRl'),
+                    value: `${PPC_PREFIX}.${SEND}`
+                },
+                {
+                    label: t('pGrhTXj8A84ieJpHf6k3L'),
+                    value: `${INTERNAL}`
+                },
+                {
+                    label: t('p85LUkdtTlZNxvwxEVGX8'),
+                    value: DEPOSIT
+                },
+                {
+                    label: t('Af035ZJECpXV2Eo5mGVlg'),
+                    value: `${PPC_CANCEL_PREFIX}.${SEND}`
+                },
+                {
+                    label: t('Ecm5B6_7vgNubPB9PjhG3'),
+                    value: ADJUST_PROFIT
+                }
+            ]
+        },
+        {
+            label: "实体卡",
+            options: [
+                {
+                    label: t('46XbjJJedfhvddlC3NTJ0'),
+                    value: `${PPC_PREFIX}.${APPLYCARDS}`
+                },
+                {
+                    label: t('Y8Q4sAZg7x3OGpUJ7N-Wr'),
+                    value: `${PPC_PREFIX}.${RECHARGE}`
+                },
+                {
+                    label: t('U8O12gFgVi5IgP7_ZxEoL'),
+                    value: `${PPC_CANCEL_PREFIX}.${APPLYCARDS}`
+                },
+                {
+                    label: t('kOPo-JKT9YvFWURtL3glv'),
+                    value: `${PPC_CANCEL_PREFIX}.${RECHARGE}`
+                },
+                {
+                    label: t('V5iuTIMuFVZZsXSMMx4Tx'),
+                    value: `${PPC_PREFIX}.${REPORTLOSS}`
+                }
+            ]
+        }
+    ]
+
     const getFLowTypeList = () => Object.entries(FLOW_TYPES)
 
     const flowTypeList = computed(() => getFLowTypeList())

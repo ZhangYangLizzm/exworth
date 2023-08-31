@@ -7,10 +7,9 @@ import Wallet from '@/views/wallet/Wallet.vue'
 import AccountDetails from '@/views/wallet/history/AccountDetails.vue'
 import MobileAccountDetails from "@/views/wallet/mobile/AccountDetails.vue"
 
-// import MemberLayout from '@/views/member/MemberLayout.vue'
+import MemberLayout from '@/views/member/MemberLayout.vue'
 import MemberList from "@/views/member/member/MemberList.vue";
-// import Profile from '@/views/member/member/Profile.vue'
-// import Invitation from '@/views/member/invitation/Invitation.vue'
+import Invitation from '@/views/member/invitation/Invitation.vue'
 
 import CardManagement from "@/views/card/CardManagement.vue"
 
@@ -63,8 +62,8 @@ const routes = [
 
       {
         path: 'member',
-        // components: { default: BlankLayout, 'header-extra': MemberLayout },
-        component: BlankLayout,
+        components: { default: BlankLayout, 'header-extra': MemberLayout },
+        // component: BlankLayout,
         name: "Member",
         meta: {
           "headerExtra": true
@@ -75,11 +74,11 @@ const routes = [
             component: MemberList,
             name: 'MemberList',
           },
-          // {
-          //   path: 'invitation',
-          //   name: "Invitation",
-          //   component: Invitation
-          // },
+          {
+            path: 'invitation',
+            name: "Invitation",
+            component: Invitation
+          },
           {
             path: ':uuid',
             component: () => import("@/views/member/member/Profile.vue"),

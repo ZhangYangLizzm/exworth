@@ -3,12 +3,12 @@ import { useList } from "@/libs/hooks/useList";
 import SvgIcon from "@/libs/components/svgIcon";
 import { getBalanceHistory } from "@/api/wallet";
 import RadioSelect from "./RadioSelect.vue";
-import { useAccountDetails } from "@/views/wallet/history/enum.js";
+import { useFlowType } from "@/utils/useFlowType.js";
 import { formatRangePickerTime } from "@/views/wallet/history/formatRangePickerTime";
 import { Format } from "@/libs/hooks/useUtil.js";
 import { useIntersectionObserver } from "@vueuse/core";
-
-const { getText, getList } = useAccountDetails();
+import { getDirectionStyle } from "@/utils/styles";
+const { getFlowTypeLable, flowTypeList } = useFlowType();
 
 // 使用暂时变量保存日期，只有当点击确认按钮才赋予新值并fetch
 const tempOptions = reactive({
@@ -40,7 +40,7 @@ const options = [
 ];
 
 const flowType = computed(() => {
-  const list = getList().map((item) => {
+  const list = flowTypeList.value.map((item) => {
     const [value, label] = item;
     return { value, label };
   });
@@ -99,6 +99,7 @@ useIntersectionObserver(loadObserver, () => {
     fetchMore();
   }
 });
+
 </script>
 
 <template>
@@ -136,14 +137,12 @@ useIntersectionObserver(loadObserver, () => {
           <template #renderItem="{ item }">
             <a-list-item class="px-4">
               <template #actions>
-                <span
-                  :class="[item.direction ? ' text-danger' : 'text-primary']"
-                  >{{ item.direction ? "-" : "+"
-                  }}{{ Format(item.operateAmount) }} {{ item.currency }}</span
+                <span :class="[getDirectionStyle(item?.direction)]"
+                  >{{ Format(item.operateAmount) }} {{ item.currency }}</span
                 >
               </template>
               <a-list-item-meta>
-                <template #title> {{ getText(item.type) }} </template>
+                <template #title> {{ getFlowTypeLable(item.type) }} </template>
                 <template #description>{{ item.createTime }} </template>
                 <template #avatar>
                   <SvgIcon :name="`coin-${item.currency}`" class="w-10 h-10" />
