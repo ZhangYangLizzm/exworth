@@ -4,7 +4,7 @@
       @click="refreshCode"
       class="graphValidateCodeImage"
       :src="graphValidateCode"
-      alt="图形验证码"
+      :alt="$t('9iorvdplaN7oMNsf6Ms-J')"
       :style="{ width }"
     >
   </a-tooltip>
@@ -30,13 +30,11 @@ const props = defineProps({
 let graphValidateCode = ref(defaultGraphCode)
 
 const refreshCode = async () => {
-  if(props.open) {
-    const { statusCode, content } = await authCode({'_t': Date.now()})
-    if(statusCode === 200) {
-      graphValidateCode.value = `data:image/png;base64,${content.strImg.replace(/[\n]/ig, '')}`
-    } else {
-      graphValidateCode.value = defaultGraphCode
-    }
+  const { statusCode, content } = await authCode({'_t': Date.now()})
+  if(statusCode === 200) {
+    graphValidateCode.value = `data:image/png;base64,${content.strImg.replace(/[\n]/ig, '')}`
+  } else {
+    graphValidateCode.value = defaultGraphCode
   }
 }
 
@@ -46,6 +44,7 @@ watch(() => props.open, ()=>{
   }
 },{ immediate: true })
 
+defineExpose({refreshCode})
 </script>
 
 <style lang="less" scoped>

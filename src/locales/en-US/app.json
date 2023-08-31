@@ -23,7 +23,7 @@
   "e8DgaMG0nnSK1cxzTVxp1": "Available",
   "Zd-iK_4fwRetIFNm8Nd4M": "Password length is 8-20 characters",
   "WWbPeuj1qLMohnCd5qzyw": "The password must be at least 2 combinations of letters, numbers, and special characters.",
-  "cWWvrwCrLJY6luPt-0_h8": "The length of the verification code is wrong.",
+  "cWWvrwCrLJY6luPt-0_h8": "The length of the code is wrong.",
   "CUF3MBsbrBOnLprGbtonD": "Do not match the old password!",
   "_i4wrqvdjvlH7txojo-Y6": "The two passwords do not match!",
   "akxcRV8N1NeQJRjWoFalJ": "Account Number",
@@ -60,5 +60,6 @@
   "fl9JwgO1UOla0ZUK0NjAl": "Basic Information",
   "omlg63lk4rZ8WJoXU1TRo": "date of birth",
   "v_MiN453eZGh3TNJxMF7Z": "Male",
-  "SreiC9yRSXuJ0EDsT5t0z": "Pro Email"
+  "SreiC9yRSXuJ0EDsT5t0z": "Pro Email",
+  "9iorvdplaN7oMNsf6Ms-J": "CAPTCHA"
 }

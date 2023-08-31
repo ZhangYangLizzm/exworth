@@ -1,34 +1,44 @@
 <script setup>
-import { login } from '@/api/user'
-import { message } from 'ant-design-vue'
-import { useForm } from '@/libs/hooks/useForm'
-const { t } = useI18n()
+import { login } from "@/api/user";
+import { message } from "ant-design-vue";
+import { useForm } from "@/libs/hooks/useForm";
+import GraphValidateCodeImage from "@/components/GraphValidateCodeImage";
+import { nextTick } from "vue";
+const { t } = useI18n();
 
 const formState = reactive({
   name: undefined,
   password: undefined,
-})
+  code: undefined,
+});
 const rules = computed(() => ({
-  name: [
-    { required: true, message: t('8dRn48_9RTO6Q2804fgFp') }
+  name: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
+  password: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
+  code: [
+    { required: true, message: t("8dRn48_9RTO6Q2804fgFp") },
+    { len: 4, message: t("cWWvrwCrLJY6luPt-0_h8") },
   ],
-  password: [
-    { required: true, message: t('8dRn48_9RTO6Q2804fgFp') }
-  ]
-}))
-const loading = ref(false)
+}));
+const loading = ref(false);
 
-const emit = defineEmits(['reset', 'mfa'])
+const emit = defineEmits(["reset", "mfa"]);
 
-const { handleValidate, validateInfos } = useForm(formState, rules)
+const { handleValidate, validateInfos } = useForm(formState, rules);
 
-const router = useRouter()
+const router = useRouter();
+const validateCode = ref(false);
+const graphCode = ref();
 const handleSubmit = async () => {
-  const { values } = await handleValidate()
+  const { values } = await handleValidate(
+    validateCode.value ? ["name", "password", "code"] : ["name", "password"]
+  );
   if (values) {
-    loading.value = true
-    const { statusCode, content } = await login({ ...values, name: values.name.toUpperCase() })
-    loading.value = false
+    loading.value = true;
+    const { statusCode, content } = await login({
+      ...values,
+      name: values.name.toUpperCase(),
+    });
+    loading.value = false;
     if (statusCode === 200) {
       const {
         // need mfa
@@ -37,30 +47,37 @@ const handleSubmit = async () => {
         ifGoogleSecretKeyBound,
         // first login
         ifFirstLogin,
-        name
-      } = content
+        name,
+      } = content;
       if (ifCheckGoogleSecretKey) {
         if (ifGoogleSecretKeyBound) {
           if (ifFirstLogin) {
-            emit('reset', name)
+            emit("reset", name);
           } else {
-            emit('mfa')
+            emit("mfa");
           }
         } else {
-          message.warning(t('8jnmiDecv_inomSIVKpDF'))
+          message.warning(t("8jnmiDecv_inomSIVKpDF"));
         }
       } else {
         if (ifFirstLogin) {
           // reset password
-				  emit('reset', name)
+          emit("reset", name);
         } else {
-          router.replace({ name: 'Dashboard' })
+          router.replace({ name: "Dashboard" });
         }
+      }
+    } else {
+      if (content.codeFlag) {
+        formState.code = "";
+        validateCode.value = true;
+        nextTick(() => {
+          graphCode.value.refreshCode();
+        });
       }
     }
   }
-}
-
+};
 </script>
 <template>
   <a-form class="mx-auto max-w-[368px]">
@@ -87,6 +104,28 @@ const handleSubmit = async () => {
       </a-input-password>
     </a-form-item>
 
+    <template v-if="validateCode">
+      <a-form-item :style="{ display: 'inline-block', width: '248px' }" v-bind="validateInfos.code">
+        <a-input
+          size="large"
+          :placeholder="$t('0rfxEuvqAP2QeroIih9yC')"
+          v-model:value="formState.code"
+        >
+        </a-input>
+      </a-form-item>
+
+      <a-form-item
+        :style="{
+          display: 'inline-block',
+          width: '100px',
+          marginLeft: '20px',
+          verticalAlign: 'middle',
+        }"
+      >
+        <GraphValidateCodeImage ref="graphCode" />
+      </a-form-item>
+    </template>
+
     <a-button
       type="primary"
       size="large"
@@ -94,7 +133,7 @@ const handleSubmit = async () => {
       block
       :loading="loading"
     >
-      {{ $t('0qjtHGUfIBLV4LzHX8WWD') }}
+      {{ $t("0qjtHGUfIBLV4LzHX8WWD") }}
     </a-button>
   </a-form>
 </template>

@@ -115,12 +115,12 @@ const handleSubmit = async () => {
 
     <a-form-item>  
       <a-form-item v-bind="validateInfos.code" :style="{display: 'inline-block', width: '248px'}">
-        <a-input-password
+        <a-input
           size="large"
           :placeholder="t('0rfxEuvqAP2QeroIih9yC')"
           v-model:value="formState.code"
         >
-        </a-input-password>
+        </a-input>
       </a-form-item>
 
       <a-form-item :style="{display: 'inline-block', width: '100px', marginLeft: '20px', verticalAlign: 'middle'}">
