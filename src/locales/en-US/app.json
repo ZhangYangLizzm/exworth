@@ -59,7 +59,6 @@
   "fl9JwgO1UOla0ZUK0NjAl": "Basic Information",
   "omlg63lk4rZ8WJoXU1TRo": "birthday",
   "v_MiN453eZGh3TNJxMF7Z": "Male",
-  "SreiC9yRSXuJ0EDsT5t0z": "PRO Mailbox Number",
   "oUrKjFtbUi26i0Ags3eCG": "Operate",
   "1fmAXeo8wqLzfyPwgBtUa": "Opened Functions",
   "pGrhTXj8A84ieJpHf6k3L": "Transfer",
@@ -217,5 +216,7 @@
   "MEszo4sHm_yNnwjR6xENN": "successed",
   "uh5V5mWXhqcS1mqd2KxNm": "Processing",
   "RbjdN0lNU_k-p4WYU7CH8": "Revoked",
-  "mAjX90pEXRkWHJ1DhB9sV": "Unconfirmed"
+  "mAjX90pEXRkWHJ1DhB9sV": "Unconfirmed",
+  "SreiC9yRSXuJ0EDsT5t0z": "Pro Email",
+  "9iorvdplaN7oMNsf6Ms-J": "CAPTCHA"
 }

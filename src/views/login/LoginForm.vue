@@ -3,19 +3,21 @@ import { login } from "@/api/user";
 import { message } from "ant-design-vue";
 import { useForm } from "@/libs/hooks/useForm";
 import GraphValidateCodeImage from "@/components/GraphValidateCodeImage";
-
+import { nextTick } from "vue";
 const { t } = useI18n();
 
 const formState = reactive({
   name: undefined,
   password: undefined,
-  code: undefined,
 });
-
-const rules = reactive({
+const rules = computed(() => ({
   name: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
   password: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
-});
+  code: [
+    { required: true, message: t("8dRn48_9RTO6Q2804fgFp") },
+    { len: 4, message: t("cWWvrwCrLJY6luPt-0_h8") },
+  ],
+}));
 const loading = ref(false);
 
 const emit = defineEmits(["reset", "mfa"]);
@@ -23,12 +25,12 @@ const emit = defineEmits(["reset", "mfa"]);
 const { handleValidate, validateInfos } = useForm(formState, rules);
 
 const router = useRouter();
-
 const validateCode = ref(false);
 const graphCode = ref();
-let firstValidateCode = true;
 const handleSubmit = async () => {
-  const { values } = await handleValidate();
+  const { values } = await handleValidate(
+    validateCode.value ? ["name", "password", "code"] : ["name", "password"]
+  );
   if (values) {
     loading.value = true;
     const { statusCode, content } = await login({
@@ -46,7 +48,6 @@ const handleSubmit = async () => {
         ifFirstLogin,
         name,
       } = content;
-
       if (ifCheckGoogleSecretKey) {
         if (ifGoogleSecretKeyBound) {
           if (ifFirstLogin) {
@@ -62,24 +63,15 @@ const handleSubmit = async () => {
           // reset password
           emit("reset", name);
         } else {
-          router.replace({ path: "/wallet" });
+          router.replace({ name: "Dashboard" });
         }
       }
     } else {
-      const { codeFlag } = content;
-      if (codeFlag) {
-        if (firstValidateCode) {
-          validateCode.value = true;
-          Object.assign(rules, {
-            code: [
-              { required: true, message: t("8dRn48_9RTO6Q2804fgFp") },
-              { len: 4, message: t("cWWvrwCrLJY6luPt-0_h8") },
-            ],
-          });
-          firstValidateCode = false;
-        } else {
+      if (content.codeFlag) {
+        validateCode.value = true;
+        nextTick(() => {
           graphCode.value.refreshCode();
-        }
+        });
       }
     }
   }
@@ -134,7 +126,7 @@ const handleSubmit = async () => {
             verticalAlign: 'middle',
           }"
         >
-          <GraphValidateCodeImage open ref="graphCode" />
+          <GraphValidateCodeImage ref="graphCode" />
         </a-form-item>
       </a-form-item>
     </template>
