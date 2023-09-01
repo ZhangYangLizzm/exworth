@@ -38,11 +38,11 @@ const available = computed(() =>
 
 const {
   CurrencyRule,
-  getAmountRule,
+  AmountRule,
   SecurityPasswordRule,
   GoogleAuthCodeRule,
-} = useFormRules();
-const AmountRule = computed(() => getAmountRule(available.value));
+} = useFormRules({available});
+
 const rules = reactive({
   currency: CurrencyRule,
   amount: AmountRule,

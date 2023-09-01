@@ -1,32 +1,31 @@
-export const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-export const useFormRules = () => {
+export const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
+
+export const useFormRules = (options = {}) => {
   const { t } = useI18n();
 
   const CurrencyRule = [
     { required: true, message: t("QzD6F1l8Ue9UNPMHcBruL") },
   ];
-  
-  function amountValidator(available) {
+
+  function amountValidator() {
     return async (_, value) => {
       if (value < 0) {
         return Promise.reject(t("GyCej78V5rwpEJ-WJaZhi"));
-      } else if (value > available) {
+      } else if (value > unref(options?.available)) {
         return Promise.reject(t("7JHpXFtB2h5hL2P-P9Zuy"));
       }
       return Promise.resolve();
-    };
+    }
   }
 
-  const getAmountRule = (available) => {
-    return [
-      { required: true, message: t("MOVz2c0LFUl1-TpkPHZ22") },
-      {
-        validator: amountValidator(available),
-        trigger: "change",
-      },
-    ];
-  };
+  const AmountRule = [
+    { required: true, message: t("MOVz2c0LFUl1-TpkPHZ22") },
+    {
+      validator: amountValidator(),
+      trigger: "change",
+    },
+  ];
 
   const SecurityPasswordRule = [
     { required: true, message: t("L8_JRGabLnJGC2tBI9Hqc") },
@@ -62,7 +61,7 @@ export const useFormRules = () => {
     AddressRule,
     UUIDRule,
     CurrencyRule,
-    getAmountRule,
+    AmountRule,
     SecurityPasswordRule,
     GoogleAuthCodeRule,
     EmailRule,

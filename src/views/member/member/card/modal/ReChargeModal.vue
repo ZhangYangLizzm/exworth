@@ -17,18 +17,20 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const { getAmountRule, SecurityPasswordRule, GoogleAuthCodeRule } =
-  useFormRules();
+
+const available = computed(() =>
+  accountStore.availableBalance(rechargeState.currency)
+);
+
+const { AmountRule, SecurityPasswordRule, GoogleAuthCodeRule } =
+  useFormRules({available});
 const rechargeState = reactive({
   currency: "USDE",
   amount: 0,
   password: "",
   authCode: "",
 });
-const available = computed(() =>
-  accountStore.availableBalance(rechargeState.currency)
-);
-const AmountRule = computed(() => getAmountRule(available.value));
+
 
 const rules = reactive({
   amount: AmountRule,

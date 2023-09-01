@@ -8,14 +8,17 @@ const STEP_INIT = 0;
 const STEP_CONFIRM = 1;
 const STEP_RESULT = 2;
 const accountStore = useAccountStore();
+
+const available = computed(() => walletInfo.balanceAmount);
 const {
   CurrencyRule,
-  getAmountRule,
   NetworkRule,
+  AmountRule,
   AddressRule,
   SecurityPasswordRule,
   GoogleAuthCodeRule,
-} = useFormRules();
+} = useFormRules({ available });
+
 const step = ref(0);
 const props = defineProps({
   initialCurrency: {
@@ -46,7 +49,7 @@ const fetchOtcRate = async () => {
 onMounted(async () => {
   fetchOtcRate();
 });
-const AmountRule = computed(() => getAmountRule(walletInfo.balanceAmount));
+
 const rules = reactive({
   currency: CurrencyRule,
   amount: AmountRule,
@@ -67,6 +70,7 @@ const prev = () => {
   delete rules.authCode;
   step.value--;
 };
+
 const confirmResult = reactive({});
 
 const { resetFields, handleValidate, validateInfos, validate } = useForm(

@@ -5,14 +5,6 @@ import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 import { postWithdrawTransfer } from "@/api/wallet";
 import useFormRules from "@/hooks/useFormRules.js";
 
-const {
-  UUIDRule,
-  CurrencyRule,
-  getAmountRule,
-  SecurityPasswordRule,
-  GoogleAuthCodeRule,
-} = useFormRules();
-const accountStore = useAccountStore();
 const props = defineProps({
   initialCurrency: String,
 });
@@ -28,7 +20,15 @@ const transferState = reactive({
 const available = computed(() =>
   accountStore.availableBalance(transferState.currency)
 );
-const AmountRule = computed(() => getAmountRule(available.value));
+
+const {
+  UUIDRule,
+  CurrencyRule,
+  AmountRule,
+  SecurityPasswordRule,
+  GoogleAuthCodeRule,
+} = useFormRules({available});
+const accountStore = useAccountStore();
 
 const rules = reactive({
   uuid: UUIDRule,

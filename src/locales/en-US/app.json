@@ -85,7 +85,7 @@
   "0A89nPyaGbq5-v9reFOzw": "Please enter your Google Authentication Code",
   "kc9q5L7zBW4hpYFxJwx6H": "Card Number",
   "VbRh26fvXEvmyjzUCHEoW": "Top-up amount cannot be less than zero",
-  "7JHpXFtB2h5hL2P-P9Zuy": "The recharge amount cannot be greater than the available amount.",
+  "7JHpXFtB2h5hL2P-P9Zuy": "Top-up amount cannot be greater than the available.",
   "1gMcVwRCngpqs5ZdyToVW": "Top-up amount cannot be empty",
   "8jNAI-2YZrfU_3AfYF278": "Card Replacement Instructions",
   "bSCdj2cL-q5p7wrJiuAGw": "After card replacement, the old card will be frozen. The new card will be activated automatically using the cardholder information of the old card, and the balance of the old card will be transferred to the new card within 24 hours, please make sure the card is safe during this period to avoid any loss of funds.",
