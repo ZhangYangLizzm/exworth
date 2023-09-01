@@ -5,9 +5,17 @@ import { getBalanceHistory } from "@/api/wallet";
 import RadioSelect from "./RadioSelect.vue";
 import { useAccountDetails } from "@/views/wallet/history/enum.js";
 import { formatRangePickerTime } from "@/views/wallet/history/formatRangePickerTime";
-import { useInfiniteScroll } from "@vueuse/core";
+import { Format } from "@/libs/hooks/useUtil.js";
+import { useIntersectionObserver } from "@vueuse/core";
 
 const { getText, getList } = useAccountDetails();
+
+// 使用暂时变量保存日期，只有当点击确认按钮才赋予新值并fetch
+const tempOptions = reactive({
+  direction: undefined,
+  type: undefined,
+  createTime: new Array(2).fill(new Date().toLocaleDateString().split("/")),
+});
 const filterOptions = reactive({
   direction: undefined,
   type: undefined,
@@ -50,10 +58,13 @@ const {
   fetch,
   list: dataSource,
   loading,
+  pageID,
   fetchMore,
-} = useList(getBalanceHistory, fetchOptions);
+} = useList(getBalanceHistory, fetchOptions, { mode: "list" });
 
 const onConfirm = async () => {
+  filterOptions.direction = tempOptions.direction;
+  filterOptions.type = tempOptions.type;
   fetch();
   showAccountSelect.value = false;
 };
@@ -62,17 +73,32 @@ onMounted(() => {
   fetch();
 });
 
+const refreshDisabled = ref(false);
 const refreshLoading = ref(false);
 
 const onRefresh = async () => {
+  pageID.value = 1;
   await fetch();
   refreshLoading.value = false;
 };
 
 const onDateConfirm = () => {
   showDateSelect.value = false;
+  Object.assign(filterOptions, tempOptions);
   fetch();
 };
+
+const onDateCancel = async () => {
+  showDateSelect.value = false;
+};
+
+const loadObserver = ref();
+
+useIntersectionObserver(loadObserver, () => {
+  if (!loading.value) {
+    fetchMore();
+  }
+});
 </script>
 
 <template>
@@ -97,15 +123,23 @@ const onDateConfirm = () => {
       </a-button>
     </div>
     <div>
-      <van-pull-refresh v-model="refreshLoading" @refresh="onRefresh">
-        <a-list :dataSource="dataSource">
+      <van-pull-refresh
+        v-model="refreshLoading"
+        @refresh="onRefresh"
+        :disabled="refreshDisabled"
+      >
+        <a-list
+          :dataSource="dataSource"
+          class="overflow-y-auto"
+          @scroll="(e) => (refreshDisabled = e.target.scrollTop > 0 ?? false)"
+        >
           <template #renderItem="{ item }">
-            <a-list-item class="px-4 mb-4">
+            <a-list-item class="px-4">
               <template #actions>
                 <span
                   :class="[item.direction ? ' text-danger' : 'text-primary']"
-                  >{{ item.direction ? "-" : "+" }}{{ item.operateAmount }}
-                  {{ item.currency }}</span
+                  >{{ item.direction ? "-" : "+"
+                  }}{{ Format(item.operateAmount) }} {{ item.currency }}</span
                 >
               </template>
               <a-list-item-meta>
@@ -118,9 +152,13 @@ const onDateConfirm = () => {
             </a-list-item>
           </template>
         </a-list>
+        <a-spin :spinning="loading" class="h-[24px]"
+          ><div ref="loadObserver"></div
+        ></a-spin>
       </van-pull-refresh>
     </div>
   </div>
+
   <van-popup v-model:show="showAccountSelect" position="bottom" round>
     <div class="p-4">
       <h3>选择筛选项</h3>
@@ -128,12 +166,12 @@ const onDateConfirm = () => {
         <RadioSelect
           :options="options"
           title="類型"
-          v-model:value="filterOptions.direction"
+          v-model:value="tempOptions.direction"
         />
         <RadioSelect
           :options="flowType"
           title="流水類型"
-          v-model:value="filterOptions.type"
+          v-model:value="tempOptions.type"
         />
       </div>
       <div class="flex justify-center gap-x-4 my-8">
@@ -144,14 +182,16 @@ const onDateConfirm = () => {
       </div>
     </div>
   </van-popup>
+
   <van-popup v-model:show="showDateSelect" position="bottom" round>
     <van-picker-group
       :tabs="['开始日期', '结束日期']"
       title="选择日期"
-      @confirm="onConfirm"
+      @confirm="onDateConfirm"
+      @cancel="onDateCancel"
     >
-      <van-date-picker v-model="filterOptions.createTime[0]" />
-      <van-date-picker v-model="filterOptions.createTime[1]" />
+      <van-date-picker v-model="tempOptions.createTime[0]" />
+      <van-date-picker v-model="tempOptions.createTime[1]" />
     </van-picker-group>
   </van-popup>
 </template>
