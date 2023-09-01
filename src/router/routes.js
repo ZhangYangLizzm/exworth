@@ -88,7 +88,7 @@ const routes = [
         ]
       },
       {
-        path: 'my',
+        path: 'setting',
         name: 'Setting',
         component: Setting,
       },

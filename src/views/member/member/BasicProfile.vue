@@ -83,7 +83,9 @@ const handleTransfer = async () => {
                 @click="copy(profile.email)"
             /></span>
           </div>
-          <div>{{ $t("Zb57X_a6-Ikylh5coBdYs") }} : {{ profile.fullName }}</div>
+          <div v-if="profile.fullName">
+            {{ $t("Zb57X_a6-Ikylh5coBdYs") }} : {{ profile.fullName }}
+          </div>
         </div>
       </div>
       <a-button type="primary" @click="handleClick">
