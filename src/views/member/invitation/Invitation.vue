@@ -46,7 +46,7 @@ const columns = computed(() => [
 ]);
 
 const filterOptions = reactive({
-  email: undefined,
+  emailLike: undefined,
   status: undefined,
 });
 
@@ -126,7 +126,7 @@ onMounted(() => {
           <a-input
             :placeholder="$t('HdqCyzznm7hS5EZblV5Xr')"
             class="mr-2"
-            v-model:value="filterOptions.email"
+            v-model:value="filterOptions.emailLike"
             @keyup.enter="fetch"
             allow-clear
           >
