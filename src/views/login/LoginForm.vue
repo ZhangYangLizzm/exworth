@@ -64,7 +64,7 @@ const handleSubmit = async () => {
           // reset password
           emit("reset", name);
         } else {
-          router.replace({ name: "Dashboard" });
+          router.replace({ path: "/wallet" });
         }
       }
     } else {
@@ -107,7 +107,10 @@ const handleSubmit = async () => {
     </a-form-item>
 
     <template v-if="validateCode">
-      <a-form-item :style="{ display: 'inline-block', width: '248px' }" v-bind="validateInfos.code">
+      <a-form-item
+        :style="{ display: 'inline-block', width: '248px' }"
+        v-bind="validateInfos.code"
+      >
         <a-input
           size="large"
           :placeholder="$t('0rfxEuvqAP2QeroIih9yC')"
