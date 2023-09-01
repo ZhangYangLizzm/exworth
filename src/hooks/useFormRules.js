@@ -1,6 +1,6 @@
-const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+export const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-const useFormRules = () => {
+export const useFormRules = () => {
   const { t } = useI18n();
 
   const CurrencyRule = [

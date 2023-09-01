@@ -9,6 +9,7 @@ import { useMember } from "@/stores/modules/member";
 import ExModal from "@/libs/components/antd/modal/ExModal.vue";
 import { useAppStore } from "@/stores/modules/app";
 import { useForm } from "@/libs/hooks/useForm";
+import { emailPattern } from "@/hooks/useFormRules";
 
 const appStore = useAppStore();
 
@@ -61,14 +62,19 @@ const formState = reactive({
   email: [],
 });
 
-const arrayValidator = async (_, value) => {
-  if (value.length === 0) {
-    return Promise.reject(t("8dRn48_9RTO6Q2804fgFp"));
+const patternValidator = async (_, value) => {
+  if(!emailPattern.test(value.at(-1))){
+    return Promise.reject(t('Ry7C9WCk708IsBie-i2YM'))
   }
   return Promise.resolve();
 };
 const rules = computed(() => ({
-  email: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
+  email: [
+    { required: true, message: t("8dRn48_9RTO6Q2804fgFp") },
+    {
+      validator: patternValidator,
+    },
+  ],
 }));
 const { handleValidate, validateInfos, resetFields } = useForm(
   formState,
@@ -143,14 +149,12 @@ onMounted(() => {
             @change="fetch"
           />
         </a-form-item>
+        <a-form-item>
+          <a-button @click="modalRef?.show()" type="primary">
+            {{ $t("VPTp-QATJSurGdzHeGrXT") }}
+          </a-button>
+        </a-form-item>
       </a-form>
-      <a-button
-        @click="modalRef?.show()"
-        type="primary"
-        class="float-right my-2"
-      >
-        {{ $t("VPTp-QATJSurGdzHeGrXT") }}
-      </a-button>
     </template>
 
     <div class="my-4">
@@ -180,6 +184,7 @@ onMounted(() => {
         type="primary"
         @click="modalRef?.show()"
         class="w-full"
+        size="large"
         v-if="appStore.isMobile"
         >{{ $t("VPTp-QATJSurGdzHeGrXT") }}</a-button
       >
