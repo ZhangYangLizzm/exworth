@@ -41,7 +41,7 @@ const handleMenuClick = ({ key }) => {
             <template #icon>
               <credit-card-outlined />
             </template>
-            {{ $t("83m2iEu_UmMs1X_pFk6Uq") }}
+            {{ $t("c9v0NvMxo7MffTy-TXDir") }}
           </a-menu-item> -->
 
           <a-menu-item class="rounded" key="Setting">

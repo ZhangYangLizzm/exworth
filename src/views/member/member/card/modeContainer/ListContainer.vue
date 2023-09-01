@@ -43,7 +43,7 @@ const columns = [
     align: "center",
   },
   {
-    title: t("83m2iEu_UmMs1X_pFk6Uq"),
+    title: t("c9v0NvMxo7MffTy-TXDir"),
     dataIndex: "actions",
     key: "actions",
     align: "right",
