@@ -2,7 +2,7 @@
 import SvgIcon from "@/libs/components/svgIcon";
 import { Format } from "@/libs/hooks/useUtil.js";
 
-const props = defineProps({
+defineProps({
   loading: Boolean,
   walletAccounts: Array,
 });
@@ -15,18 +15,18 @@ const onClick = (currency, type) => {
 
 <template>
   <a-list
-    :loading="props.loading"
+    :loading="loading"
     item-layout="horizontal"
-    :data-source="props.walletAccounts"
+    :data-source="walletAccounts"
   >
     <template #renderItem="{ item }">
-      <a-list-item class="rounded px-2 shadow mb-2">
+      <a-list-item class="rounded px-4 shadow mb-2">
         <a-list-item-meta>
           <template #title>
             <p>{{ item.currency }}</p>
           </template>
           <template #avatar>
-            <SvgIcon :name="`coin-${item?.currency}`" class="w-8 h-8" />
+            <SvgIcon :name="`coin-${item?.currency}`" class="w-10 h-10" />
           </template>
           <template #description>
             <p>{{ Format(item.balanceAmount) }}</p>
@@ -34,15 +34,29 @@ const onClick = (currency, type) => {
         </a-list-item-meta>
 
         <template #actions>
-          <a-button @click="onClick(item?.currency, 'topup')" type="link">
-            {{ $t("p85LUkdtTlZNxvwxEVGX8") }}
-          </a-button>
-          <a-button type="link" @click="onClick(item?.currency, 'withdraw')">
-            {{ $t("mtzd-o04L2UDLaN81GSRl") }}
-          </a-button>
-          <a-button type="link" @click="onClick(item?.currency, 'transfer')">
-            {{ $t("_iMQNMQatEhTi4yWkEjxs") }}
-          </a-button>
+          <div class="flex flex-col">
+            <a-button
+              @click="onClick(item?.currency, 'topup')"
+              type="link"
+              class="text-left"
+            >
+              {{ $t("p85LUkdtTlZNxvwxEVGX8") }}
+            </a-button>
+            <a-button
+              type="link"
+              @click="onClick(item?.currency, 'withdraw')"
+              class="text-left"
+            >
+              {{ $t("mtzd-o04L2UDLaN81GSRl") }}
+            </a-button>
+            <a-button
+              type="link"
+              @click="onClick(item?.currency, 'transfer')"
+              class="text-left"
+            >
+              {{ $t("_iMQNMQatEhTi4yWkEjxs") }}
+            </a-button>
+          </div>
         </template>
       </a-list-item>
     </template>
