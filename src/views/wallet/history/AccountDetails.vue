@@ -5,7 +5,7 @@ import { useFlowType } from "@/utils/useFlowType.js";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 import { formatRangerPickerTime } from "@/utils/formatRangerPickerTime";
 import { useAccountStore } from "@/stores/modules/accounts.js";
-import { getDirectionStyle } from "@/utils/styles";
+import { getDirectionClass } from "@/utils/styles";
 const accountStore = useAccountStore();
 const filterOptions = reactive({
   createTime: undefined,
@@ -23,7 +23,7 @@ onMounted(() => {
 });
 
 const { t } = useI18n();
-const { getFlowTypeLable, flowTypeList } = useFlowType();
+const { FlowTypeLable,  FLOW_TYPE_GROUPS } = useFlowType();
 
 const columns = computed(() => [
   {
@@ -48,7 +48,6 @@ const columns = computed(() => [
     align: "right",
   },
 ]);
-
 </script>
 
 <template>
@@ -67,10 +66,8 @@ const columns = computed(() => [
       <a-select
         v-model:value="filterOptions.type"
         :placeholder="$t('xPOa-lYXJ2QlRzV5wTa0r')"
+        :options="FLOW_TYPE_GROUPS"
       >
-        <a-select-option :value="key" v-for="[key, value] in flowTypeList">
-          <span>{{ value }}</span>
-        </a-select-option>
       </a-select>
     </a-form-item>
     <a-form-item class="w-48">
@@ -118,10 +115,10 @@ const columns = computed(() => [
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'type'">
-        <span>{{ getFlowTypeLable(record.type) }}</span>
+        <span>{{ FlowTypeLable(record.type) }}</span>
       </template>
       <template v-if="column.key === 'operateAmount'">
-        <span :class="[getDirectionStyle(record.direction)]"
+        <span :class="[getDirectionClass(record.direction)]"
           >{{ record.operateAmount }} {{ record.currency }}</span
         >
       </template>
@@ -130,6 +127,7 @@ const columns = computed(() => [
       </template>
     </template>
   </a-table>
+  
   <a-pagination
     hideOnSinglePage
     class="py-2 float-right"

@@ -24,9 +24,11 @@ export const useFlowType = () => {
         [ADJUST_PROFIT]: t('Ecm5B6_7vgNubPB9PjhG3'),
     }
 
+    const FlowTypeList = computed(() => Object.entries(FLOW_TYPES))
+
     const FLOW_TYPE_GROUPS = [
         {
-            label: "钱包",
+            label: t('JMrHbl_ei1CFmRIw8N60f'),
             options: [
                 {
                     label: t('mtzd-o04L2UDLaN81GSRl'),
@@ -34,7 +36,7 @@ export const useFlowType = () => {
                 },
                 {
                     label: t('pGrhTXj8A84ieJpHf6k3L'),
-                    value: `${INTERNAL}`
+                    value: INTERNAL
                 },
                 {
                     label: t('p85LUkdtTlZNxvwxEVGX8'),
@@ -51,38 +53,35 @@ export const useFlowType = () => {
             ]
         },
         {
-            label: "实体卡",
+            label: t('OnPSpwMATKuG2io4jQP3a'),
             options: [
                 {
-                    label: t('46XbjJJedfhvddlC3NTJ0'),
+                    label: t('--6PBqH-6-OhHdzPSJvNF'),
                     value: `${PPC_PREFIX}.${APPLYCARDS}`
                 },
                 {
-                    label: t('Y8Q4sAZg7x3OGpUJ7N-Wr'),
+                    label: t('VVQaPte21XgxJXEM9H8gu'),
                     value: `${PPC_PREFIX}.${RECHARGE}`
                 },
                 {
-                    label: t('U8O12gFgVi5IgP7_ZxEoL'),
+                    label: t('h0EQGD5w6L9xSdGkk4eG0'),
+                    value: `${PPC_PREFIX}.${REPORTLOSS}`
+                },
+                {
+                    label: t('F0CoBzfm77tn2mvw1Jm_X'),
                     value: `${PPC_CANCEL_PREFIX}.${APPLYCARDS}`
                 },
                 {
-                    label: t('kOPo-JKT9YvFWURtL3glv'),
+                    label: t('8JZxT60NtcisxpMNvx57D'),
                     value: `${PPC_CANCEL_PREFIX}.${RECHARGE}`
                 },
-                {
-                    label: t('V5iuTIMuFVZZsXSMMx4Tx'),
-                    value: `${PPC_PREFIX}.${REPORTLOSS}`
-                }
+
             ]
         }
     ]
 
-    const getFLowTypeList = () => Object.entries(FLOW_TYPES)
+    const FlowTypeLable = (key) => FLOW_TYPES[key]
 
-    const flowTypeList = computed(() => getFLowTypeList())
-
-    const getFlowTypeLable = (key) => FLOW_TYPES[key]
-
-    return { flowTypeList, getFlowTypeLable }
+    return { FlowTypeList, FlowTypeLable, FLOW_TYPE_GROUPS }
 }
 

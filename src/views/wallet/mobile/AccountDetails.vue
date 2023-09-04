@@ -7,8 +7,8 @@ import { useFlowType } from "@/utils/useFlowType.js";
 import { formatRangePickerTime } from "@/views/wallet/history/formatRangePickerTime";
 import { Format } from "@/libs/hooks/useUtil.js";
 import { useIntersectionObserver } from "@vueuse/core";
-import { getDirectionStyle } from "@/utils/styles";
-const { getFlowTypeLable, flowTypeList } = useFlowType();
+import { getDirectionClass } from "@/utils/styles";
+const { FlowTypeLable, FLOW_TYPE_GROUPS } = useFlowType();
 
 // 使用暂时变量保存日期，只有当点击确认按钮才赋予新值并fetch
 const tempOptions = reactive({
@@ -39,14 +39,6 @@ const options = [
   },
 ];
 
-const flowType = computed(() => {
-  const list = flowTypeList.value.map((item) => {
-    const [value, label] = item;
-    return { value, label };
-  });
-  return [{ label: "全部", value: undefined }, ...list];
-});
-
 const fetchOptions = computed(() => ({
   ...filterOptions,
   createTime:
@@ -58,14 +50,14 @@ const {
   fetch,
   list: dataSource,
   loading,
-  pageID,
   fetchMore,
-} = useList(getBalanceHistory, fetchOptions, { mode: "list" });
+  refresh,
+} = useList(getBalanceHistory, fetchOptions, { mode: "list", pageSize: 15 });
 
 const onConfirm = async () => {
   filterOptions.direction = tempOptions.direction;
   filterOptions.type = tempOptions.type;
-  fetch();
+  await fetch();
   showAccountSelect.value = false;
 };
 
@@ -77,15 +69,14 @@ const refreshDisabled = ref(false);
 const refreshLoading = ref(false);
 
 const onRefresh = async () => {
-  pageID.value = 1;
-  await fetch();
+  await refresh();
   refreshLoading.value = false;
 };
 
-const onDateConfirm = () => {
+const onDateConfirm = async () => {
   showDateSelect.value = false;
   Object.assign(filterOptions, tempOptions);
-  fetch();
+  await fetch();
 };
 
 const onDateCancel = async () => {
@@ -94,16 +85,15 @@ const onDateCancel = async () => {
 
 const loadObserver = ref();
 
-useIntersectionObserver(loadObserver, () => {
-  if (!loading.value) {
+useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
+  if (!loading.value && isIntersecting) {
     fetchMore();
   }
 });
-
 </script>
 
 <template>
-  <div class="px-4">
+  <div class="px-4 billing-container">
     <div class="flex mb-4">
       <div class="flex-grow">
         <a-button
@@ -131,18 +121,17 @@ useIntersectionObserver(loadObserver, () => {
       >
         <a-list
           :dataSource="dataSource"
-          class="overflow-y-auto"
           @scroll="(e) => (refreshDisabled = e.target.scrollTop > 0 ?? false)"
         >
           <template #renderItem="{ item }">
-            <a-list-item class="px-4">
+            <a-list-item class="px-2">
               <template #actions>
-                <span :class="[getDirectionStyle(item?.direction)]"
+                <span :class="[getDirectionClass(item?.direction)]"
                   >{{ Format(item.operateAmount) }} {{ item.currency }}</span
                 >
               </template>
               <a-list-item-meta>
-                <template #title> {{ getFlowTypeLable(item.type) }} </template>
+                <template #title> {{ FlowTypeLable(item.type) }} </template>
                 <template #description>{{ item.createTime }} </template>
                 <template #avatar>
                   <SvgIcon :name="`coin-${item.currency}`" class="w-10 h-10" />
@@ -151,9 +140,10 @@ useIntersectionObserver(loadObserver, () => {
             </a-list-item>
           </template>
         </a-list>
-        <a-spin :spinning="loading" class="h-[24px]"
-          ><div ref="loadObserver"></div
-        ></a-spin>
+
+        <a-spin :spinning="loading">
+          <div ref="loadObserver" class="h-8 w-full"></div>
+        </a-spin>
       </van-pull-refresh>
     </div>
   </div>
@@ -168,7 +158,7 @@ useIntersectionObserver(loadObserver, () => {
           v-model:value="tempOptions.direction"
         />
         <RadioSelect
-          :options="flowType"
+          :options="FLOW_TYPE_GROUPS"
           title="流水類型"
           v-model:value="tempOptions.type"
         />
@@ -177,7 +167,13 @@ useIntersectionObserver(loadObserver, () => {
         <a-button size="large" @click="showAccountSelect = false"
           >取消</a-button
         >
-        <a-button type="primary" size="large" @click="onConfirm">確定</a-button>
+        <a-button
+          type="primary"
+          size="large"
+          @click="onConfirm"
+          :loading="loading"
+          >確定</a-button
+        >
       </div>
     </div>
   </van-popup>
@@ -195,4 +191,8 @@ useIntersectionObserver(loadObserver, () => {
   </van-popup>
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.billing-container {
+  height: calc(100vh - 64px);
+}
+</style>

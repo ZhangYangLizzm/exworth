@@ -158,7 +158,6 @@
   "ef-fXqdN0JZ9J8CkUt2EK": "Operation",
   "xPOa-lYXJ2QlRzV5wTa0r": "Order type",
   "V5iuTIMuFVZZsXSMMx4Tx": "Physical Card Loss",
-  "46XbjJJedfhvddlC3NTJ0": "Apply for Card",
   "6cwCXkwYyh-ubcR0nZWea": "Select Network",
   "Af035ZJECpXV2Eo5mGVlg": "Withdraw Refund",
   "U8O12gFgVi5IgP7_ZxEoL": "Apply for Refund",
@@ -217,5 +216,10 @@
   "mAjX90pEXRkWHJ1DhB9sV": "Unconfirmed",
   "SreiC9yRSXuJ0EDsT5t0z": "Pro Email",
   "9iorvdplaN7oMNsf6Ms-J": "CAPTCHA",
-  "Ry7C9WCk708IsBie-i2YM": "Please enter the correct email format"
+  "Ry7C9WCk708IsBie-i2YM": "Please enter the correct email format",
+  "--6PBqH-6-OhHdzPSJvNF": "Application",
+  "F0CoBzfm77tn2mvw1Jm_X": "Request a Refund",
+  "8JZxT60NtcisxpMNvx57D": "Top-up Refund",
+  "46XbjJJedfhvddlC3NTJ0": "Apply for Card"
+  
 }
