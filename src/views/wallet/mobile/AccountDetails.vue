@@ -4,7 +4,7 @@ import SvgIcon from "@/libs/components/svgIcon";
 import { getBalanceHistory } from "@/api/wallet";
 import RadioSelect from "./RadioSelect.vue";
 import { useFlowType } from "@/utils/useFlowType.js";
-import { formatRangePickerTime } from "@/views/wallet/history/formatRangePickerTime";
+import { formatRangerPickerTime } from "@/utils/formatRangerPickerTime";
 import { Format } from "@/libs/hooks/useUtil.js";
 import { useIntersectionObserver } from "@vueuse/core";
 import { getDirectionClass } from "@/utils/styles";
@@ -42,7 +42,7 @@ const options = [
 const fetchOptions = computed(() => ({
   ...filterOptions,
   createTime:
-    formatRangePickerTime(
+    formatRangerPickerTime(
       filterOptions.createTime?.map((time) => time.join("-"))
     ) || undefined,
 }));
@@ -102,7 +102,7 @@ useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
           style="border-radius: 24px"
           @click="showAccountSelect = true"
         >
-          <span>全部账单</span><caret-down-outlined class="ml-1" />
+          <span>全部賬單</span><caret-down-outlined class="ml-1" />
         </a-button>
       </div>
       <a-button
@@ -110,7 +110,7 @@ useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
         class="text-primary text-base"
         @click="showDateSelect = true"
       >
-        <span>选择时间</span><down-outlined class="ml-1" />
+        <span>選擇日期</span><down-outlined class="ml-1" />
       </a-button>
     </div>
     <div>
@@ -150,29 +150,29 @@ useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
 
   <van-popup v-model:show="showAccountSelect" position="bottom" round>
     <div class="p-4">
-      <h3>选择筛选项</h3>
+      <h3>{{ $t("QA6w_BBqAnV0znUq8ttml") }}</h3>
       <div>
         <RadioSelect
           :options="options"
-          title="類型"
+          :title="$t('Yph4bjKS0GEWYFbohwlfw')"
           v-model:value="tempOptions.direction"
         />
         <RadioSelect
           :options="FLOW_TYPE_GROUPS"
-          title="流水類型"
+          :title="$t('10MvsZXdn3EOSKcFB4Fzf')"
           v-model:value="tempOptions.type"
         />
       </div>
       <div class="flex justify-center gap-x-4 my-8">
-        <a-button size="large" @click="showAccountSelect = false"
-          >取消</a-button
-        >
+        <a-button size="large" @click="showAccountSelect = false">{{
+          $t("cT1QFWPt_d3RzSaZhjCUO")
+        }}</a-button>
         <a-button
           type="primary"
           size="large"
           @click="onConfirm"
           :loading="loading"
-          >確定</a-button
+          >{{ $t("eDeGcfNGQKiDSBM98US4D") }}</a-button
         >
       </div>
     </div>
@@ -180,8 +180,8 @@ useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
 
   <van-popup v-model:show="showDateSelect" position="bottom" round>
     <van-picker-group
-      :tabs="['开始日期', '结束日期']"
-      title="选择日期"
+      :tabs="['開始日期', '結束日期']"
+      title="選擇日期"
       @confirm="onDateConfirm"
       @cancel="onDateCancel"
     >

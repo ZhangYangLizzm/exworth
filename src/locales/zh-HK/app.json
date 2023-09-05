@@ -22,7 +22,7 @@
   "p85LUkdtTlZNxvwxEVGX8": "充幣",
   "uRZHmMHGIbHs9TMJtbzT6": "企業實體卡管理平臺",
   "w_iPwp1wwma-yB2Ly5PW4": "已加入",
-  "zjBCgU--wKqHomDG3Vakr": "請輸入郵箱，多個郵箱用英文','間隔",
+  "zjBCgU--wKqHomDG3Vakr": "請輸入郵箱，多個郵箱之间使用英文字符,間隔",
   "Zd-iK_4fwRetIFNm8Nd4M": "密碼長度為8-20位",
   "AkYvt09TzAKTkYL1On_p3": "初始密碼",
   "WWbPeuj1qLMohnCd5qzyw": "密碼必須是字母、數字、特殊字符最少2種組合",
@@ -220,6 +220,6 @@
   "--6PBqH-6-OhHdzPSJvNF": "申請",
   "F0CoBzfm77tn2mvw1Jm_X": "申請退款",
   "8JZxT60NtcisxpMNvx57D": "充值退款",
-  "46XbjJJedfhvddlC3NTJ0": "申請實體卡"
-
+  "46XbjJJedfhvddlC3NTJ0": "申請實體卡",
+  "QA6w_BBqAnV0znUq8ttml": "选择筛选项"
 }

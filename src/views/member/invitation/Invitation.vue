@@ -63,8 +63,8 @@ const formState = reactive({
 });
 
 const patternValidator = async (_, value) => {
-  if(!emailPattern.test(value.at(-1))){
-    return Promise.reject(t('Ry7C9WCk708IsBie-i2YM'))
+  if (!emailPattern.test(value.at(-1))) {
+    return Promise.reject(t("Ry7C9WCk708IsBie-i2YM"));
   }
   return Promise.resolve();
 };
@@ -212,7 +212,7 @@ onMounted(() => {
               mode="tags"
               :placeholder="$t('zjBCgU--wKqHomDG3Vakr')"
               size="large"
-              :tokenSeparators="[',', ' ', '，']"
+              :tokenSeparators="[',', ' ', '，', '/', ';', '\\', '[', ']']"
               v-model:value="formState.email"
             >
             </a-select>
