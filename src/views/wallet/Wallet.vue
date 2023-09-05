@@ -1,11 +1,11 @@
 <script setup>
 import ExModal from "@/libs/components/antd/modal/ExModal.vue";
-import { TopUp, Transfer, Withdraw } from "./Modal";
+import { TopUp, Transfer, Withdraw } from "./common";
 import { useAccountStore } from "@/stores/modules/accounts.js";
 import { useAppStore } from "@/stores/modules/app.js";
 import WebCurrency from "./web/WebCurrency.vue";
 import MobileCurrency from "./mobile/MobileCurrency.vue";
-import { useRouter } from "vue-router";
+
 const appStore = useAppStore();
 const accountStore = useAccountStore();
 const { t } = useI18n();
@@ -66,42 +66,6 @@ const activeKey = computed(() => [...route.matched.map((i) => i.name)].at(-1));
         :walletAccounts="accountStore.walletAccounts"
         @click="onClick"
       />
-      <template>
-        <ExModal
-          ref="topupModalRef"
-          isBottom
-          :isMobile="appStore.isMobile"
-          :customTitle="$t('p85LUkdtTlZNxvwxEVGX8')"
-          width="500px"
-        >
-          <TopUp class="p-4" :initialCurrency="targetCurrency" />
-        </ExModal>
-        <ExModal
-          ref="withdrawModalRef"
-          isBottom
-          width="50%"
-          :isMobile="appStore.isMobile"
-          :customTitle="$t('mtzd-o04L2UDLaN81GSRl')"
-        >
-          <Withdraw
-            class="p-4"
-            :initialCurrency="targetCurrency"
-            @close="withdrawModalRef.close()"
-          />
-        </ExModal>
-        <ExModal
-          ref="transferModalRef"
-          isBottom
-          :isMobile="appStore.isMobile"
-          :customTitle="$t('pGrhTXj8A84ieJpHf6k3L')"
-        >
-          <Transfer
-            class="p-4"
-            :initialCurrency="targetCurrency"
-            @close="transferModalRef.close()"
-          />
-        </ExModal>
-      </template>
     </div>
     <div>
       <ComponentTitle :text="$t('DDp8hcF2Rq2MMzEK91YXW')" />
@@ -121,4 +85,37 @@ const activeKey = computed(() => [...route.matched.map((i) => i.name)].at(-1));
       <component :is="Component" :key="route.path" />
     </router-view>
   </div>
+
+  <ExModal
+    ref="topupModalRef"
+    isBottom
+    :isMobile="appStore.isMobile"
+    :customTitle="$t('p85LUkdtTlZNxvwxEVGX8')"
+  >
+    <TopUp class="p-4" :initialCurrency="targetCurrency" />
+  </ExModal>
+  <ExModal
+    ref="withdrawModalRef"
+    isBottom
+    :isMobile="appStore.isMobile"
+    :customTitle="$t('mtzd-o04L2UDLaN81GSRl')"
+  >
+    <Withdraw
+      class="p-4"
+      :initialCurrency="targetCurrency"
+      @close="withdrawModalRef.close()"
+    />
+  </ExModal>
+  <ExModal
+    ref="transferModalRef"
+    isBottom
+    :isMobile="appStore.isMobile"
+    :customTitle="$t('pGrhTXj8A84ieJpHf6k3L')"
+  >
+    <Transfer
+      class="p-4"
+      :initialCurrency="targetCurrency"
+      @close="transferModalRef.close()"
+    />
+  </ExModal>
 </template>

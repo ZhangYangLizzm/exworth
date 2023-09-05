@@ -4,6 +4,9 @@ import { Format } from "@/libs/hooks/useUtil.js";
 import { getOtcRate, postCurrencyWithdraw } from "@/api/wallet";
 import useFormRules from "@/hooks/useFormRules.js";
 import { useAccountStore } from "@/stores/modules/accounts.js";
+import { useAppStore } from "@/stores/modules/app.js";
+
+const appStore = useAppStore();
 const STEP_INIT = 0;
 const STEP_CONFIRM = 1;
 const STEP_RESULT = 2;
@@ -106,7 +109,11 @@ const onCurrencyChange = async () => {
 const emit = defineEmits(["close"]);
 const onView = () => {
   emit("close");
-  router.push({ name: "WithdrawHistory", params: {} });
+  if (appStore.isMobile) {
+    router.push({ name: "MobileAccountDetails" });
+    return;
+  }
+  router.push({ name: "WithdrawHistory" });
 };
 </script>
 

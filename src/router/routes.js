@@ -1,19 +1,18 @@
-import Login from '@/views/login/Login.vue'
+import Login from "@/views/login/Login.vue";
 // import Reset from '@/views/login/Reset.vue'
-import MainLayout from '@/layouts/MainLayout.vue'
-import BlankLayout from '@/layouts/BlankLayout.vue'
+import MainLayout from "@/layouts/MainLayout.vue";
+import BlankLayout from "@/layouts/BlankLayout.vue";
 
-import Wallet from '@/views/wallet/Wallet.vue'
-import AccountDetails from '@/views/wallet/history/AccountDetails.vue'
-import MobileAccountDetails from "@/views/wallet/mobile/AccountDetails.vue"
+import Wallet from "@/views/wallet/Wallet.vue";
+import AccountDetails from "@/views/wallet/web/history/AccountDetails.vue";
 
-import MemberLayout from '@/views/member/MemberLayout.vue'
+import MemberLayout from "@/views/member/MemberLayout.vue";
 import MemberList from "@/views/member/member/MemberList.vue";
-import Invitation from '@/views/member/invitation/Invitation.vue'
+import Invitation from "@/views/member/invitation/Invitation.vue";
 
-import CardManagement from "@/views/card/CardManagement.vue"
+import CardManagement from "@/views/card/CardManagement.vue";
 
-import Setting from '@/views/setting/Setting.vue'
+import Setting from "@/views/setting/Setting.vue";
 
 /**
  * @meta
@@ -22,82 +21,88 @@ import Setting from '@/views/setting/Setting.vue'
  */
 const routes = [
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
   {
-    path: '/',
+    path: "/",
     redirect: "/wallet",
     component: MainLayout,
     children: [
       {
-        path: 'wallet',
-        name: 'Wallet',
+        path: "wallet",
+        name: "Wallet",
         component: Wallet,
         children: [
           {
-            path: '',
-            name: 'AccountDetails',
+            path: "",
+            name: "AccountDetails",
             component: AccountDetails,
           },
           {
-            path: 'recharge-history',
-            name: 'RechargeHistory',
-            component: () => import("@/views/wallet/history/RechargeHistory.vue"),
+            path: "recharge-history",
+            name: "RechargeHistory",
+            component: () =>
+              import("@/views/wallet/web/history/RechargeHistory.vue"),
           },
           {
-            path: 'transfer-history',
-            name: 'TransferHistory',
-            component: () => import("@/views/wallet/history/TransferHistory.vue"),
-          }, {
-            path: 'withdraw-history',
-            name: 'WithdrawHistory',
-            component: () => import("@/views/wallet/history/WithdrawHistory.vue"),
-          }
+            path: "transfer-history",
+            name: "TransferHistory",
+            component: () =>
+              import("@/views/wallet/web/history/TransferHistory.vue"),
+          },
+          {
+            path: "withdraw-history",
+            name: "WithdrawHistory",
+            component: () =>
+              import("@/views/wallet/web/history/WithdrawHistory.vue"),
+          },
         ],
-
       },
-      { path: 'mobile-account-details', component: MobileAccountDetails, name: 'MobileAccountDetails' },
+      {
+        path: "mobile-account-details",
+        component: () => import("@/views/wallet/mobile/AccountDetails.vue"),
+        name: "MobileAccountDetails",
+      },
 
       {
-        path: 'member',
-        components: { default: BlankLayout, 'header-extra': MemberLayout },
+        path: "member",
+        components: { default: BlankLayout, "header-extra": MemberLayout },
         // component: BlankLayout,
         name: "Member",
         meta: {
-          "headerExtra": true
+          headerExtra: true,
         },
         children: [
           {
-            path: 'member-list',
+            path: "member-list",
             component: MemberList,
-            name: 'MemberList',
+            name: "MemberList",
           },
           {
-            path: 'invitation',
+            path: "invitation",
             name: "Invitation",
-            component: Invitation
+            component: Invitation,
           },
           {
-            path: ':uuid',
+            path: ":uuid",
             component: () => import("@/views/member/member/Profile.vue"),
-            name: 'MemberProfile'
+            name: "MemberProfile",
           },
-        ]
+        ],
       },
       {
-        path: 'setting',
-        name: 'Setting',
+        path: "setting",
+        name: "Setting",
         component: Setting,
       },
       {
         path: "card",
         name: "Card",
         component: CardManagement,
-      }
-    ]
+      },
+    ],
   },
-
-]
-export default routes
+];
+export default routes;
