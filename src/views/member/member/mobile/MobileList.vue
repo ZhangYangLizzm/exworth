@@ -14,7 +14,7 @@ defineProps({
   <a-list :dataSource="dataSource" v-if="isMobile" :loading="loading">
     <template #renderItem="{ item }">
       <a-list-item
-        class="rounded px-2 shadow"
+        class="rounded px-4 shadow"
         @click="
           router.push({
             name: 'MemberProfile',

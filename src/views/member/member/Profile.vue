@@ -4,6 +4,7 @@ import { loadMemberInfo } from "@/api/member";
 import CardWrap from "./card/CardWrap.vue";
 import useStorage from "@/hooks/useStorage";
 import { useAppStore } from "@/libs/stores/modules/app";
+
 const appStore = useAppStore();
 
 const route = useRoute();
@@ -30,10 +31,6 @@ const mode = useStorage("Member_Mode", defaultMode);
 
 <template>
   <div class="px-4 mx-auto">
-    <a-page-header
-      :title="$t('5Bp1HBe0zDdIJBY94bD26')"
-      @back="() => $router.go(-1)"
-    />
     <ComponentTitle :text="$t('MlClMV-uaiDTpeCLyrP7E')" class="text-xl" />
 
     <BasicProfile :profile="userModel" class="mb-8" />

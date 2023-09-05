@@ -29,7 +29,7 @@ onMounted(() => {
   <!-- 成員列表 -->
   <div class="p-4">
     <a-form layout="inline">
-      <a-form-item :class="[isMobile ? 'w-full' : '']">
+      <a-form-item :class="[appStore.isMobile ? 'w-full' : '']">
         <a-input
           autocomplete="off"
           :placeholder="$t('OcfJlH4QmIPpM8_XAtT0h')"
@@ -41,8 +41,8 @@ onMounted(() => {
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item>
-        <a-button type="primary" @click="fetch" v-if="!appStore.isMobile">{{
+      <a-form-item v-if="!appStore.isMobile">
+        <a-button type="primary" @click="fetch" >{{
           $t("5NZo0upHiGpgDPaM_E9iu")
         }}</a-button>
       </a-form-item>
@@ -61,7 +61,6 @@ onMounted(() => {
       />
       <a-pagination
         hideOnSinglePage
-        class="g-pagination"
         size="small"
         :current="pageID"
         :total="totalCount"
