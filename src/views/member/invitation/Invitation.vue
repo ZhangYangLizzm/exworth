@@ -10,6 +10,8 @@ import ExModal from "@/libs/components/antd/modal/ExModal.vue";
 import { useAppStore } from "@/stores/modules/app";
 import { useForm } from "@/libs/hooks/useForm";
 import { emailPattern } from "@/hooks/useFormRules";
+import { notification } from "ant-design-vue";
+import { h } from "vue";
 
 const appStore = useAppStore();
 
@@ -89,11 +91,36 @@ const handleSubmit = () => {
     const { values } = await handleValidate();
     if (values) {
       btnLoading.value = true;
-      const { statusCode } = await invite(values);
+      const { statusCode, content } = await invite(values);
       btnLoading.value = false;
       if (statusCode === 200) {
         handleCancel();
         fetch();
+        const { errorEmail, successEmail } = content;
+        // 如果沒有成功的郵箱，即所有都已經重複
+        if (!successEmail.length) {
+          notification["error"]({
+            message: t("uGntxwN9bCIIl8rHovkzb"),
+            description: t("5dKvwRq431eKsKdxFOYUd"),
+            duration: null,
+          });
+        } else {
+          let errMessageStr;
+          if (errorEmail.length) {
+            errMessageStr = errorEmail.join(",") + t("7BR30lhX3ii6xmNLqdhNC");
+          }
+          const successMessageStr =
+            t("MGdEJLi0ltaNxYONgZd47") + successEmail.join(",");
+          notification["success"]({
+            message: t("uGntxwN9bCIIl8rHovkzb"),
+            description: () =>
+              h("div", [
+                errMessageStr ? h("p", null, errMessageStr) : null,
+                h("p", null, successMessageStr),
+              ]),
+            duration: null,
+          });
+        }
       }
     }
   }, 300);
@@ -125,6 +152,14 @@ onMounted(() => {
           </a-input>
         </a-form-item>
       </a-form>
+      <a-button
+        type="primary"
+        @click="modalRef?.show()"
+        class="w-full"
+        size="large"
+        v-if="appStore.isMobile"
+        >{{ $t("VPTp-QATJSurGdzHeGrXT") }}</a-button
+      >
     </template>
     <template v-else>
       <a-form layout="inline" class="grow">
@@ -174,20 +209,13 @@ onMounted(() => {
         </template>
       </a-table>
       <a-pagination
+        hideOnSinglePage
         class="float-right my-2"
         :current="pageID"
         :total="totalCount"
         show-less-items
         @change="onPageChange"
       />
-      <a-button
-        type="primary"
-        @click="modalRef?.show()"
-        class="w-full"
-        size="large"
-        v-if="appStore.isMobile"
-        >{{ $t("VPTp-QATJSurGdzHeGrXT") }}</a-button
-      >
     </div>
 
     <ExModal
