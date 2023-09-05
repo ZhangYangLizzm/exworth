@@ -21,20 +21,20 @@ const filterOptions = reactive({
   type: undefined,
   createTime: new Array(2),
 });
-
+const { t } = useI18n();
 const showDateSelect = ref(false);
 const showAccountSelect = ref(false);
 const options = [
   {
-    label: "全部",
+    label: t("T8jku5XFeq-1ZPcuDe_7B"),
     value: undefined,
   },
   {
-    label: "增加",
+    label: t("UcXeZv4zwJo26xSvvjT3y"),
     value: 0,
   },
   {
-    label: "减少",
+    label: t("98tLYPO1x3wORFEIzES2N"),
     value: 1,
   },
 ];
@@ -102,7 +102,8 @@ useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
           style="border-radius: 24px"
           @click="showAccountSelect = true"
         >
-          <span>全部賬單</span><caret-down-outlined class="ml-1" />
+          <span>{{ $t("cEjilLd6pPu23eMkf0OGD") }}</span
+          ><caret-down-outlined class="ml-1" />
         </a-button>
       </div>
       <a-button
@@ -110,7 +111,8 @@ useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
         class="text-primary text-base"
         @click="showDateSelect = true"
       >
-        <span>選擇日期</span><down-outlined class="ml-1" />
+        <span>{{ $t("CrpJvRaeD2UtLIpSA4Is7") }}</span
+        ><down-outlined class="ml-1" />
       </a-button>
     </div>
     <div>
@@ -172,7 +174,7 @@ useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
           size="large"
           @click="onConfirm"
           :loading="loading"
-          >{{ $t("eDeGcfNGQKiDSBM98US4D") }}</a-button
+          >{{ $t('_XQ4oJ4Sn53uhLUzvBLyF') }}</a-button
         >
       </div>
     </div>
@@ -180,10 +182,12 @@ useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
 
   <van-popup v-model:show="showDateSelect" position="bottom" round>
     <van-picker-group
-      :tabs="['開始日期', '結束日期']"
-      title="選擇日期"
+      :tabs="[$t('nao2yl_rBUwZGlBGjxRmV'), $t('LL72hYbR2hDyHj3zwMMzV')]"
+      :title="$t('CrpJvRaeD2UtLIpSA4Is7')"
       @confirm="onDateConfirm"
       @cancel="onDateCancel"
+      :cancel-button-text="$t('cT1QFWPt_d3RzSaZhjCUO')"
+      :confirm-button-text="$t('utkQ-uv-4gXBHkFXvGL5u')"
     >
       <van-date-picker v-model="tempOptions.createTime[0]" />
       <van-date-picker v-model="tempOptions.createTime[1]" />
