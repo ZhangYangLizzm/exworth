@@ -1,17 +1,14 @@
 <script setup>
-import ComponentTitle from "@/components/ComponentTitle.vue";
 import ExModal from "@/libs/components/antd/modal/ExModal.vue";
-import ResetPassword from "./components/ResetPassword.vue";
 import GoogleAuthGuide from "@/components/GoogleAuth/GoogleAuthGuide.vue";
-import BindGoogleAuth from "./components/BindGoogleAuth.vue";
-import Cell from "./components/Cell.vue";
+import { ResetPassword, ResetCode, BindGoogleAuth, Cell } from "./components";
 import { useSettingStore } from "@/stores/modules/setting";
-import ResetCode from "./components/ResetCode.vue";
-
+import { useAppStore } from "@/stores/modules/app";
 import { getGoogleSecretKey } from "@/api/setting";
+
+const appStore = useAppStore();
 const settingStore = useSettingStore();
 
-const { t } = useI18n();
 const resetPasswordRef = ref();
 const resetPassword = () => {
   resetPasswordRef?.value.show();
@@ -41,12 +38,13 @@ onMounted(() => {
 </script>
 <template>
   <div class="p-4 h-full">
-    <div v-if="settingStore.loading" class="w-full h-full flex justify-center items-center">
+    <div
+      v-if="settingStore.loading"
+      class="w-full h-full flex justify-center items-center"
+    >
       <a-spin :spinning="settingStore.loading" size="large" />
     </div>
     <div v-else>
-      <!-- <ComponentTitle :text="$t('44Nf1CAj5MDMYcXCacRgo')" /> -->
-
       <Cell :title="$t('18QwzD-fefF67FeBfT3TO')" :divider="true">
         <template #content>
           <p class="text-[#00000073]">{{ $t("Hjnh0CglItCAlSV7VeuUx") }}</p>
@@ -57,7 +55,12 @@ onMounted(() => {
           </a-button>
         </template>
       </Cell>
-      <ExModal ref="resetPasswordRef" :customTitle="$t('B-q5-tYEdulJDodx4ihUb')">
+      <ExModal
+        isBottom
+        :isMobile="appStore.isMobile"
+        ref="resetPasswordRef"
+        :customTitle="$t('B-q5-tYEdulJDodx4ihUb')"
+      >
         <ResetPassword />
       </ExModal>
 
@@ -73,18 +76,27 @@ onMounted(() => {
           </p>
         </template>
         <template #action>
-          <a-button :loading="loading" type="primary" @click="showDrawer"
-            v-if="!settingStore.config.ifGoogleSecretKeyBound">{{ $t("pYAVunqd83mox12MvD_DW") }}</a-button>
+          <a-button
+            :loading="loading"
+            type="primary"
+            @click="showDrawer"
+            v-if="!settingStore.config.ifGoogleSecretKeyBound"
+            >{{ $t("pYAVunqd83mox12MvD_DW") }}</a-button
+          >
         </template>
       </Cell>
 
-      <BindGoogleAuth v-model:visible="visible" :codeImgUrl="res?.codeImgUrl" :secretKey="res?.secretKey" />
+      <BindGoogleAuth
+        v-model:visible="visible"
+        :codeImgUrl="res?.codeImgUrl"
+        :secretKey="res?.secretKey"
+      />
       <Cell :title="$t('4Pf3mZrhh3LiqO5ocQQ3T')" :divider="true">
         <template #content>
           <p class="text-[#00000073]">
             {{ $t("F40221OplXwtCfKpjPD3j") }}<br />
             {{
-              t("vcMAWw5y_SAl2AsXpHfMC", {
+              $t("vcMAWw5y_SAl2AsXpHfMC", {
                 count: settingStore.config.loginIpWhiteList?.length || 0,
               })
             }}
@@ -96,17 +108,28 @@ onMounted(() => {
           <p class="text-[#00000073]">
             {{ $t("FPnQ4woLU-EYPfpsY6oX6") }}<br />
             {{ $t("A6kNlDZAbmYayenIODMIj") }}
-            <a @click="settingStore.fetchConfig()">{{ $t("_CD1ho41rkMxFKnIKKvKk") }}</a>
+            <a @click="settingStore.fetchConfig()">{{
+              $t("_CD1ho41rkMxFKnIKKvKk")
+            }}</a>
             {{ $t("5GYt-vY5CTG3o72Y5GCxr") }}
           </p>
         </template>
         <template #action>
-          <a-button type="primary" @click="resetCode" v-if="!settingStore.config.isSetWithdrawPassword">
+          <a-button
+            type="primary"
+            @click="resetCode"
+            v-if="!settingStore.config.isSetWithdrawPassword"
+          >
             {{ $t("mcPGcZyC7QxBRP9o_nR9i") }}
           </a-button>
         </template>
       </Cell>
-      <ExModal ref="resetCodeRef" :customTitle="$t('y1TuxkHrhkk1OLo6_jtVB')">
+      <ExModal
+        isBottom
+        ref="resetCodeRef"
+        :customTitle="$t('y1TuxkHrhkk1OLo6_jtVB')"
+        :isMobile="appStore.isMobile"
+      >
         <ResetCode />
       </ExModal>
     </div>
