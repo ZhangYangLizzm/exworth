@@ -32,3 +32,12 @@ body {
 .slide-grow-leave-from {
     flex-grow: 1;
 }
+
+
+.ant-btn-primary {
+    background-color: #1677ff;
+}
+
+.grow-transition {
+    transition: flex-grow 0.3s ease-in-out;
+}
