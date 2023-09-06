@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #app {
+    width: 100%;
+    height: 100%;
+
+}
+
+body {
+    background-color: rgba(190, 186, 186, 0.066);
+}
+
+#app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.slide-grow-enter-active,
+.slide-grow-leave-active {
+    transition: flex-grow 0.3s ease-in-out;
+}
+
+.slide-grow-enter-from, .slide-grow-leave-to {
+    flex-grow: 0;
+}
+
+.slide-grow-enter-to,
+.slide-grow-leave-from {
+    flex-grow: 1;
+}
