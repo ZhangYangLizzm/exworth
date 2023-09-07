@@ -10,8 +10,8 @@ import ExModal from "@/libs/components/antd/modal/ExModal.vue";
 import { useAppStore } from "@/stores/modules/app";
 import { useForm } from "@/libs/hooks/useForm";
 import { emailPattern } from "@/hooks/useFormRules";
-import { notification } from "ant-design-vue";
-import { h } from "vue";
+// import { notification } from "ant-design-vue";
+// import { h } from "vue";
 
 const appStore = useAppStore();
 
@@ -65,19 +65,30 @@ const formState = reactive({
 });
 
 const patternValidator = async (_, value) => {
-  if (!emailPattern.test(value.at(-1))) {
+  if (value.length > 0 && !emailPattern.test(value.at(-1))) {
     return Promise.reject(t("Ry7C9WCk708IsBie-i2YM"));
   }
   return Promise.resolve();
 };
+
+// const lengthValidator = async (_, value) => {
+//   if(value.length > 10){
+//     return Promise.reject("批量邀请数量已达上限");
+//   }
+//   return Promise.resolve();
+// }
 const rules = computed(() => ({
   email: [
     { required: true, message: t("8dRn48_9RTO6Q2804fgFp") },
     {
       validator: patternValidator,
     },
+    // {
+    //   validator: lengthValidator,
+    // },
   ],
 }));
+
 const { handleValidate, validateInfos, resetFields } = useForm(
   formState,
   rules
@@ -96,31 +107,27 @@ const handleSubmit = () => {
       if (statusCode === 200) {
         handleCancel();
         fetch();
-        const { errorEmail, successEmail } = content;
+        // const { errorEmail, successEmail } = content;
         // 如果沒有成功的郵箱，即所有都已經重複
-        if (!successEmail.length) {
-          notification["error"]({
-            message: t("uGntxwN9bCIIl8rHovkzb"),
-            description: t("5dKvwRq431eKsKdxFOYUd"),
-            duration: null,
-          });
-        } else {
-          let errMessageStr;
-          if (errorEmail.length) {
-            errMessageStr = errorEmail.join(",") + t("7BR30lhX3ii6xmNLqdhNC");
-          }
-          const successMessageStr =
-            t("MGdEJLi0ltaNxYONgZd47") + successEmail.join(",");
-          notification["success"]({
-            message: t("uGntxwN9bCIIl8rHovkzb"),
-            description: () =>
-              h("div", [
-                errMessageStr ? h("p", null, errMessageStr) : null,
-                h("p", null, successMessageStr),
-              ]),
-            duration: null,
-          });
-        }
+        // if (!successEmail.length) {
+        //   notification["error"]({
+        //     message: t("uGntxwN9bCIIl8rHovkzb"),
+        //     description: t("5dKvwRq431eKsKdxFOYUd"),
+        //     duration: null,
+        //   });
+        // } else {
+        // let errMessageStr;
+        // if (errorEmail.length) {
+        //   errMessageStr = errorEmail.join(",") + t("7BR30lhX3ii6xmNLqdhNC");
+        // }
+        //   const successMessageStr =
+        //     t("MGdEJLi0ltaNxYONgZd47") + successEmail.join(",");
+        //   notification["success"]({
+        //     message: t("uGntxwN9bCIIl8rHovkzb"),
+        //     description: () => h("div", [h("p", null, successMessageStr)]),
+        //     duration: null,
+        //   });
+        // }
       }
     }
   }, 300);
@@ -228,19 +235,18 @@ onMounted(() => {
       <div class="px-4">
         <a-form
           layout="vertical"
-          class="py-4 border-t border-b-0 border-gray-200 border-solid border-x-0"
+          class="pt-4 border-t border-b-0 border-gray-200 border-solid border-x-0"
         >
           <a-form-item
             :label="$t('kXAMWI86h-rooSEuCAow-')"
             v-bind="validateInfos.email"
           >
             <a-select
-              type="textarea"
               :open="false"
               mode="tags"
               :placeholder="$t('zjBCgU--wKqHomDG3Vakr')"
               size="large"
-              :tokenSeparators="[',', ' ', '，', '/', ';', '\\', '[', ']']"
+              :tokenSeparators="[',', ' ', '，', '/', ';']"
               v-model:value="formState.email"
             >
             </a-select>

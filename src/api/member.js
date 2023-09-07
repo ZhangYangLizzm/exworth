@@ -12,7 +12,10 @@ export const loadMemberInfo = params => request({
 export const invite = data => request({
   url: 'invite',
   data,
-  method: 'post'
+  method: 'post',
+  // header: {
+  //   Silence: 1
+  // }
 })
 
 export const loadInvitation = params => request({
