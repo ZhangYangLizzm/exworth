@@ -4,6 +4,7 @@ import { loadInvitation, invite } from "@/api/member";
 import {
   MEMBER_INVITATION_STATUS_JOINED,
   MEMBER_INVITATION_STATUS_INVITED,
+  MEMBER_INVITATION_STATUS_ACCEPTED,
 } from "@/stores/models/member";
 import { useMember } from "@/stores/modules/member";
 import ExModal from "@/libs/components/antd/modal/ExModal.vue";
@@ -25,6 +26,10 @@ const statusOptions = computed(() =>
     {
       label: MEMBER_INVITATION_STATUS_TEXT(MEMBER_INVITATION_STATUS_JOINED),
       value: MEMBER_INVITATION_STATUS_JOINED,
+    },
+    {
+      label: MEMBER_INVITATION_STATUS_TEXT(MEMBER_INVITATION_STATUS_ACCEPTED),
+      value: MEMBER_INVITATION_STATUS_ACCEPTED,
     },
     {
       label: MEMBER_INVITATION_STATUS_TEXT(MEMBER_INVITATION_STATUS_INVITED),
