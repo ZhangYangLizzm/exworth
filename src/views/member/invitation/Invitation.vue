@@ -40,6 +40,12 @@ const statusOptions = computed(() =>
 
 const columns = computed(() => [
   {
+    title:t('FowGRbqcv3tqz_rWf61zm'),
+    dataIndex:"sendTime",
+    key:"sendTime",
+    align:"center"
+  },
+  {
     title: t("KrbBTqrNaiFpKSs1Hs3FC"),
     dataIndex: "email",
     key: "email",
@@ -147,6 +153,7 @@ onMounted(() => {
   fetch();
 });
 </script>
+
 <template>
   <div class="p-4">
     <template v-if="appStore.isMobile">
