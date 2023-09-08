@@ -17,11 +17,15 @@ defineProps({
     type: Array,
     default: () => [],
   },
-  loading: Boolean,
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+  type: String,
 });
 const emit = defineEmits(["onClick"]);
-const onClick = (item, type) => {
-  emit("onClick", { item, type });
+const onClick = (item, type, topupMode) => {
+  emit("onClick", { item, type, topupMode });
 };
 const { t } = useI18n();
 const columns = [
@@ -55,12 +59,7 @@ const columns = [
   <a-table :dataSource="dataSource" :columns="columns" :loading="loading">
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'card'">
-        <Card
-          :brand="record.cardType"
-          :mode="CARD_MODE_PHYSICAL"
-          class="w-64"
-          size="small"
-        >
+        <Card :brand="record.cardType" :mode="type" class="w-64" size="small">
           <template #footer>
             <div class="flex items-center justify-between">
               <div class="drop-shadow text-[18px]">
@@ -82,14 +81,22 @@ const columns = [
         <a-button
           type="link"
           v-if="[CARD_STATUS_NORMAL].includes(record?.cardStatus)"
-          @click="onClick(record, 'recharge')"
+          @click="onClick(record, 'recharge',type)"
         >
           {{ $t("VVQaPte21XgxJXEM9H8gu") }}
         </a-button>
-        <a-button type="link" @click="onClick(record, 'replace')">
+        <a-button
+          type="link"
+          @click="onClick(record, 'replace')"
+          v-if="type === CARD_MODE_PHYSICAL"
+        >
           {{ $t("gVPkNpXqcOdkRBKMOR_9i") }}
         </a-button>
-        <a-button type="link" @click="onClick(record, 'cardLoss')">
+        <a-button
+          type="link"
+          @click="onClick(record, 'cardLoss')"
+          v-if="type === CARD_MODE_PHYSICAL"
+        >
           {{ $t("h0EQGD5w6L9xSdGkk4eG0") }}
         </a-button>
       </template>

@@ -50,7 +50,7 @@ const columns = computed(() => [
       <template v-if="['email', 'uuid'].includes(column.key)">
         {{ record[column.key] }}
         <copy-outlined
-          class="cursor-pointer ml-2"
+          class="cursor-pointer ml-2 text-primary"
           @click="copy(record[column.key])"
         />
       </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { postRecharge } from "@/api/card";
+import { postRecharge,postRechargeVCC } from "@/api/card";
 import ExModal from "@/libs/components/antd/modal/ExModal.vue";
 import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 import { useAccountStore } from "@/stores/modules/accounts.js";
@@ -7,6 +7,11 @@ import { Format } from "@/libs/hooks/useUtil.js";
 import { useAppStore } from "@/libs/stores/modules/app";
 import useFormRules from "@/hooks/useFormRules.js";
 import Big from "big.js";
+import {
+  CARD_MODE_PHYSICAL,
+  CARD_MODE_VIRTUAL,
+} from "@/core/card/stores/models/card";
+
 const appStore = useAppStore();
 
 const accountStore = useAccountStore();
@@ -16,21 +21,22 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  topupMode: String,
 });
 
 const available = computed(() =>
   accountStore.availableBalance(rechargeState.currency)
 );
 
-const { AmountRule, SecurityPasswordRule, GoogleAuthCodeRule } =
-  useFormRules({available});
+const { AmountRule, SecurityPasswordRule, GoogleAuthCodeRule } = useFormRules({
+  available,
+});
 const rechargeState = reactive({
   currency: "USDE",
   amount: 0,
   password: "",
   authCode: "",
 });
-
 
 const rules = reactive({
   amount: AmountRule,
@@ -58,7 +64,14 @@ const handleConfirm = async () => {
   const { values } = await handleValidate();
   if (values) {
     btnLoading.value = true;
-    await postRecharge({ ...rechargeState, cardKey: props.cardInfo.cardKey });
+    if (props.topupMode === CARD_MODE_PHYSICAL) {
+      await postRecharge({ ...rechargeState, cardKey: props.cardInfo.cardKey });
+    } else if (props.topupMode === CARD_MODE_VIRTUAL) {
+      await postRechargeVCC({
+        ...rechargeState,
+        cardKey: props.cardInfo.cardKey,
+      });
+    }
     await accountStore.fetchWalletAccount();
     btnLoading.value = false;
     modalRef?.value.close();
@@ -70,7 +83,9 @@ const fee = computed(() => {
     return new Big(0).toFixed(2);
   }
   const amount = new Big(rechargeState.amount || 0);
-  const topUpRate = new Big(props.cardInfo.topUpRate);
+  const topUpRate = new Big(
+    props.cardInfo.topUpRate || props.cardInfo.rechargeRate
+  );
   return amount.times(topUpRate).toFixed(2); // 控制保留两位小数
 });
 
@@ -78,11 +93,19 @@ const actualAmount = computed(() => {
   const amout = new Big(rechargeState.amount || 0);
   return amout.minus(fee.value).toFixed(2);
 });
+
+const { t } = useI18n();
+const modalTitle = computed(() => {
+  if (props.topupMode === CARD_MODE_PHYSICAL) {
+    return t("Y8Q4sAZg7x3OGpUJ7N-Wr");
+  }
+  return t("0iPU3tUxly0NQpks8YW7d");
+});
 </script>
 
 <template>
   <ExModal
-    :customTitle="$t('Y8Q4sAZg7x3OGpUJ7N-Wr')"
+    :customTitle="modalTitle"
     ref="modalRef"
     :isMobile="appStore.isMobile"
   >

@@ -1,4 +1,6 @@
+
 export const PPC_PREFIX = "withdraw_ppc"
+export const VCC_PREFIX = "withdraw_vcc"
 export const PPC_CANCEL_PREFIX = "withdraw_cancel_ppc"
 export const RECHARGE = "recharge"
 export const SEND = "send"
@@ -22,6 +24,8 @@ export const useFlowType = () => {
         [`${PPC_CANCEL_PREFIX}.${RECHARGE}`]: t('kOPo-JKT9YvFWURtL3glv'),
         [`${PPC_PREFIX}.${REPORTLOSS}`]: t('V5iuTIMuFVZZsXSMMx4Tx'),
         [ADJUST_PROFIT]: t('Ecm5B6_7vgNubPB9PjhG3'),
+        [`${VCC_PREFIX}.${RECHARGE}`]: t('0iPU3tUxly0NQpks8YW7d'),
+
     }
 
     const FlowTypeList = computed(() => Object.entries(FLOW_TYPES))
@@ -76,6 +80,15 @@ export const useFlowType = () => {
                     value: `${PPC_CANCEL_PREFIX}.${RECHARGE}`
                 },
 
+            ]
+        },
+        {
+            label: t('S2OrYOKW-4S0okv_ixAu-'),
+            options: [
+                {
+                    label: t('VVQaPte21XgxJXEM9H8gu'),
+                    value: `${VCC_PREFIX}.${RECHARGE}`
+                }
             ]
         }
     ]

@@ -9,7 +9,8 @@ export const loadMemberInfo = params => request({
   url: `member/proUID`,
   params
 })
-export const invite = data => request({
+
+export const postMemberInvite = data => request({
   url: 'invite',
   data,
   method: 'post',
@@ -25,5 +26,10 @@ export const loadInvitation = params => request({
 
 export const loadMemberPhysicalCard = params => request({
   url: `ppc/cards`,
+  params
+})
+
+export const loadMemberVirtualCard = params => request({
+  url: 'credit/list',
   params
 })

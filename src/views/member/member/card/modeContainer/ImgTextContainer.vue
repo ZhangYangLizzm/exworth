@@ -10,17 +10,23 @@ import {
 } from "@/core/card/stores/models/card";
 import { encryptStr } from "@/libs/hooks/useUtil";
 import { useAppStore } from "@/libs/stores/modules/app";
+
 const appStore = useAppStore();
-const { dataSource, loading } = defineProps({
+defineProps({
   dataSource: {
     type: Array,
     default: () => [],
   },
-  loading: Boolean,
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+  type: String,
 });
+
 const emit = defineEmits(["onClick"]);
-const onClick = (item, type) => {
-  emit("onClick", { item, type });
+const onClick = (item, type, topupMode) => {
+  emit("onClick", { item, type, topupMode });
 };
 </script>
 
@@ -28,12 +34,12 @@ const onClick = (item, type) => {
   <a-spin :spinning="loading">
     <div class="flex pb-4 overflow-x-auto overflow-y-auto gap-x-4">
       <div
-        class="bg-white shrink-0 rounded-2xl"
+        class="bg-slate-100 shrink-0 rounded-xl"
         v-for="(item, index) in dataSource"
         :class="[appStore.isMobile ? 'basis-4/5' : 'basis-[300px]']"
         :key="index"
       >
-        <Card :brand="item.cardType" :mode="CARD_MODE_PHYSICAL">
+        <Card :brand="item.cardType" :mode="type">
           <template #footer>
             <div class="flex items-center justify-between">
               <div class="drop-shadow text-[20px]">
@@ -46,25 +52,28 @@ const onClick = (item, type) => {
             </div>
           </template>
         </Card>
-        <div class="flex p-2">
+        <div class="flex px-2">
           <a-button
             type="text"
             v-if="[CARD_STATUS_NORMAL].includes(item?.cardStatus)"
-            @click="onClick(item, 'recharge')"
+            @click="onClick(item, 'recharge', type)"
           >
             {{ $t("VVQaPte21XgxJXEM9H8gu") }}
           </a-button>
-          <a-button type="text" @click="onClick(item, 'replace')">
-            <!-- v-if="[CARD_STATUS_BINDING].includes(item?.cardStatus)" -->
-
+          <a-button
+            type="text"
+            @click="onClick(item, 'replace')"
+            v-if="type === CARD_MODE_PHYSICAL"
+          >
             {{ $t("gVPkNpXqcOdkRBKMOR_9i") }}
           </a-button>
-          <a-button type="text" @click="onClick(item, 'cardLoss')">
+          <a-button
+            type="text"
+            @click="onClick(item, 'cardLoss')"
+            v-if="type === CARD_MODE_PHYSICAL"
+          >
             {{ $t("h0EQGD5w6L9xSdGkk4eG0") }}
           </a-button>
-          <!-- <a-button type="text" @click="onClick(item, 'history')">
-          {{ $t("jQc6AAJLq2w_8X55HDOoe") }}
-        </a-button> -->
         </div>
       </div>
     </div>

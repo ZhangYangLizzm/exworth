@@ -1,6 +1,6 @@
 <script setup>
 import { useList } from "@/libs/hooks/useList";
-import { loadInvitation, invite } from "@/api/member";
+import { loadInvitation, postMemberInvite } from "@/api/member";
 import {
   MEMBER_INVITATION_STATUS_JOINED,
   MEMBER_INVITATION_STATUS_INVITED,
@@ -35,8 +35,6 @@ const statusOptions = computed(() =>
       label: MEMBER_INVITATION_STATUS_TEXT(MEMBER_INVITATION_STATUS_JOINED),
       value: MEMBER_INVITATION_STATUS_JOINED,
     },
- 
-   
   ])
 );
 
@@ -109,7 +107,7 @@ const handleSubmit = () => {
     const { values } = await handleValidate();
     if (values) {
       btnLoading.value = true;
-      const { statusCode, content } = await invite(values);
+      const { statusCode, content } = await postMemberInvite(values);
       btnLoading.value = false;
       if (statusCode === 200) {
         handleCancel();

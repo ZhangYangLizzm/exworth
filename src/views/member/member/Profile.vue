@@ -26,7 +26,8 @@ onMounted(() => {
   fetch();
 });
 const defaultMode = "imgTextMode";
-const mode = useStorage("Member_Mode", defaultMode);
+// const mode = useStorage("Member_Mode", defaultMode);
+const mode = defaultMode;
 </script>
 
 <template>
@@ -36,7 +37,7 @@ const mode = useStorage("Member_Mode", defaultMode);
     <BasicProfile :profile="userModel" class="mb-8" />
 
     <ComponentTitle :text="$t('c9v0NvMxo7MffTy-TXDir')" class="text-xl mt-4">
-      <template #extra v-if="!appStore.isMobile">
+      <!-- <template #extra v-if="!appStore.isMobile">
         <appstore-outlined
           class="cursor-pointer ml-2 hover:text-primary"
           :class="{ 'text-primary': mode === 'imgTextMode' }"
@@ -47,12 +48,13 @@ const mode = useStorage("Member_Mode", defaultMode);
           :class="{ 'text-primary': mode === 'listMode' }"
           @click="mode = 'listMode'"
         />
-      </template>
+      </template> -->
     </ComponentTitle>
 
-    <CardWrap
+    <!-- <CardWrap
       class="mt-2 shadow-md"
       :mode="appStore.isMobile ? 'imgTextMode' : mode"
-    />
+    /> -->
+    <CardWrap class="mt-2" :mode="mode" />
   </div>
 </template>
