@@ -44,7 +44,7 @@
   "irfv2QgrQafS_6Zl73s2N": "If the member already has an Exworth Pro account, please fill in his/her registered account email address; if not, the email address you fill in will be recognized as his/her Exworth Pro registered account email address.",
   "1NLFL8YdPqQXonj5lQxvT": "Warm Tips",
   "rNuiRMYhJmBtD-Nz0KEkt": "last name",
-  "zjBCgU--wKqHomDG3Vakr": "Please enter your e-mail address and use English character , to separate multiple e-mail addresses.",
+  "zjBCgU--wKqHomDG3Vakr": "Please use comma \",\" to separate the more email.",
   "6b77_1yTm-gggQW0eZnOy": "Logout",
   "DPlif46hxBTM2cr51Heqt": "Cards",
   "FBZ5wdhtJo7L2Xj7FJEQ8": "Home",
@@ -170,7 +170,7 @@
   "bggAC96HS1OvTEKsh9rg_": "Balance",
   "sMkxYlIlj4SgxGAKFOjgJ": "Please enter the transfer amount",
   "OcfJlH4QmIPpM8_XAtT0h": "Input Email Search",
-  "HdqCyzznm7hS5EZblV5Xr": "Please enter your e-mail address to search",
+  "HdqCyzznm7hS5EZblV5Xr": "Enter email",
   "QzD6F1l8Ue9UNPMHcBruL": "Please select a currency",
   "9X7FO5do5O5FIYhSXc5FG": "Card number cannot be empty",
   "KbcfSX5ia5pOmBlREN6PC": "Please select network",
@@ -226,6 +226,6 @@
   "LL72hYbR2hDyHj3zwMMzV": "End Date",
   "nao2yl_rBUwZGlBGjxRmV": "Start Date",
   "QA6w_BBqAnV0znUq8ttml": "Select Filter",
-  "Iisyekt19U48nfo2BFypV": "unregistered",
+  "Iisyekt19U48nfo2BFypV": "Unregistered",
   "0iPU3tUxly0NQpks8YW7d": "Virtual Card Top-up"
 }
