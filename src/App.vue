@@ -1,35 +1,25 @@
-<template>
-  <div class="w-3/4 h-3/4 bg-white rounded-xl shadow flex">
-    <div class="w-[200px] h-full left-siderbar p-4">LeftSidegbar</div>
-    <div class="layout-content w-full flex rounded-r-xl" id="design-layout">
-      <div class="flex-grow relative grow-transition bg-red-200 p-4">
-        <AButton type="primary" @click="visible = !visible"> 抽屉</AButton>
-      </div>
-    </div>
-  </div>
+<script setup lang="ts">
+import dayjs from "dayjs";
+const { messages, locale } = useI18n();
+const antLocale = computed(() => unref(messages)?.[unref(locale)]?.antLocale);
+const configProvider = computed(() => ({
+  locale: antLocale.value,
+  autoInsertSpaseInButton: false,
+}));
 
-  <CustomDrawer :visible="visible" getContainer="#design-layout">
-    <div>Content</div>
-  </CustomDrawer>
-</template>
-
-<script lang="ts" setup>
-const visible = ref(false);
-const CustomDrawer = defineAsyncComponent(
-  () => import("./components/CustomDrawer.vue")
-);
+watch(antLocale, (newVal:any) => dayjs.locale(newVal.locale), { immediate: true });
 </script>
 
-<style scoped>
-#design-layout {
-  position: relative;
-}
-
-#design-layout:has(.custom-drawer) > div {
-  flex-grow: 2;
-}
-
-.left-siderbar {
-  border-right: 1px solid rgba(182, 178, 178, 0.392);
-}
-</style>
+<template>
+  <a-config-provider v-bind="configProvider">
+    <a-layout
+      class="min-w-[75vw] max-w-[75vw] h-3/4 bg-white rounded-xl shadow flex"
+    >
+      <router-view v-slot="{ Component }">
+        <Transition name="slide-page">
+          <component :is="Component"></component>
+        </Transition>
+      </router-view>
+    </a-layout>
+  </a-config-provider>
+</template>
