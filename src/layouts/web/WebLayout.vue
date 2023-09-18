@@ -6,17 +6,17 @@ const { drawerFlexGrowClass, drawerVisible } = useDrawerProvide();
 </script>
 
 <template>
-  <div class="w-full h-full flex">
+  <div class="flex bg-white relative w-full overflow-hidden">
     <WebSider />
 
     <ALayoutContent
-      class="flex-grow-[2] relative overflow-hidden"
+      class="!flex-grow-[2] !basis-0 !shrink-0 relative overflow-hidden"
       :class="[drawerVisible ? 'rounded-none' : 'rounded-r-xl']"
     >
       <router-view v-slot="{ Component, route }">
         <transition name="slide-page">
           <!-- vue3组件中可没有根组件，避免在子组件没有根组件时候transition失效的情况 -->
-          <div :key="route.path" class="py-4 pr-4 h-full flex flex-col">
+          <div :key="route.path" class="py-4 h-full flex flex-col">
             <component :is="Component"></component>
           </div>
         </transition>
@@ -24,7 +24,7 @@ const { drawerFlexGrowClass, drawerVisible } = useDrawerProvide();
     </ALayoutContent>
 
     <div
-      id="design-layout"
+      id="ex-drawer"
       class="relative rounded-r-xl bg-white grow-transition"
       :class="[drawerFlexGrowClass]"
     ></div>

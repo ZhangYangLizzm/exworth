@@ -14,6 +14,7 @@ const { isSupported, isFullscreen, toggle } = useFullscreen();
     <div class="px-4 pb-4">
       <Logo  dark />
     </div>
+    
     <NavigationMenu class="flex-grow" />
 
     <AMenu>

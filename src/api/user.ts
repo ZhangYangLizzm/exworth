@@ -1,4 +1,4 @@
-import {useRequest} from "@/hooks";
+import { useRequest } from "@/hooks";
 const { request } = useRequest("/api");
 
 export const logoutSelf = () =>

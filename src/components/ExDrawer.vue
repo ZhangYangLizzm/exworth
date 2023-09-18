@@ -4,9 +4,9 @@ import { useDrawerInject } from "@/hooks/useDrawer.ts";
 defineProps({
   getContainer: {
     type: String,
-    default: "body",
+    default: "#ex-drawer",
   },
-  customTitle: {
+  title: {
     type: String,
     default: "Title",
   },
@@ -16,10 +16,9 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["afterClose"]);
-
 const { drawerVisible, closeDrawer } = useDrawerInject();
 
+const emit = defineEmits(["afterClose"]);
 const onCloseDrawer = () => {
   closeDrawer();
   emit("afterClose");
@@ -28,7 +27,7 @@ const onCloseDrawer = () => {
 
 <template>
   <Teleport :to="getContainer" v-if="drawerVisible">
-    <div class="h-full absolute shadow rounded-r-xl w-full">
+    <div class="h-full absolute shadow rounded-r-xl overflow-hidden">
       <div
         class="drawer-header flex w-full h-12 justify-center items-center py-4"
         v-if="showTitle"
@@ -40,7 +39,7 @@ const onCloseDrawer = () => {
         <div class="flex-grow text-center">
           <slot name="header">
             <div class="font-bold text-base tracking-wide">
-              {{ customTitle }}
+              {{ title }}
             </div>
           </slot>
         </div>

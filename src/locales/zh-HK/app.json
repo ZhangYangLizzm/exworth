@@ -80,7 +80,7 @@
   "aT1xkA__dmUFiEHrDNAph": "轉賬金額",
   "AMeo68ZI28aaFVqr0swF7": "轉出幣種",
   "utkQ-uv-4gXBHkFXvGL5u": "確認",
-  "tdOb7WZfAthhIqC2_HIAg": "請輸入轉賬金額。",
+  "tdOb7WZfAthhIqC2_HIAg": "請輸入轉賬金額",
   "L8_JRGabLnJGC2tBI9Hqc": "安全密碼不能為空",
   "Y8Q4sAZg7x3OGpUJ7N-Wr": "實體卡充值",
   "NI3dffhiC9cI6NmBo_UBh": "充值金額",
@@ -234,5 +234,7 @@
   "Iisyekt19U48nfo2BFypV": "未註冊",
   "0iPU3tUxly0NQpks8YW7d": "虛擬卡充值",
   "hdII_B1j1KAQxJ5NzBGW-": "篩選",
-  "VVQaPte21XgxJXEM9H8gu": "充值"
+  "VVQaPte21XgxJXEM9H8gu": "充值",
+  "SlJFgfv49xSHi9mbjdw4e": "谷歌驗證碼",
+  "yj74dO9iA9rD0NRDm8h2n": "安全密碼"
 }

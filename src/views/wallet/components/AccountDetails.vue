@@ -1,30 +1,17 @@
 <script setup lang="ts">
-import { getBalanceHistory } from "@/api/wallet";
-import { useList, useOrderType } from "@/hooks/";
+import { useOrderType } from "@/hooks/";
 import { DirectionClass } from "@/utils/getClasses";
 import { Format } from "@/utils/number";
 import InfiniteScroll from "@/components/InfiniteScroll.vue";
 
+defineProps({
+  loading: Boolean,
+  dataSource: Array,
+});
+
+const emit = defineEmits(["fetchMore"]);
 const { FlowTypeLable } = useOrderType();
-
-const filterOptions = reactive({
-  createTime: undefined,
-  type: undefined,
-  currency: undefined,
-  affectOrderNo: undefined,
-});
-
-const {
-  // fetch,
-  list: dataSource,
-  loading,
-  fetchMore,
-  // refresh,
-} = useList(getBalanceHistory, filterOptions, {
-  mode: "list",
-  pageSize: 16,
-  immediate: true,
-});
+const fetchMore = emit("fetchMore");
 </script>
 
 <template>
@@ -55,6 +42,3 @@ const {
     </template>
   </InfiniteScroll>
 </template>
-
-<style scoped lang="less"></style>
-@/utils/useUtils

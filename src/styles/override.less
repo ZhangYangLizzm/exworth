@@ -1,61 +1,9 @@
-.ant-btn-link.ant-btn-sm {
-  font-size: 12px;
-  height: initial;
-}
-.ant-btn.ant-btn-primary[disabled] {
-  &:hover,
-  &:focus,
-  &:active {
-    border-color: transparent;
-  }
-  border-color: transparent;
+::-webkit-scrollbar {
+  width: 3px;
+  height: 6px;
 }
 
-.ant-btn {
-  &:not(.ant-btn-link, .ant-btn-icon-only) {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-  &.ant-btn-bold {
-    font-weight: 700;
-  }
-  &.ant-btn-link {
-    padding: 0;
-    &:not(:last-child) {
-      margin-right: 12px;
-    }
-  }
-  &.ant-btn-sm {
-    font-size: var(--van-font-size-sm);
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  &.ant-btn-lg {
-    font-size: var(--van-font-size-md);
-    font-weight: 600;
-    padding-left: 26px;
-    padding-right: 26px;
-  }
-}
-
-.ant-btn:not(.ant-btn-circle, .ant-btn-link, .ant-btn-round) {
-  border-radius: 6px;
-}
-.ant-btn.btn-ghost {
-  border: none;
-  background-color: var(--van-gray-4);
-  &:hover {
-    background-color: var(--van-gray-3);
-  }
-}
-.ant-btn-text:focus,
-.ant-btn-text:active {
-  background-color: transparent;
-}
-.ant-input-affix-wrapper {
-  .ant-btn {
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 100%;
-  }
+::-webkit-scrollbar-thumb {
+  background-color: rgba(183, 190, 186, 0.648);
+  border-radius: 3px;
 }

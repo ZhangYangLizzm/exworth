@@ -28,12 +28,14 @@ export const getWithdrawHistory = (params: any) =>
     method: "GET",
     params: { ...params, type: "ppc.send", timeKey: "createTime" },
   });
+  
 export const getTransferstory = (params: any) =>
   request({
     url: "otc/withdraw",
     method: "GET",
     params: { ...params, type: "internal", timeKey: "createTime" },
   });
+
 export const getOtcRate = (params: any) =>
   request({
     url: "otc/rate",

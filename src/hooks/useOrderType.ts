@@ -12,14 +12,14 @@ export const REPORTLOSS = "reportloss";
 export const useOrderType = () => {
   const { t } = useI18n();
 
-  const FLOW_TYPES = {
+  const FLOW_TYPES: Record<string, string> = {
     [`${PPC_PREFIX}.${SEND}`]: t("mtzd-o04L2UDLaN81GSRl"),
     [`${INTERNAL}`]: t("pGrhTXj8A84ieJpHf6k3L"),
     [DEPOSIT]: t("p85LUkdtTlZNxvwxEVGX8"),
-    [`${PPC_PREFIX}.${APPLYCARDS}`]: t("46XbjJJedfhvddlC3NTJ0"),
+    // [`${PPC_PREFIX}.${APPLYCARDS}`]: t("46XbjJJedfhvddlC3NTJ0"),
     [`${PPC_PREFIX}.${RECHARGE}`]: t("Y8Q4sAZg7x3OGpUJ7N-Wr"),
     [`${PPC_CANCEL_PREFIX}.${SEND}`]: t("Af035ZJECpXV2Eo5mGVlg"),
-    [`${PPC_CANCEL_PREFIX}.${APPLYCARDS}`]: t("U8O12gFgVi5IgP7_ZxEoL"),
+    // [`${PPC_CANCEL_PREFIX}.${APPLYCARDS}`]: t("U8O12gFgVi5IgP7_ZxEoL"),
     [`${PPC_CANCEL_PREFIX}.${RECHARGE}`]: t("kOPo-JKT9YvFWURtL3glv"),
     [`${PPC_PREFIX}.${REPORTLOSS}`]: t("V5iuTIMuFVZZsXSMMx4Tx"),
     [ADJUST_PROFIT]: t("Ecm5B6_7vgNubPB9PjhG3"),
@@ -57,10 +57,10 @@ export const useOrderType = () => {
     {
       label: t("OnPSpwMATKuG2io4jQP3a"),
       options: [
-        {
-          label: t("--6PBqH-6-OhHdzPSJvNF"),
-          value: `${PPC_PREFIX}.${APPLYCARDS}`,
-        },
+        // {
+        //   label: t("--6PBqH-6-OhHdzPSJvNF"),
+        //   value: `${PPC_PREFIX}.${APPLYCARDS}`,
+        // },
         {
           label: t("VVQaPte21XgxJXEM9H8gu"),
           value: `${PPC_PREFIX}.${RECHARGE}`,
@@ -69,10 +69,10 @@ export const useOrderType = () => {
           label: t("h0EQGD5w6L9xSdGkk4eG0"),
           value: `${PPC_PREFIX}.${REPORTLOSS}`,
         },
-        {
-          label: t("F0CoBzfm77tn2mvw1Jm_X"),
-          value: `${PPC_CANCEL_PREFIX}.${APPLYCARDS}`,
-        },
+        // {
+        //   label: t("F0CoBzfm77tn2mvw1Jm_X"),
+        //   value: `${PPC_CANCEL_PREFIX}.${APPLYCARDS}`,
+        // },
         {
           label: t("8JZxT60NtcisxpMNvx57D"),
           value: `${PPC_CANCEL_PREFIX}.${RECHARGE}`,
@@ -90,7 +90,7 @@ export const useOrderType = () => {
     },
   ];
 
-  const FlowTypeLable = (key) => FLOW_TYPES[key];
+  const FlowTypeLable = (key: string) => FLOW_TYPES[key];
 
   return { FlowTypeList, FlowTypeLable, FLOW_TYPE_GROUPS };
 };

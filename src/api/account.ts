@@ -1,17 +1,19 @@
-import {useRequest} from '@/hooks'
+import { useRequest } from "@/hooks";
 
-const { request } = useRequest('/api')
+const { request } = useRequest("/api/otc");
 
 const api = {
-  wallet: 'otc/property',
-  address: 'otc/blockchain/deposit/addresses'
-}
+  wallet: "property",
+  address: "blockchain/deposit/addresses",
+};
 
-export const loadWalletAddress = (params: any) => request({
-  url: api.address,
-  params
-})
+export const loadWalletAddress = (params: any) =>
+  request({
+    url: api.address,
+    params,
+  });
 
-export const loadWalletBalance = () => request({
-  url: api.wallet
-})
+export const loadWalletBalance = () =>
+  request({
+    url: api.wallet,
+  });

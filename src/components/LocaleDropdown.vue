@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useLocale, LocalesKey } from "@/hooks/useLocale.ts";
+import { MenuClickEventHandler } from "ant-design-vue/es/menu/src/interface";
 
 const { locale, SUPPORT_LOCALES, localeText, setLocale } = useLocale();
 
-const handleLocaleSelect = ({ key }: { key: LocalesKey }) => {
-  setLocale(key);
+const handleLocaleSelect: MenuClickEventHandler = ({ key }) => {
+  setLocale(key as LocalesKey);
   window.location.reload();
 };
 </script>

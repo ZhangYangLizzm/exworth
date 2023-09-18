@@ -3,6 +3,7 @@ export const MEMBER_INVITE = "MEMBER_INVITE";
 export const SETTING_GOOGLE_AUTH = "SETTING_GOOGLE_AUTH";
 export const SETTING_RESET_PASSWORD = "SETTING_RESET_PASSWORD";
 export const SETTING_RESET_CODE = "SETTING_RESET_CODE";
+export const SETTING_APIKEY = "SETTING_APIKEY";
 export const WALLET_TOPUP = "WALLET_TOPUP";
 export const WALLET_WITHDRAW = "WALLET_WITHDRAW";
 export const WALLET_TRANSFER = "WALLET_TRANSFER";
@@ -12,9 +13,12 @@ const DEFAULT_GROW = 1;
 
 interface DrawerRrovide {
   drawerVisible: Ref<boolean>;
+  drawerPattern: Ref<string>;
   updateDrawerVisible: (value: boolean) => void;
   updateFlexGrowNum: (value: number) => void;
+  setDrawerPattern: (value: string) => void;
 }
+
 const rightSiderkey = Symbol() as InjectionKey<DrawerRrovide>;
 
 const useDrawerProvide = () => {
@@ -29,10 +33,21 @@ const useDrawerProvide = () => {
     flexGrowNum.value = value;
   };
 
+  /**
+   * drawerPattern 用于控制按钮的disabled或者组件的渲染
+   */
+  const drawerPattern = ref("");
+
+  const setDrawerPattern = (value: string) => {
+    drawerPattern.value = value;
+  };
+
   provide(rightSiderkey, {
     drawerVisible,
     updateDrawerVisible,
     updateFlexGrowNum,
+    drawerPattern,
+    setDrawerPattern,
   });
 
   const drawerFlexGrowClass = computed(() => {
@@ -51,22 +66,20 @@ const useDrawerProvide = () => {
 const useDrawerInject = () => {
   const drawerInject = inject(rightSiderkey)!;
 
-  const { drawerVisible, updateDrawerVisible, updateFlexGrowNum } =
-    drawerInject;
-
-  const drawerPattern = ref("");
-
-  const setDrawerPattern = (value: string) => {
-    drawerPattern.value = value;
-  };
-
-  const isDisabled = (value: string) => drawerPattern.value === value;
+  const {
+    drawerVisible,
+    updateDrawerVisible,
+    updateFlexGrowNum,
+    setDrawerPattern,
+    drawerPattern,
+  } = drawerInject;
 
   const openDrawer = () => {
     updateDrawerVisible(true);
   };
 
   const closeDrawer = () => {
+    setDrawerPattern("");
     updateDrawerVisible(false);
   };
 
@@ -88,11 +101,11 @@ const useDrawerInject = () => {
   });
 
   return {
+    drawerPattern,
     drawerVisible,
     wrapClick,
     updateFlexGrowNum,
     closeDrawer,
-    isDisabled,
   };
 };
 

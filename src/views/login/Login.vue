@@ -7,7 +7,7 @@ const thisYear = computed(() => dayjs().year());
 </script>
 
 <template>
-  <div class="w-full h-full login overflow-hidden flex flex-col">
+  <div class="w-full h-full login overflow-hidden flex flex-col rounded-xl">
     <header class="header h-16 flex items-center justify-between px-4">
       <div class="h-6">
         <Logo dark />

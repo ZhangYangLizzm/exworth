@@ -1,14 +1,19 @@
 <script setup lang="ts">
+import { MenuClickEventHandler } from "ant-design-vue/es/menu/src/interface";
+
 const router = useRouter();
 const route = useRoute();
-const selectedKeys = computed(() => [...route.matched.map((i) => i.name)]);
-const handleMenuClick = ({ key }: { key: string }) => {
-  router.push({ name: key });
+const selectedKeys = computed(() => [
+  ...route.matched.map((i) => i.name as string),
+]);
+
+const handleMenuClick: MenuClickEventHandler = ({ key }) => {
+  router.push({ name: key as string });
 };
 </script>
 
 <template>
-  <AMenu @click="handleMenuClick" :selectedKeys="selectedKeys">
+  <AMenu :selectedKeys="selectedKeys" @click="handleMenuClick">
     <AMenuItem class="rounded" key="Wallet">
       <template #icon>
         <wallet-outlined />
