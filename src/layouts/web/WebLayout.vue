@@ -6,8 +6,8 @@ const { drawerFlexGrowClass, drawerVisible } = useDrawerProvide();
 </script>
 
 <template>
-  <div class="flex bg-white relative w-full overflow-hidden">
-    <WebSider />
+  <div class="flex bg-white relative w-full overflow-hidden rounded-xl">
+    <WebSider class="!bg-white" />
 
     <ALayoutContent
       class="!flex-grow-[2] !basis-0 !shrink-0 relative overflow-hidden"

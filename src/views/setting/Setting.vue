@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import GoogleAuthGuide from "@/components/GoogleAuth/GoogleAuthGuide.vue";
-import { Cell, ResetPassword, ResetCode, BindGoogleAuth,SetAPI } from "./components";
+import {
+  Cell,
+  ResetPassword,
+  ResetCode,
+  BindGoogleAuth,
+  SetAPI,
+} from "./components";
 import { useSettingStore } from "@/stores/setting";
 import { getGoogleSecretKey } from "@/api/setting";
 import {
@@ -139,7 +145,6 @@ onMounted(() => {
       :secretKey="googleSecretKeyContent?.secretKey"
     />
     <ResetCode v-if="drawerPattern === SETTING_RESET_CODE" />
-    <SetAPI v-if="drawerPattern === SETTING_APIKEY"/>
-
+    <SetAPI v-if="drawerPattern === SETTING_APIKEY" />
   </ExDrawer>
 </template>

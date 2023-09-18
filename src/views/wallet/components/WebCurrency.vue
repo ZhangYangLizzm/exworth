@@ -12,9 +12,11 @@ defineProps<{
 <template>
   <div class="flex">
     <a-spin :spinning="loading" class="translate-x-8">
-      <div class="flex overflow-x-auto gap-x-4 overflow-y-hidden">
+      <div
+        class="flex overflow-x-auto gap-x-4 overflow-y-hidden bg-white rounded-xl wallet-container"
+      >
         <div
-          class="p-4 rounded-xl shadow my-2 flex"
+          class="p-4 my-2 flex wallet-account"
           v-for="asset in walletAccounts"
           :key="asset.currency"
         >
@@ -30,3 +32,11 @@ defineProps<{
     </a-spin>
   </div>
 </template>
+
+<style scoped lang="less">
+.wallet-container {
+  .wallet-account:not(:last-child) {
+    border-right: 2px solid var(--divider-gray);
+  }
+}
+</style>

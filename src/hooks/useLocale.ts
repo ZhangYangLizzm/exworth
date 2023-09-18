@@ -1,4 +1,4 @@
-import { STORAGE_LOCALE } from "@/config/constant.ts";
+import { DEFAULT_LOCALE, STORAGE_LOCALE } from "@/config/constant.ts";
 import { i18n } from "@/locales";
 
 export const LOCALES_MAP = {
@@ -7,8 +7,6 @@ export const LOCALES_MAP = {
 };
 
 export type LocalesKey = keyof typeof LOCALES_MAP;
-
-export const DEFAULT_LOCALE = "en-US";
 
 export const useLocale = () => {
   const getLocale = () => {
@@ -20,7 +18,7 @@ export const useLocale = () => {
   const localeText = computed(() => LOCALES_MAP[locale.value as LocalesKey]);
 
   const setLocale = (value: LocalesKey) => {
-    i18n.global.locale = value;
+    i18n.global.locale.value = value;
     localStorage.setItem(STORAGE_LOCALE, value);
   };
 
@@ -28,5 +26,5 @@ export const useLocale = () => {
     label,
     value,
   }));
-  return { locale,SUPPORT_LOCALES, localeText, setLocale };
+  return { locale, SUPPORT_LOCALES, localeText, setLocale };
 };

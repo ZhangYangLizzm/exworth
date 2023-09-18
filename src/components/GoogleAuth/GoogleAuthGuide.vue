@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import DownloadAuthenticator from "./DownloadAuthenticator.vue";
 defineProps({
   text: String,

@@ -6,12 +6,10 @@ import {
   WALLET_TRANSFER,
 } from "@/hooks/useDrawer.ts";
 import { useAccountStore } from "@/stores/account.ts";
-import WebCurrency from "./components/WebCurrency.vue";
-import AccountDetails from "./components/AccountDetails.vue";
-import FilterForm from "./components/FilterForm.vue";
+import { WebCurrency, AccountDetails, FilterForm } from "./components";
 import { getBalanceHistory } from "@/api/wallet";
 import { useList } from "@/hooks";
-import { TopUp, WalletTransfer,Withdraw } from "./components/modal";
+import { TopUp, WalletTransfer, Withdraw } from "./components/modal";
 
 const { loading, walletAccounts } = storeToRefs(useAccountStore());
 

@@ -8,7 +8,7 @@ const next = () => {
 
 const SerectTypes = computed(() => [
   {
-    title: "md5",
+    title: "MD5",
     content:
       "使用MD5對稱加密方式運作，您將獲得API密鑰和MD5密鑰。請將API密鑰和MD5密鑰視為密碼一樣妥善保管，切勿與任何第三方分享。",
   },
@@ -24,22 +24,29 @@ const activeKey = ref("md5");
 <template>
   <div class="p-2">
     <div v-if="step === 1" class="flex flex-col gap-y-4">
-      <div
-        class="bg-gray-50 px-4 py-2 rounded"
-        :class="[activeKey === serectType.title ? 'active' : 'deactive']"
-        @click="activeKey = serectType.title"
-        v-for="serectType in SerectTypes"
-        :key="serectType.title"
-      >
-        <CheckOutlined class="check" />
-        <h3>{{ serectType.title }}</h3>
-        <p>
-          {{ serectType.content }}
-        </p>
-      </div>
+      <template v-for="serectType in SerectTypes" :key="serectType.title">
+        <div
+          class="bg-gray-50 px-4 py-2 rounded"
+          :class="[activeKey === serectType.title ? 'active' : 'deactive']"
+          @click="activeKey = serectType.title"
+        >
+          <CheckOutlined class="check" />
+          <h3>{{ serectType.title }}</h3>
+          <p>
+            {{ serectType.content }}
+          </p>
+        </div>
+      </template>
     </div>
     <div v-if="step === 2">
-      
+      <AForm layout="vertical">
+        <AFormItem>
+          <AInput></AInput>
+        </AFormItem>
+        <AFormItem>
+          <AInput></AInput>
+        </AFormItem>
+      </AForm>
     </div>
     <div class="text-center mt-4">
       <a-button @click="next" type="primary">下一步 / 確認</a-button>

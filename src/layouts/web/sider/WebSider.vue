@@ -12,9 +12,9 @@ const { isSupported, isFullscreen, toggle } = useFullscreen();
 <template>
   <ALayoutSider class="p-4 h-full relative" theme="light">
     <div class="px-4 pb-4">
-      <Logo  dark />
+      <Logo dark />
     </div>
-    
+
     <NavigationMenu class="flex-grow" />
 
     <AMenu>

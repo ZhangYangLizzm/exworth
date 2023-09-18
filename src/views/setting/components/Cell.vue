@@ -9,10 +9,10 @@ defineProps({
 </script>
 
 <template>
-  <div class="py-2" :class="{ divider }">
+  <div class="py-2 setting-cell" :class="{ divider }">
     <div class="text-base font-bold">
       {{ title }}
-    </div>  
+    </div>
 
     <div class="text-[#00000073] w-3/4">
       <slot name="content" />
@@ -25,7 +25,13 @@ defineProps({
 </template>
 
 <style scoped>
+.setting-cell {
+  background-color: var(--theme-active-color);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
 .divider {
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid var(--divider-gray);
 }
 </style>
