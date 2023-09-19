@@ -11,7 +11,7 @@ defineProps({
 
 const emit = defineEmits(["fetchMore"]);
 const { FlowTypeLable } = useOrderType();
-const fetchMore = emit("fetchMore");
+const fetchMore = () => emit("fetchMore");
 </script>
 
 <template>
@@ -21,21 +21,24 @@ const fetchMore = emit("fetchMore");
     @fetchMore="fetchMore"
   >
     <template #renderItem="{ item }">
-      <a-list-item class="p-2 shadow rounded">
-        <a-list-item-meta>
+      <a-list-item class="rounded mb-2">
+        <SvgIcon :name="`coin-${item.currency}`" class="w-10 h-10 mr-4" />
+        <a-list-item-meta class="flex">
           <template #title>
             <div class="flex">
-              <div class="flex-grow">
+              <div class="flex-grow text-base tracking-wider">
                 {{ FlowTypeLable(item.type) }}
               </div>
-              <div :class="[DirectionClass(item?.direction)]">
+              <div
+                :class="[DirectionClass(item?.direction)]"
+                class="tracking-wide"
+              >
                 {{ Format(item.operateAmount) }} {{ item.currency }}
               </div>
             </div>
           </template>
-          <template #description>{{ item.createTime }} </template>
-          <template #avatar>
-            <SvgIcon :name="`coin-${item.currency}`" class="w-10 h-10" />
+          <template #description
+            ><span class="tracking-wide">{{ item.createTime }}</span>
           </template>
         </a-list-item-meta>
       </a-list-item>

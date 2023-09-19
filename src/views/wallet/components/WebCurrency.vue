@@ -11,12 +11,12 @@ defineProps<{
 
 <template>
   <div class="flex">
-    <a-spin :spinning="loading" class="translate-x-8">
+    <a-spin :spinning="loading">
       <div
-        class="flex overflow-x-auto gap-x-4 overflow-y-hidden bg-white rounded-xl wallet-container"
+        class="flex overflow-x-auto overflow-y-hidden rounded-xl wallet-container"
       >
         <div
-          class="p-4 my-2 flex wallet-account"
+          class="flex wallet-account tracking-wider px-4 min-w-[200px]"
           v-for="asset in walletAccounts"
           :key="asset.currency"
         >

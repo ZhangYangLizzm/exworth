@@ -44,4 +44,3 @@ const handleMenuClick: MenuClickEventHandler = ({ key }) => {
   </AMenu>
 </template>
 
-<style scoped lang="less"></style>

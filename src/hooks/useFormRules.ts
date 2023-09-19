@@ -1,7 +1,19 @@
+interface RuleOpions {
+  available?: ComputedRef<number>;
+  secretKeyType?: Ref<string>;
+}
 
 export const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
 
-export const useFormRules = (options = {available:0}) => {
+export const md5_pattern = /^[a-f0-9]{32}$/i;
+export const rsa_pattern =
+  /^-----BEGIN PUBLIC KEY-----(([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?)-----END PUBLIC KEY-----$/;
+
+const secretKeyPattern: Record<string, RegExp> = {
+  md5: md5_pattern,
+  rsa: rsa_pattern,
+};
+export const useFormRules = (options: RuleOpions={}) => {
   const { t } = useI18n();
 
   const CurrencyRule = [
@@ -12,11 +24,11 @@ export const useFormRules = (options = {available:0}) => {
     return async (_: any, value: number) => {
       if (value < 0) {
         return Promise.reject(t("GyCej78V5rwpEJ-WJaZhi"));
-      } else if (value > unref(options?.available)) {
+      } else if (value > unref(options.available!)) {
         return Promise.reject(t("7JHpXFtB2h5hL2P-P9Zuy"));
       }
       return Promise.resolve();
-    }
+    };
   }
 
   const AmountRule = [
@@ -56,6 +68,22 @@ export const useFormRules = (options = {available:0}) => {
 
   const AddressRule = [{ required: true, message: t("_skPFb-gpUBUTW-epVro7") }];
 
+  function secretKeyValidator() {
+    const pattern = secretKeyPattern[unref(options.secretKeyType!)];
+    return async (_: any, value: string) => {
+      if (pattern.test(value)) {
+        return Promise.resolve(value);
+      }
+      return Promise.reject("密鑰格式不符");
+    };
+  }
+  const secretKeyRule = [
+    { required: true, message: t("8dRn48_9RTO6Q2804fgFp") },
+    {
+      validator: secretKeyValidator(),
+      trigger: "change",
+    },
+  ];
   return {
     NetworkRule,
     AddressRule,
@@ -66,6 +94,7 @@ export const useFormRules = (options = {available:0}) => {
     GoogleAuthCodeRule,
     EmailRule,
     CardNoRule,
+    secretKeyRule
   };
 };
 

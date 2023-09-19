@@ -32,7 +32,7 @@ const {
 </script>
 
 <template>
-  <div class="h-1/4 max-h-[150px] relative">
+  <div class="h-32 relative bg-white p-4 rounded-xl">
     <ComponentTitle :title="$t('VxYFMoZm9I6D7n_8ojjV4')">
       <template #extra>
         <div class="flex gap-x-2">
@@ -63,8 +63,10 @@ const {
     <WebCurrency :loading="loading" :walletAccounts="walletAccounts" />
   </div>
 
-  <div class="flex overflow-hidden mt-4 gap-x-2">
-    <div class="flex-grow flex overflow-y-hidden flex-col">
+  <div class="flex overflow-hidden mt-4 gap-x-2 flex-grow">
+    <div
+      class="flex-grow flex overflow-y-hidden flex-col bg-white p-4 rounded-xl"
+    >
       <ComponentTitle :title="$t('ovLktXuIHMUA7a1STIy3X')"> </ComponentTitle>
       <AccountDetails
         :loading="detailLoading"
@@ -72,7 +74,9 @@ const {
         @fetchMore="fetchMore"
       />
     </div>
-    <div class="basis-1/3 overflow-hidden flex flex-col">
+    <div
+      class="basis-1/3 overflow-hidden flex flex-col bg-white p-4 rounded-xl"
+    >
       <ComponentTitle title="Fetch Filter"> </ComponentTitle>
       <FilterForm
         :loading="loading"

@@ -12,14 +12,14 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 9091,
     proxy: {
-      '/api': {
-        target: 'https://ppcmch.exworthdev.cc',
-        changeOrigin: true
+      "/api": {
+        target: "https://ppcmch.exworthdev.cc",
+        changeOrigin: true,
       },
-      '/static': {
-        target: 'https://devpro.exworthdev.cc',
-        changeOrigin: true
-      }
+      "/static": {
+        target: "https://devpro.exworthdev.cc",
+        changeOrigin: true,
+      },
     },
   },
   plugins: [

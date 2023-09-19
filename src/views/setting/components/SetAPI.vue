@@ -1,9 +1,19 @@
 <script setup lang="ts">
+import { useForm, useFormRules } from "@/hooks";
+
 const SelectSercretType = 1;
 const InputForm = 2;
+
 const step = ref(SelectSercretType);
-const next = () => {
-  step.value = InputForm;
+const next = async () => {
+  if (step.value === SelectSercretType) {
+    step.value = InputForm;
+  } else if (step.value === InputForm) {
+    const { values } = await handleValidate();
+    if (values) {
+      console.log(values);
+    }
+  }
 };
 
 const SerectTypes = computed(() => [
@@ -18,7 +28,21 @@ const SerectTypes = computed(() => [
       "使用Sign或RSA非對稱加密方式運作。您將獲得API密鑰，切必須通過軟件，自行創建一對公鑰和私鑰，然後僅向Exworth提供公鑰。請將API密鑰和私鑰視為密碼一樣妥善保管，切勿與任何第三方分享。",
   },
 ]);
-const activeKey = ref("md5");
+const activeKey = ref("MD5");
+
+const formState = reactive({
+  authCode: undefined,
+  secretKey: undefined,
+});
+
+const { GoogleAuthCodeRule, secretKeyRule } = useFormRules();
+
+const rules = reactive({
+  authCode: GoogleAuthCodeRule,
+  secretKey: secretKeyRule,
+});
+
+const { handleValidate, validateInfos } = useForm(formState, rules);
 </script>
 
 <template>
@@ -40,11 +64,17 @@ const activeKey = ref("md5");
     </div>
     <div v-if="step === 2">
       <AForm layout="vertical">
-        <AFormItem>
-          <AInput></AInput>
+        <AFormItem v-bind="validateInfos.secretKey" label="密鑰">
+          <AInput
+            v-model:value="formState.secretKey"
+            placeholder="請輸入密鑰"
+          ></AInput>
         </AFormItem>
-        <AFormItem>
-          <AInput></AInput>
+        <AFormItem v-bind="validateInfos.authCode" label="谷歌驗證碼">
+          <AInput
+            v-model:value="formState.authCode"
+            placeholder="輸入谷歌驗證碼"
+          ></AInput>
         </AFormItem>
       </AForm>
     </div>

@@ -18,6 +18,16 @@ const routes = [
         component: Wallet,
       },
       {
+        path: "member",
+        name: "Member",
+        component: () => import("@/views/member/Member.vue"),
+      },
+      {
+        path: "invitation",
+        name: "Invitation",
+        component: () => import("@/views/invitation/Invitation.vue"),
+      },
+      {
         path: "setting",
         name: "Setting",
         component: () => import("@/views/setting/Setting.vue"),

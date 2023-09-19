@@ -9,11 +9,11 @@ const { t } = useI18n();
 
 const { SecurityPasswordRule, GoogleAuthCodeRule } = useFormRules();
 const formState = reactive({
-  withdrawPassword: undefined,
-  confirm: undefined,
-  authCode: undefined,
+  withdrawPassword: "",
+  confirm: "",
+  authCode: "",
 });
-const compareToFirstPassword = async (_, value) => {
+const compareToFirstPassword = async (_: any, value: string) => {
   if (value && value !== formState.withdrawPassword) {
     return Promise.reject(t("_i4wrqvdjvlH7txojo-Y6"));
   } else {

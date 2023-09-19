@@ -6,11 +6,11 @@ const { drawerFlexGrowClass, drawerVisible } = useDrawerProvide();
 </script>
 
 <template>
-  <div class="flex bg-white relative w-full overflow-hidden rounded-xl">
-    <WebSider class="!bg-white" />
+  <div class="flex relative w-full overflow-hidden rounded-xl">
+    <WebSider />
 
     <ALayoutContent
-      class="!flex-grow-[2] !basis-0 !shrink-0 relative overflow-hidden"
+      class="!flex-grow-[2] !basis-0 !shrink-0 relative overflow-hidden px-4 !bg-[rgba(245,245,245,0.8)]"
       :class="[drawerVisible ? 'rounded-none' : 'rounded-r-xl']"
     >
       <router-view v-slot="{ Component, route }">

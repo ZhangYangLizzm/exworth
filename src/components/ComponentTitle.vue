@@ -8,8 +8,8 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex items-center mb-4 text-lg h-8">
-    <div class="leading-none text-primary flex-grow component-title">
+  <div class="flex items-center mb-4 text-lg h-8 shrink-0">
+    <div class="leading-none flex-grow component-title">
       {{ title }}
     </div>
     <div class="flex items-center">
@@ -22,7 +22,7 @@ defineProps({
 .component-title {
   position: relative;
   padding-left: 8px;
-  
+  color: #02142ed2;
   &:before {
     position: absolute;
     content: "";

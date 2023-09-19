@@ -8,10 +8,31 @@ const DEFAULT_OPTIONS = {
   pageSize: 10,
 };
 
+// interface UseListReturnType<T> {
+//   pageID: Ref<number>;
+//   pageSize: Ref<number>;
+//   totalCount: Ref<number>;
+//   loading: Ref<boolean>;
+//   list: Ref<UnwrapRefSimple<T>[]>;
+//   fetch: ({}: ListFetchFunction) => Promise<unknown>;
+//   onPageChange: (page: number, size: number) => Promise<void>;
+//   fetchMore: () => void;
+//   refresh: () => Promise<void>;
+// }
+
+// export interface FetchListCommonResponse {
+//   pageID: number;
+//   pageSize: number;
+//   totalCount: number;
+//   totalPage: number;
+//   list: any[];
+//   content: any;
+// }
+
 export const useList = (
-  requestFn: (options: ListFetchOptions) => Promise<ListResponse<any>>,
+  requestFn: (options: ListFetchOptions) => Promise<ExResponse<any>>,
   filterOption: ListFilterOptions,
-  options: ListOptions
+  options: ListOptions = {}
 ) => {
   const _options = Object.assign({}, DEFAULT_OPTIONS, options);
 

@@ -75,7 +75,7 @@
   "AMeo68ZI28aaFVqr0swF7": "Transfer Currency",
   "L8_JRGabLnJGC2tBI9Hqc": "The security password cannot be empty.",
   "tdOb7WZfAthhIqC2_HIAg": "Please enter the transfer amount.",
-  "h0EQGD5w6L9xSdGkk4eG0": "Report loss",
+  "h0EQGD5w6L9xSdGkk4eG0": "Loss",
   "gVPkNpXqcOdkRBKMOR_9i": "Replace",
   "Y8Q4sAZg7x3OGpUJ7N-Wr": "Physical Card Top-up",
   "_aLRJTwT0z5fy-yMREIle": "Please enter the recharge amount",
@@ -232,5 +232,13 @@
   "6e9lOmW7RuhrqYotHMpJ8": "Invitation",
   "VVQaPte21XgxJXEM9H8gu": "Topup",
   "SlJFgfv49xSHi9mbjdw4e": "Google Verfication Code ",
-  "yj74dO9iA9rD0NRDm8h2n": "Security Password"
+  "yj74dO9iA9rD0NRDm8h2n": "Security Password",
+  "fDWiCOWr9VL1Lk0ky1qd9": "ACTIVE",
+  "gEXP-JDi1zMp8_099R10z": "BINDING",
+  "QO_B6SeYz0bd0oPbsgx7E": "UNUSEABLE",
+  "Ao11mLILKAUZlxE87X1hR": "FREEZING",
+  "Hoh1GqzrHfuSYcTsbZ26D": "Lost",
+  "WNb2W_CLp8_wtYx_tk-Is": "EXPIRED",
+  "69QS20gBy46WWnMh3nvqy": "CANCELLED",
+  "Ks1Uxt7tf0w9ah1IBHD0O": "CHANGING"
 }

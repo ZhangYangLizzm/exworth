@@ -13,9 +13,9 @@ interface ListFetchOptions extends ListFilterOptions {
   pageSize: number;
 }
 
-interface ListResponse<T> {
+interface ExResponse<T> {
   statusCode: number;
-  content: any;
+  content: T;
   message?: string;
 }
 

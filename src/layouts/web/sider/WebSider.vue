@@ -17,7 +17,7 @@ const { isSupported, isFullscreen, toggle } = useFullscreen();
 
     <NavigationMenu class="flex-grow" />
 
-    <AMenu>
+    <AMenu :selected-keys="[]">
       <AMenuItem
         @click="toggle"
         key="Screen"
@@ -48,7 +48,7 @@ const { isSupported, isFullscreen, toggle } = useFullscreen();
   </ALayoutSider>
 </template>
 
-<style scoped lang="less">
+<style lang="less" scoped>
 :deep(.ant-layout-sider-children) {
   display: flex;
   flex-direction: column;
