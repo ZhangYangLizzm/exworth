@@ -3,8 +3,8 @@ import { Format } from "@/utils/number";
 import { OtcRateRes, getOtcRate, postCurrencyWithdraw } from "@/api/wallet";
 import { useForm, useFormRules } from "@/hooks";
 import { useAccountStore } from "@/stores/account";
-const accountStore = useAccountStore();
 
+const accountStore = useAccountStore();
 const available = computed(() => walletInfo.balanceAmount || 0);
 const {
   CurrencyRule,

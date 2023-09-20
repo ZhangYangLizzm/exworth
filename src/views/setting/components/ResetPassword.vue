@@ -10,7 +10,7 @@ const formState = reactive({
   confirm: undefined,
 });
 
-const compareToOldPassword = async (_, value) => {
+const compareToOldPassword = async (_: any, value: undefined) => {
   if (value && value === formState.oldPassword) {
     return Promise.reject(t("CUF3MBsbrBOnLprGbtonD"));
   } else {
@@ -18,7 +18,7 @@ const compareToOldPassword = async (_, value) => {
   }
 };
 
-const compareToFirstPassword = async (_, value) => {
+const compareToFirstPassword = async (_: any, value: undefined) => {
   if (value && value !== formState.password) {
     return Promise.reject(t("_i4wrqvdjvlH7txojo-Y6"));
   } else {

@@ -1,15 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import androidCode from "@/assets/google-authenticator-android.png";
 import authcodeLogo from "@/assets/google-authenticator-logo.png";
 import iOSCode from "@/assets/google-authenticator-iOS.png";
 
-const map = reactive({
+const map: Record<string, string> = reactive({
   iOS: "https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8",
   android:
     "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=zh",
 });
 
-function download(type) {
+function download(type: string) {
   window.open(map[type], "_blank");
 }
 </script>

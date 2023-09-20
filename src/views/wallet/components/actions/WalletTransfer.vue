@@ -87,7 +87,7 @@ const handleTransfer = async () => {
       >
         <CurrencySelect
           :walletAccounts="accountStore.walletAccounts"
-          v-model:value="transferState.currency"
+          v-model:currency="transferState.currency"
         />
       </a-form-item>
       <a-form-item

@@ -1,22 +1,15 @@
-<script setup>
+<script setup lang="ts">
+import { AccountInfo } from '@/stores/types/account';
 
-defineProps({
-  currency: {
-    type: String,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  walletAccounts: {
-    type: Array,
-    default: [],
-  },
-});
+defineProps<{
+  currency: string;
+  disabled?: boolean;
+  walletAccounts: AccountInfo[];
+}>();
 
 const emit = defineEmits(["update:currency", "selectChange"]);
 
-const handleChange = (value) => {
+const handleChange = (value: string) => {
   emit("update:currency", value);
   emit("selectChange", value);
 };
@@ -25,7 +18,7 @@ const handleChange = (value) => {
 <template>
   <a-select
     :value="currency"
-    @change="handleChange"
+    @change="(value) => handleChange(value as string)"
     :placeholder="$t('AsHuYNM5Ic6nO-wMh23Fi')"
     :disabled="disabled"
   >

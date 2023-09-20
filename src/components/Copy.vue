@@ -7,7 +7,7 @@
   </a>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import copy from "ant-design-vue/lib/_util/copy-to-clipboard";
 import { message } from "ant-design-vue";
 const { t } = useI18n();

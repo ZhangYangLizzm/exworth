@@ -10,7 +10,6 @@ import {
   MEMBER_CARD_LOSS,
   MEMBER_CARD_REPLACE,
   MEMBER_CARD_TOPUP,
-  useDrawerInject,
 } from "@/hooks/useDrawer";
 import { encryptStr } from "@/utils/encrypt";
 

@@ -4,6 +4,7 @@ const props = defineProps({
   dataSource: Array,
   loading: Boolean,
 });
+
 const loadObserver = ref();
 const emit = defineEmits(["fetchMore"]);
 

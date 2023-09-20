@@ -1,6 +1,4 @@
-<script setup>
-
-
+<script setup lang="ts">
 import { CARD_MODE_PHYSICAL } from "@/hooks/useCard";
 import { lowerCase } from "lodash-es";
 

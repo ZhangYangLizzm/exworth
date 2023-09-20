@@ -44,7 +44,7 @@ const handleSubmit = async () => {
         v-model:value="formState.name"
       >
         <template #prefix>
-          <user-outlined type="user" />
+          <user-outlined />
         </template>
       </a-input>
     </a-form-item>
