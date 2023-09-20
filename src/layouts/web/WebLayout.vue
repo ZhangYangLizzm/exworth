@@ -14,7 +14,7 @@ const { drawerFlexGrowClass, drawerVisible } = useDrawerProvide();
       :class="[drawerVisible ? 'rounded-none' : 'rounded-r-xl']"
     >
       <router-view v-slot="{ Component, route }">
-        <transition name="slide-page">
+        <transition name="slide-page" >
           <!-- vue3组件中可没有根组件，避免在子组件没有根组件时候transition失效的情况 -->
           <div :key="route.path" class="py-4 h-full flex flex-col">
             <component :is="Component"></component>

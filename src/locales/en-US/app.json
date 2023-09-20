@@ -251,5 +251,7 @@
   "03T3p-NHnHL3nDxk9xYof": "Please enter the key",
   "gomoOFSdvm27SwRWOowkR": "Works with Sign or RSA asymmetric encryption. You will be provided with an API key and must create your own pair of public and private keys through the software and then provide Exworth with the public key only. Please keep the API key and private key as if they were passwords and do not share them with any third party.",
   "VhHMY_sr-L5bicsHqZ3EM": "By using MD5 symmetric encryption, you will receive both the API key and the MD5 key. Please keep the API key and MD5 key as a password and do not share them with any third party.",
-  "dkRiXkPIS0oKMtvCefl8N": "Next"
+  "dkRiXkPIS0oKMtvCefl8N": "Next",
+  "IizIVPS-xlYnKPl_EUAN2": "Input the white list, separated by ','.",
+  "j2BrhCWY6Id-I-h7GHKcU": "Card"
 }

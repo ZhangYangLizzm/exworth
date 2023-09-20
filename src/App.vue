@@ -12,6 +12,7 @@ const theme = {
     colorPrimary: "#0cbf53",
   },
 };
+
 watch(antLocale, (newVal: any) => dayjs.locale(newVal.locale), {
   immediate: true,
 });
@@ -24,7 +25,7 @@ watch(antLocale, (newVal: any) => dayjs.locale(newVal.locale), {
     :theme="theme"
   >
     <a-layout
-      class="rounded-xl shadow flex min-w-[80vw] max-w-[80vw] h-[80vh] bg-[rgb(255,255,255,0.8)] relative overflow-hidden"
+      class="rounded-xl shadow flex bg-[rgb(255,255,255,0.8)] relative overflow-hidden min-w-[80vw] max-w-[80vw] h-[80vh]"
     >
       <router-view v-slot="{ Component }">
         <Transition name="slide-page">

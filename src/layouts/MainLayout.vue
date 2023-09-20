@@ -6,4 +6,3 @@ import WebLayout from "@/layouts/web/WebLayout.vue";
   <WebLayout />
 </template>
 
-<style scoped lang="less"></style>

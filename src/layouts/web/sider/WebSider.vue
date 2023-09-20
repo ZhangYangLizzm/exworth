@@ -27,7 +27,11 @@ const { isSupported, isFullscreen, toggle } = useFullscreen();
           <FullscreenOutlined v-if="!isFullscreen" />
           <FullscreenExitOutlined v-else />
         </template>
-        {{ !isFullscreen ? $t('dMtTcFJx8_cbtE0DTO7W5'): $t('BIKOB1bo7UcnTnw_yDond')}}
+        {{
+          !isFullscreen
+            ? $t("dMtTcFJx8_cbtE0DTO7W5")
+            : $t("BIKOB1bo7UcnTnw_yDond")
+        }}
       </AMenuItem>
 
       <AMenuItem class="rounded" key="Locale">

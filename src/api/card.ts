@@ -55,3 +55,8 @@ export const postRechargeVCC = (data: {
     method: "POST",
     data,
   });
+
+export const getCardPropety = () =>
+  request({
+    url: "ppc/cardProperty",
+  });

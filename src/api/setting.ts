@@ -29,3 +29,10 @@ export const postSetCode = (data: any): Promise<ExResponse<any>> =>
     method: "POST",
     data,
   });
+
+export const postSetLoginWhiteList = (data: any): Promise<ExResponse<any>> => {
+  request({
+    url: "withdraw/config/user/ipWhiteList",
+    data,
+  });
+};

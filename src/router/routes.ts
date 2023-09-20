@@ -32,6 +32,11 @@ const routes = [
         name: "Setting",
         component: () => import("@/views/setting/Setting.vue"),
       },
+      {
+        path: "card-manage",
+        name: "CardManage",
+        component: () => import("@/views/cardManage/CardManage.vue"),
+      },
     ],
   },
   {

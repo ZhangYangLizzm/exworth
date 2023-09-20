@@ -35,6 +35,13 @@ const handleMenuClick: MenuClickEventHandler = ({ key }) => {
       {{ $t("6e9lOmW7RuhrqYotHMpJ8") }}
     </AMenuItem>
 
+    <AMenuItem class="rounded" key="CardManage">
+      <template #icon>
+        <CreditCardOutlined />
+      </template>
+      {{ $t("j2BrhCWY6Id-I-h7GHKcU") }}
+    </AMenuItem>
+    
     <AMenuItem class="rounded" key="Setting">
       <template #icon>
         <setting-outlined />
@@ -43,4 +50,3 @@ const handleMenuClick: MenuClickEventHandler = ({ key }) => {
     </AMenuItem>
   </AMenu>
 </template>
-

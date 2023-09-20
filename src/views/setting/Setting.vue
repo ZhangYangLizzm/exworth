@@ -5,6 +5,7 @@ import {
   ResetCode,
   BindGoogleAuth,
   SetAPI,
+  SetLoginWhiteList,
 } from "./components";
 import { useSettingStore } from "@/stores/setting";
 import { getGoogleSecretKey } from "@/api/setting";
@@ -14,6 +15,7 @@ import {
   SETTING_RESET_PASSWORD,
   SETTING_RESET_CODE,
   SETTING_APIKEY,
+  SETTING_LOGIN_WHITELIST,
 } from "@/hooks/useDrawer.ts";
 
 const { drawerPattern, wrapClick } = useDrawerInject();
@@ -84,6 +86,10 @@ onMounted(() => {
 
       <Cell :title="$t('4Pf3mZrhh3LiqO5ocQQ3T')">
         <template #content>
+          <!-- <div>
+            <span>已设置IP白名单 : </span>
+            <a-tag class="px-2 py-1 text-sm" color="success">192.168.0.1</a-tag>
+          </div> -->
           <p>
             {{ $t("F40221OplXwtCfKpjPD3j") }}<br />
             {{
@@ -93,6 +99,14 @@ onMounted(() => {
             }}
           </p>
         </template>
+        <!-- <template #action>
+          <a-button
+            type="primary"
+            @click="wrapClick(SETTING_LOGIN_WHITELIST)"
+            :disabled="drawerPattern === SETTING_LOGIN_WHITELIST"
+            >{{ $t("tn1dw0_d4hpGoJZiMaCjB") }}</a-button
+          >
+        </template> -->
       </Cell>
       <Cell :title="$t('yj74dO9iA9rD0NRDm8h2n')">
         <template #content>
@@ -145,5 +159,6 @@ onMounted(() => {
     />
     <ResetCode v-if="drawerPattern === SETTING_RESET_CODE" />
     <SetAPI v-if="drawerPattern === SETTING_APIKEY" />
+    <SetLoginWhiteList v-if="drawerPattern === SETTING_LOGIN_WHITELIST" />
   </ExDrawer>
 </template>
