@@ -45,7 +45,7 @@ export default defineConfig({
       ],
     }),
     Components({
-      directoryAsNamespace: true,
+      dts: true,
       resolvers: [
         AntDesignVueResolver({ importStyle: "less", resolveIcons: true }),
       ],

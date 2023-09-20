@@ -6,7 +6,14 @@ import {
   CARD_MODE_PHYSICAL,
   CARD_MODE_VIRTUAL,
 } from "@/hooks/useCard";
+import {
+  MEMBER_CARD_LOSS,
+  MEMBER_CARD_REPLACE,
+  MEMBER_CARD_TOPUP,
+  useDrawerInject,
+} from "@/hooks/useDrawer";
 import CardList from "./CardList.vue";
+import { CardLoss, Replace, Topup } from "./actions/";
 
 const props = defineProps({
   uuid: String,
@@ -18,6 +25,7 @@ const filterOptions = computed(() => ({
   uuid: props.uuid,
 }));
 
+const { drawerPattern, wrapClick } = useDrawerInject();
 const {
   list: physicalList,
   loading,
@@ -32,16 +40,6 @@ const {
 
 const cardInfo = ref<any>();
 
-const rechargeModalRef = ref<any>();
-const replaceModalRef = ref<any>();
-const cardLossModalRef = ref<any>();
-
-const modalRefs: Record<string, any> = {
-  recharge: rechargeModalRef,
-  replace: replaceModalRef,
-  cardLoss: cardLossModalRef,
-};
-
 const onTabClick = (key: string) => {
   selectdKey.value = key;
 
@@ -54,6 +52,7 @@ const onTabClick = (key: string) => {
 };
 
 const topupMode = ref();
+
 const onClick = ({
   item,
   type,
@@ -62,14 +61,15 @@ const onClick = ({
   item: any;
   type: string;
   mode: CardMode;
-}) => {
-  if (mode) {
-    topupMode.value = mode;
-  }
-  cardInfo.value = item;
-  const modalRef = modalRefs[type];
-  modalRef?.valueOf.show();
-};
+}) =>
+  wrapClick(type, () => {
+    {
+      if (mode) {
+        topupMode.value = mode;
+      }
+      cardInfo.value = item;
+    }
+  });
 
 watch(
   () => props.uuid,
@@ -86,7 +86,7 @@ watch(
       class="h-full w-full"
       :activeKey="selectdKey"
     >
-      <a-tab-pane :tab="$t('OnPSpwMATKuG2io4jQP3a')" key="PPC">
+      <a-tab-pane :tab="$t('OnPSpwMATKuG2io4jQP3a')" key="PPC" class="p-4">
         <CardList
           :dataSource="physicalList"
           :loading="loading"
@@ -94,7 +94,7 @@ watch(
           @click="onClick"
         />
       </a-tab-pane>
-      <a-tab-pane :tab="$t('S2OrYOKW-4S0okv_ixAu-')" key="VCC">
+      <a-tab-pane :tab="$t('S2OrYOKW-4S0okv_ixAu-')" key="VCC" class="p-4">
         <CardList
           :dataSource="virtualList"
           :loading="VCC_Loading"
@@ -105,13 +105,14 @@ watch(
     </a-tabs>
   </div>
 
-  <!-- <ReChargeModal
-    ref="rechargeModalRef"
-    :cardInfo="cardInfo"
-    :topupMode="topupMode"
-  />
-  <ReplaceModal ref="replaceModalRef" :cardInfo="cardInfo" />
-  <CardLossModal ref="cardLossModalRef" :cardInfo="cardInfo" /> -->
+  <ExDrawer>
+    <CardLoss v-if="drawerPattern === MEMBER_CARD_LOSS" :cardInfo="cardInfo" />
+    <Topup v-if="drawerPattern === MEMBER_CARD_TOPUP" :cardInfo="cardInfo" />
+    <Replace
+      v-if="drawerPattern === MEMBER_CARD_REPLACE"
+      :cardInfo="cardInfo"
+    />
+  </ExDrawer>
 </template>
 
 <style scoped>
@@ -123,3 +124,4 @@ watch(
   overflow-y: auto !important;
 }
 </style>
+./actions/CardLossModal.vue

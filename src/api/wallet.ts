@@ -1,14 +1,14 @@
 import { useRequest } from "@/hooks";
 const { request } = useRequest("/api");
 
-export const postWithdrawTransfer = (data: any) =>
+export const postWithdrawTransfer = (data: any): Promise<ExResponse<any>> =>
   request({
     url: "otc/withdraw",
     method: "POST",
     data,
   });
 
-export const getBalanceHistory = (params: any): Promise<ListResponse<any>> =>
+export const getBalanceHistory = (params: any): Promise<ExResponse<any>> =>
   request({
     url: "otc/balanceHistory",
     method: "GET",
@@ -28,7 +28,7 @@ export const getWithdrawHistory = (params: any) =>
     method: "GET",
     params: { ...params, type: "ppc.send", timeKey: "createTime" },
   });
-  
+
 export const getTransferstory = (params: any) =>
   request({
     url: "otc/withdraw",
@@ -36,14 +36,25 @@ export const getTransferstory = (params: any) =>
     params: { ...params, type: "internal", timeKey: "createTime" },
   });
 
-export const getOtcRate = (params: any) =>
+export interface OtcRateRes {
+  flipPrice: number;
+  receiptAmount: number;
+  priceLow: number;
+  amount: number;
+  price: number;
+  dealAmount: number;
+  fee: number;
+  balanceAmount: number;
+  priceHigh: number;
+}
+export const getOtcRate = (params: any): Promise<ExResponse<OtcRateRes>> =>
   request({
     url: "otc/rate",
     method: "GET",
     params,
   });
 
-export const postCurrencyWithdraw = (data: any) =>
+export const postCurrencyWithdraw = (data: any): Promise<ExResponse<any>> =>
   request({
     url: "otc/withdraw",
     method: "POST",

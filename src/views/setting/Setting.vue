@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import GoogleAuthGuide from "@/components/GoogleAuth/GoogleAuthGuide.vue";
 import {
   Cell,
   ResetPassword,

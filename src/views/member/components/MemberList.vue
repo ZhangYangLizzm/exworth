@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Functions from "@/views/member/components/Functions.vue";
+import Functions from "./Functions.vue";
 
 defineProps({
   dataSource: Array,
@@ -13,45 +13,42 @@ const onClick = (uuid: string) => {
   emit("click", uuid);
 };
 
-const columns = reactive([
-  {
-    title: "郵箱",
-    key: "email",
-    dataIndex: "email",
-  },
-  {
-    title: "PROUID",
-    dataIndex: "uuid",
-    key: "PROUID",
-  },
-  {
-    title: "已開通功能",
-    dataIndex: "memberFunction",
-    key: "functions",
-  },
-  {
-    title: "操作",
-    key: "actions",
-  },
-]);
+const onFetchMore = () => {
+  emit("fetchMore");
+};
 </script>
 
 <template>
-  <ATable
-    :loading="loading"
+  <InfiniteScroll
     :dataSource="dataSource"
-    :columns="columns"
-    :pagination="false"
+    :loading="loading"
+    @fetchMore="onFetchMore"
   >
-    <template #bodyCell="{ column, value, record }">
-      <template v-if="column.key === 'functions'">
-        <Functions :functions="value" />
-      </template>
-      <template v-if="column.key === 'actions'">
-        <a-button @click="onClick(record.uuid)" type="text" class="text-primary"
-          >詳情</a-button
-        >
-      </template>
+    <template #renderItem="{ item }">
+      <a-list-item
+        class="rounded cursor-pointer hover:bg-slate-100 !px-2 !py-0"
+        :class="[activeUUID === item.uuid ? 'bg-slate-100' : 'bg-white']"
+      >
+        <a-list-item-meta @click="onClick(item.uuid)">
+          <template #title>
+            <div class="flex flex-col gap-y-2">
+              <div class="flex-grow tracking-wide">
+                <MailOutlined class="mr-1" />
+                {{ item.email }}
+              </div>
+              <div class="tracking-wide">
+                RPOUID:
+                <span class="ml-1">
+                  {{ item.uuid }}
+                </span>
+              </div>
+              <div class="flex justify-end">
+                <Functions :functions="item.memberFunction" />
+              </div>
+            </div>
+          </template>
+        </a-list-item-meta>
+      </a-list-item>
     </template>
-  </ATable>
+  </InfiniteScroll>
 </template>

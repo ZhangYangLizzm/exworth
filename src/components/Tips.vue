@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 defineProps({
   title: {
     type: String,
@@ -7,16 +7,21 @@ defineProps({
     type: [Array, String],
     required: true,
   },
+  
 });
 </script>
 
 <template>
-  <div class="text-green-600 py-2 px-4 bg-emerald-100 rounded-lg mb-2">
-    <p class="mb-2">
+  <div class="text-green-600 py-2 px-4 bg-emerald-100 rounded-lg">
+    <p class="my-2 text-base">
       <exclamation-circle-outlined />
       <span class="ml-2">{{ title }}</span>
     </p>
-    <p class="mb-2" v-for="(content, index) in contents" v-if="Array.isArray(contents)">
+    <p
+      class="mb-2"
+      v-for="(content, index) in contents"
+      v-if="Array.isArray(contents)"
+    >
       {{ index + 1 + "、" + content }}
     </p>
     <p v-else>{{ contents }}</p>

@@ -27,7 +27,7 @@ const onCloseDrawer = () => {
 
 <template>
   <Teleport :to="getContainer" v-if="drawerVisible">
-    <div class="h-full w-full absolute shadow rounded-r-xl overflow-hidden">
+    <div class="h-full w-full absolute shadow rounded-r-xl overflow-hidden flex flex-col">
       <div
         class="drawer-header flex w-full h-12 justify-center items-center py-4"
         v-if="showTitle"

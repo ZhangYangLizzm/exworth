@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 defineProps({
   title: String,
   amount: String,
@@ -7,9 +7,9 @@ defineProps({
 </script>
 
 <template>
-  <div class="mt-2 text-gray-400">
+  <div class="text-gray-400 flex justify-between mt-2">
     <span class="title">{{ title }}</span>
-    <span class="float-right">{{ amount }} {{ currency }}</span>
+    <span>{{ amount }} {{ currency }}</span>
   </div>
 </template>
 

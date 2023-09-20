@@ -1,86 +1,63 @@
 <script setup lang="ts">
-import { useAccountStore } from "@/stores/account";
+import { useFormRules, useForm } from "@/hooks";
+import { postMemberTransfer } from "@/api/wallet";
+import { useAccountStore } from "@/stores";
 import { Format } from "@/utils/number";
-import AmountLabel from "@/components/AmountLabel.vue";
-import CurrencySelect from "@/components/Select/CurrencySelect.vue";
-import { postWithdrawTransfer } from "@/api/wallet";
-import { useForm, useFormRules } from "@/hooks";
-
-const transferState = reactive({
-  uuid: undefined,
-  currency: "USDE",
-  amount: undefined,
-  password: undefined,
-  authCode: undefined,
-});
 
 const accountStore = useAccountStore();
+
+const transferState = reactive({
+  uuid: "",
+  currency: "USDE",
+  amount: undefined,
+  password: "",
+  authCode: "",
+});
+
 const available = computed(() =>
   accountStore.availableBalance(transferState.currency)
 );
 
-const {
-  UUIDRule,
-  CurrencyRule,
-  AmountRule,
-  SecurityPasswordRule,
-  GoogleAuthCodeRule,
-} = useFormRules({ available });
+const { CurrencyRule, AmountRule, SecurityPasswordRule, GoogleAuthCodeRule } =
+  useFormRules({ available });
 
 const rules = reactive({
-  uuid: UUIDRule,
   currency: CurrencyRule,
   amount: AmountRule,
   password: SecurityPasswordRule,
   authCode: GoogleAuthCodeRule,
 });
 
-const { resetFields, handleValidate, validateInfos, validate } = useForm(
+const { resetFields, validateInfos, handleValidate } = useForm(
   transferState,
   rules
 );
-const emit = defineEmits("refresh");
 
-const btnLoading = ref(false);
+const transferConfirmLoading = ref(false);
+
 const handleTransfer = async () => {
   const { values } = await handleValidate();
   if (values) {
-    btnLoading.value = true;
-    if (transferState.uuid.includes("@")) {
-      transferState.email = transferState.uuid;
-      delete transferState.uuid;
-    }
-    const { statusCode } = await postWithdrawTransfer({
-      ...transferState,
-      type: "transfer",
-    });
-    btnLoading.value = false;
-    if (statusCode == 200) {
-      resetFields();
-      await accountStore.fetchWalletAccount();
-      emit("refresh");
-    }
+    transferConfirmLoading.value = true;
+    await postMemberTransfer({ ...transferState });
+    await accountStore.fetchWalletAccount();
+    transferConfirmLoading.value = false;
+    resetFields();
   }
 };
 </script>
 
 <template>
-  <div class="px-4">
+  <div class="p-4">
     <a-form layout="vertical" :rules="rules">
-      <a-form-item
-        :label="$t('tOfYePGWd06TTHZ9HxG5V')"
-        v-bind="validateInfos.uuid"
-      >
+      <a-form-item :label="$t('tOfYePGWd06TTHZ9HxG5V')" required>
         <a-input
           autocomplete="off"
+          :placeholder="$t('Ig7Obh5SnlDU1vzDmOUOV')"
           v-model:value="transferState.uuid"
-          :placeholder="$t('_T9boCEgvfyd17ol1g2yp')"
         />
       </a-form-item>
-      <a-form-item
-        :label="$t('AMeo68ZI28aaFVqr0swF7')"
-        v-bind="validateInfos.currency"
-      >
+      <a-form-item :label="$t('AMeo68ZI28aaFVqr0swF7')" required>
         <CurrencySelect
           :walletAccounts="accountStore.walletAccounts"
           v-model:value="transferState.currency"
@@ -92,12 +69,12 @@ const handleTransfer = async () => {
       >
         <a-input
           autocomplete="off"
-          :placeholder="$t('tdOb7WZfAthhIqC2_HIAg')"
+          :placeholder="$t('sMkxYlIlj4SgxGAKFOjgJ')"
           v-model:value="transferState.amount"
         />
         <AmountLabel
           :title="$t('e8DgaMG0nnSK1cxzTVxp1')"
-          :amount="Format(available)"
+          :amount="Format(+available)"
           :currency="transferState.currency"
         />
       </a-form-item>
@@ -119,12 +96,11 @@ const handleTransfer = async () => {
           v-model:value="transferState.authCode"
         />
       </a-form-item>
-
       <a-form-item class="text-center">
         <a-button
           type="primary"
           @click="handleTransfer"
-          :loading="btnLoading"
+          :loading="transferConfirmLoading"
           class="w-40 h-8"
         >
           {{ $t("utkQ-uv-4gXBHkFXvGL5u") }}

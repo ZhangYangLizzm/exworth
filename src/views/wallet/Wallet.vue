@@ -9,7 +9,7 @@ import { useAccountStore } from "@/stores/account.ts";
 import { WebCurrency, AccountDetails, FilterForm } from "./components";
 import { getBalanceHistory } from "@/api/wallet";
 import { useList } from "@/hooks";
-import { TopUp, WalletTransfer, Withdraw } from "./components/modal";
+import { TopUp, WalletTransfer, Withdraw } from "./components/actions";
 
 const { loading, walletAccounts } = storeToRefs(useAccountStore());
 
@@ -28,7 +28,8 @@ const {
   loading: detailLoading,
   fetchMore,
   refresh,
-} = useList(getBalanceHistory, filterOptions, { mode: "list", pageSize: 16 });
+} = useList(getBalanceHistory, filterOptions, { mode: "list", pageSize: 8});
+
 </script>
 
 <template>
@@ -60,7 +61,7 @@ const {
         </div>
       </template>
     </ComponentTitle>
-    <WebCurrency :loading="loading" :walletAccounts="walletAccounts" />
+    <WebCurrency :loading="loading" :walletAccounts="walletAccounts" class="py-2"/>
   </div>
 
   <div class="flex overflow-hidden mt-4 gap-x-2 flex-grow">
@@ -79,7 +80,7 @@ const {
     >
       <ComponentTitle title="Fetch Filter"> </ComponentTitle>
       <FilterForm
-        :loading="loading"
+        :loading="detailLoading"
         v-model:options="filterOptions"
         @fetch="fetch({ noAppend: true })"
       />
@@ -95,3 +96,4 @@ const {
     <Withdraw v-if="drawerPattern === WALLET_WITHDRAW" @refresh="refresh" />
   </ExDrawer>
 </template>
+./components/actions

@@ -1,3 +1,5 @@
+import { RuleObject } from "ant-design-vue/es/form";
+
 interface RuleOpions {
   available?: ComputedRef<number>;
   secretKeyType?: Ref<string>;
@@ -13,10 +15,10 @@ const secretKeyPattern: Record<string, RegExp> = {
   md5: md5_pattern,
   rsa: rsa_pattern,
 };
-export const useFormRules = (options: RuleOpions={}) => {
+export const useFormRules = (options: RuleOpions = {}) => {
   const { t } = useI18n();
 
-  const CurrencyRule = [
+  const CurrencyRule: RuleObject[] = [
     { required: true, message: t("QzD6F1l8Ue9UNPMHcBruL") },
   ];
 
@@ -31,7 +33,7 @@ export const useFormRules = (options: RuleOpions={}) => {
     };
   }
 
-  const AmountRule = [
+  const AmountRule: RuleObject[] = [
     { required: true, message: t("MOVz2c0LFUl1-TpkPHZ22") },
     {
       validator: amountValidator(),
@@ -39,7 +41,7 @@ export const useFormRules = (options: RuleOpions={}) => {
     },
   ];
 
-  const SecurityPasswordRule = [
+  const SecurityPasswordRule: RuleObject[] = [
     { required: true, message: t("L8_JRGabLnJGC2tBI9Hqc") },
     {
       len: 6,
@@ -47,7 +49,7 @@ export const useFormRules = (options: RuleOpions={}) => {
     },
   ];
 
-  const GoogleAuthCodeRule = [
+  const GoogleAuthCodeRule: RuleObject[] = [
     { required: true, message: t("RN0u-0ie4LuZ1u5aetix9") },
     {
       len: 6,
@@ -55,29 +57,37 @@ export const useFormRules = (options: RuleOpions={}) => {
     },
   ];
 
-  const EmailRule = [
+  const EmailRule: RuleObject[] = [
     { required: true, message: t("8dRn48_9RTO6Q2804fgFp") },
     { pattern: emailPattern, message: "Invalid email format" },
   ];
 
-  const CardNoRule = [{ required: true, message: t("9X7FO5do5O5FIYhSXc5FG") }];
+  const CardNoRule: RuleObject[] = [
+    { required: true, message: t("9X7FO5do5O5FIYhSXc5FG") },
+  ];
 
-  const UUIDRule = [{ required: true, message: t("PzLfqlyITUMV-LKoIdqWR") }];
+  const UUIDRule: RuleObject[] = [
+    { required: true, message: t("PzLfqlyITUMV-LKoIdqWR") },
+  ];
 
-  const NetworkRule = [{ required: true, message: t("KbcfSX5ia5pOmBlREN6PC") }];
+  const NetworkRule: RuleObject[] = [
+    { required: true, message: t("KbcfSX5ia5pOmBlREN6PC") },
+  ];
 
-  const AddressRule = [{ required: true, message: t("_skPFb-gpUBUTW-epVro7") }];
+  const AddressRule: RuleObject[] = [
+    { required: true, message: t("_skPFb-gpUBUTW-epVro7") },
+  ];
 
   function secretKeyValidator() {
     const pattern = secretKeyPattern[unref(options.secretKeyType!)];
     return async (_: any, value: string) => {
       if (pattern.test(value)) {
-        return Promise.resolve(value);
+        return Promise.resolve();
       }
       return Promise.reject("密鑰格式不符");
     };
   }
-  const secretKeyRule = [
+  const secretKeyRule: RuleObject[] = [
     { required: true, message: t("8dRn48_9RTO6Q2804fgFp") },
     {
       validator: secretKeyValidator(),
@@ -94,7 +104,7 @@ export const useFormRules = (options: RuleOpions={}) => {
     GoogleAuthCodeRule,
     EmailRule,
     CardNoRule,
-    secretKeyRule
+    secretKeyRule,
   };
 };
 

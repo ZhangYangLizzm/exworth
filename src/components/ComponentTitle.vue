@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex items-center mb-4 text-lg h-8 shrink-0">
+  <div class="flex items-center text-lg h-8 shrink-0">
     <div class="leading-none flex-grow component-title">
       {{ title }}
     </div>

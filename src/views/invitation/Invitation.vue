@@ -21,7 +21,8 @@ const {
   list: dataSource,
   fetch,
   loading,
-} = useList(loadInvitation, filterOptions, { mode: "list", pageSize: 7 });
+  fetchMore,
+} = useList(loadInvitation, filterOptions, { pageSize: 10, mode: "list" });
 
 const hanldeInvitationMenuClick = (key: string) => {
   filterOptions.status = key;
@@ -31,24 +32,6 @@ const hanldeInvitationMenuClick = (key: string) => {
 onMounted(() => {
   fetch();
 });
-
-const columns = [
-  {
-    title: "邀请时间",
-    dataIndex: "sendTime",
-    key: "sendTime",
-  },
-  {
-    title: "邮箱",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "状态",
-    dataIndex: "status",
-    key: "status",
-  },
-];
 </script>
 
 <template>
@@ -89,23 +72,38 @@ const columns = [
           </div>
         </template>
       </ComponentTitle>
-      <a-table
+
+      <InfiniteScroll
         :dataSource="dataSource"
         :loading="loading"
-        :columns="columns"
-        :pagination="false"
+        @fetchMore="fetchMore"
       >
-        <template #bodyCell="{ column, value }">
-          <template v-if="column.key === 'status'">
-            <div
-              class="text-center rounded p-2"
-              :style="{ ...MEMBER_INVITATION_STATUS_COLOR(value) }"
-            >
-              {{ MEMBER_INVITATION_STATUS_TEXT(value) }}
-            </div>
-          </template>
+        <template #renderItem="{ item }">
+          <a-list-item class="rounded">
+            <a-list-item-meta>
+              <template #title>
+                <div class="flex items-center tracking-wider">
+                  <MailOutlined class="mr-2 text-xl" />{{ item.email }}
+                </div>
+              </template>
+              <template #description>
+                <div class="flex flex-col">
+                  <div class="flex items-center">
+                    <SvgIcon name="time" class="w-5 h-5 !text-primary mr-2" />
+                    {{ item.sendTime }}
+                  </div>
+                  <div
+                    class="self-end rounded px-4 py-1 text-[rgb(203,212,99)]"
+                    :style="{ ...MEMBER_INVITATION_STATUS_COLOR(item.status) }"
+                  >
+                    {{ MEMBER_INVITATION_STATUS_TEXT(item.status) }}
+                  </div>
+                </div>
+              </template>
+            </a-list-item-meta>
+          </a-list-item>
         </template>
-      </a-table>
+      </InfiniteScroll>
     </div>
     <div class="basis-2/5 p-4 bg-white rounded-xl">
       <ComponentTitle title="成員邀請" />

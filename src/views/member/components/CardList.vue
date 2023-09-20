@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Card from "@/components/Card.vue";
 import {
   CARD_MODE_PHYSICAL,
   // CARD_MODE_VIRTUAL,
@@ -7,7 +6,7 @@ import {
   CARD_STATUS_BADGE_MAP,
   useCard,
 } from "@/hooks/useCard";
-
+import {MEMBER_CARD_LOSS,MEMBER_CARD_REPLACE,MEMBER_CARD_TOPUP} from "@/hooks/useDrawer"
 import { encryptStr } from "@/utils/encrypt";
 
 const props = withDefaults(
@@ -39,14 +38,14 @@ const showAction = ref<Array<boolean>>(
   <a-spin :spinning="loading">
     <template v-for="(item, index) in dataSource">
       <div
-        class="bg-gray-100 rounded-xl flex mb-4 relative"
+        class="rounded-xl mb-4 relative"
         @mouseover="showAction[index] = true"
         @mouseleave="showAction[index] = false"
       >
         <Card
           :brand="item.cardType"
           :mode="cardMode"
-          class="transition-all"
+          class="transition-all z-50"
           :class="[showAction[index] ? 'card-active' : 'card-deactive']"
         >
           <template #footer>
@@ -57,30 +56,27 @@ const showAction = ref<Array<boolean>>(
               <a-badge
                 :status="CARD_STATUS_BADGE_MAP[item?.cardStatus]"
                 :text="CARD_STATUS_TEXT[item?.cardStatus]"
-                style="color:white!important"
+                style="color: white !important"
               />
             </div>
           </template>
         </Card>
         <div
-          class="flex flex-col overflow-x-hidden transition-all"
+          class="flex overflow-x-hidden transition-all justify-around"
           v-if="showAction[index]"
-          :class="[showAction[index] ? 'w-18' : 'w-0']"
         >
           <a-button
             type="text"
             size="large"
             v-if="[CARD_STATUS_NORMAL].includes(item?.cardStatus)"
-            @click="onClick(item, 'recharge')"
-            class="text-left"
+            @click="onClick(item, MEMBER_CARD_TOPUP)"
           >
             {{ $t("VVQaPte21XgxJXEM9H8gu") }}
           </a-button>
           <a-button
-            class="text-left"
             type="text"
             size="large"
-            @click="onClick(item, 'replace')"
+            @click="onClick(item, MEMBER_CARD_REPLACE)"
             v-if="cardMode === CARD_MODE_PHYSICAL"
           >
             {{ $t("gVPkNpXqcOdkRBKMOR_9i") }}
@@ -88,8 +84,7 @@ const showAction = ref<Array<boolean>>(
           <a-button
             type="text"
             size="large"
-            class="text-left"
-            @click="onClick(item, 'cardLoss')"
+            @click="onClick(item, MEMBER_CARD_LOSS)"
             v-if="cardMode === CARD_MODE_PHYSICAL"
           >
             {{ $t("h0EQGD5w6L9xSdGkk4eG0") }}
@@ -104,10 +99,10 @@ const showAction = ref<Array<boolean>>(
 
 <style scoped lang="less">
 .card-active {
-  width: calc(100% - 4.5rem);
+  transform: translate(-10px, -10px);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .card-deactive {
-  width: 100%;
 }
 </style>

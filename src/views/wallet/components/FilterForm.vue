@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { formatRangerPickerTime } from "@/utils/formatUtil";
-import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 import { useOrderType } from "@/hooks/useOrderType";
 import { useAccountStore } from "@/stores/account";
 import { useVModel } from "@vueuse/core";

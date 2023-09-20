@@ -6,9 +6,9 @@ const props = defineProps({
 });
 const loadObserver = ref();
 const emit = defineEmits(["fetchMore"]);
+
 useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
   if (!props.loading && isIntersecting) {
-    // fetchMore();
     emit("fetchMore");
   }
 });

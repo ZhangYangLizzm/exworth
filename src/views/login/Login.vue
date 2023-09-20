@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import LoginForm from "./components/LoginForm.vue";
-import LocaleDropdown from "@/components/LocaleDropdown.vue";
 import dayjs from "dayjs";
 
 const thisYear = computed(() => dayjs().year());

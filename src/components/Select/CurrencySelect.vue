@@ -1,5 +1,4 @@
 <script setup>
-import SvgIcon from "@/components/SvgIcon.vue";
 
 defineProps({
   currency: {

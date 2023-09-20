@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { useAccountStore } from "@/stores/account";
-import { loadWalletAddress } from "@/api/account";
-import Copy from "@/components/Copy.vue";
-import CurrencySelect from "@/components/Select/CurrencySelect.vue";
+import { WalletAddressRes, loadWalletAddress } from "@/api/account";
 
 const accountStore = useAccountStore();
 const chainOptions = computed(() => ["TRC20", "ERC20"]);
@@ -11,7 +9,10 @@ const formState = reactive({
   chain: "TRC20",
 });
 
-const walletAddress = reactive({});
+let walletAddress: WalletAddressRes = reactive({
+  address: "",
+  codeImgUrl: "",
+});
 
 const loading = ref(false);
 

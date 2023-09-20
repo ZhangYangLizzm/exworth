@@ -7,7 +7,13 @@ const api = {
   address: "blockchain/deposit/addresses",
 };
 
-export const loadWalletAddress = (params: any) =>
+export interface WalletAddressRes {
+  address: string;
+  codeImgUrl: string;
+}
+export const loadWalletAddress = (
+  params: any
+): Promise<ExResponse<WalletAddressRes>> =>
   request({
     url: api.address,
     params,

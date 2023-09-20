@@ -11,7 +11,7 @@ defineProps<{
 
 <template>
   <div class="flex">
-    <a-spin :spinning="loading">
+    <a-spin :spinning="loading" class="translate-x-8 translate-y-8">
       <div
         class="flex overflow-x-auto overflow-y-hidden rounded-xl wallet-container"
       >

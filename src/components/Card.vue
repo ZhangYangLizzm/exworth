@@ -1,6 +1,5 @@
 <script setup>
-import Logo from "@/components/Logo.vue";
-import SvgIcon from "@/components/SvgIcon.vue";
+
 
 import { CARD_MODE_PHYSICAL } from "@/hooks/useCard";
 import { lowerCase } from "lodash-es";

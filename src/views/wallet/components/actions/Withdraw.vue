@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import CurrencySelect from "@/components/Select/CurrencySelect.vue";
 import { Format } from "@/utils/number";
-import { getOtcRate, postCurrencyWithdraw } from "@/api/wallet";
+import { OtcRateRes, getOtcRate, postCurrencyWithdraw } from "@/api/wallet";
 import { useForm, useFormRules } from "@/hooks";
 import { useAccountStore } from "@/stores/account";
 const accountStore = useAccountStore();
 
-const available = computed(() => walletInfo.balanceAmount);
+const available = computed(() => walletInfo.balanceAmount || 0);
 const {
   CurrencyRule,
   NetworkRule,
@@ -25,7 +24,19 @@ const withdrawState = reactive({
   password: undefined,
   authCode: undefined,
 });
-const walletInfo = reactive({});
+
+const walletInfo: OtcRateRes = reactive({
+  flipPrice: 0,
+  receiptAmount: 0,
+  priceLow: 0,
+  amount: 0,
+  price: 0,
+  dealAmount: 0,
+  fee: 0,
+  balanceAmount: 0,
+  priceHigh: 0,
+});
+
 const fetchOtcRate = async () => {
   if (!withdrawState.amount) {
     return;
@@ -43,12 +54,14 @@ const rules = reactive({
   authCode: GoogleAuthCodeRule,
 });
 
-const { resetFields, handleValidate, validateInfos, validate } = useForm(
+const { resetFields, handleValidate, validateInfos } = useForm(
   withdrawState,
   rules
 );
 const confirmLoading = ref(false);
-const emit = defineEmits("refresh");
+
+const emit = defineEmits(["refresh"]);
+
 const handleConfirm = async () => {
   const { values } = await handleValidate();
   if (values) {
@@ -109,7 +122,7 @@ onMounted(async () => {
           </a-radio-group>
         </a-form-item>
         <a-form-item
-          class="flex flex-col gap-y-2"
+          class="flex flex-col"
           v-bind="validateInfos.amount"
           :label="$t('-Q-u4nDHLreIjo2-6Z4MW')"
         >
@@ -120,17 +133,17 @@ onMounted(async () => {
           />
           <AmountLabel
             :title="$t('e8DgaMG0nnSK1cxzTVxp1')"
-            :amount="Format(walletInfo.balanceAmount)"
+            :amount="Format(walletInfo.balanceAmount!)"
             :currency="withdrawState.currency"
           />
           <AmountLabel
             :title="$t('Q_l0QsgefHPkwvxse3yaA')"
-            :amount="Format(walletInfo.fee)"
+            :amount="Format(walletInfo.fee!)"
             :currency="withdrawState.currency"
           />
           <AmountLabel
             :title="$t('AhZ8ItHb7nCGWMqoQNgDa')"
-            :amount="Format(walletInfo.receiptAmount)"
+            :amount="Format(walletInfo.receiptAmount!)"
             :currency="withdrawState.currency"
           />
         </a-form-item>
@@ -175,13 +188,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<style scoped lang="less">
-.check-icon {
-  svg {
-    path {
-      fill: red;
-    }
-  }
-}
-</style>

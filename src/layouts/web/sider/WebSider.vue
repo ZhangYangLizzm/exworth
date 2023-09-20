@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import LocaleDropdown from "@/components/LocaleDropdown.vue";
 import NavigationMenu from "./NavigationMenu.vue";
 
 import { useUserStore } from "@/stores/user.ts";

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import GoogleAuthGuide from "@/components/GoogleAuth/GoogleAuthGuide.vue";
 import { postGoogleAuth } from "@/api/setting";
 import { useUserStore } from "@/stores/user";
 import { useSettingStore } from "@/stores/setting";
