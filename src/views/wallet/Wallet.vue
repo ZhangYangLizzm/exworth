@@ -78,7 +78,7 @@ const {
     <div
       class="basis-1/3 overflow-hidden flex flex-col bg-white p-4 rounded-xl"
     >
-      <ComponentTitle title="Fetch Filter"> </ComponentTitle>
+      <ComponentTitle :title="$t('WfWtL5wXzB2jAE8bKp-hF')" class="mb-4"> </ComponentTitle>
       <FilterForm
         :loading="detailLoading"
         v-model:options="filterOptions"

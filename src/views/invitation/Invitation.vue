@@ -37,12 +37,12 @@ onMounted(() => {
 <template>
   <div class="flex relative h-full gap-x-4">
     <div class="flex-grow pr-4 flex flex-col bg-white rounded-xl p-4">
-      <ComponentTitle title="邀請記錄">
+      <ComponentTitle :title="$t('qaS2XVHmYe3vNdvtTQ7Ad')">
         <template #extra>
           <div class="flex gap-x-2">
             <a-input
               allow-clear
-              placeholder="Search"
+              :placeholder="$t('OcfJlH4QmIPpM8_XAtT0h')"
               @keyup.enter="fetch({ noAppend: true })"
               v-model:value="filterOptions.emailLike"
             >
@@ -51,20 +51,24 @@ onMounted(() => {
               </template>
             </a-input>
             <a-dropdown class="!bg-slate-100 text-slate-500 hover:text-black">
-              <a-button type="text">Status<down-outlined /></a-button>
+              <a-button type="text"
+                >{{ $t("2azhTayaBBC1zqWCc8lq5") }}<down-outlined
+              /></a-button>
               <template #overlay>
                 <a-menu
                   @click="({ key }) => hanldeInvitationMenuClick(key as string)"
                 >
-                  <a-menu-item :key="undefined">全部</a-menu-item>
+                  <a-menu-item :key="undefined">{{
+                    $t("T8jku5XFeq-1ZPcuDe_7B")
+                  }}</a-menu-item>
                   <a-menu-item :key="MEMBER_INVITATION_STATUS_INVITED"
-                    >邀請中
+                    >{{ $t("YQT7T9hm26PiwFUJvrxSm") }}
                   </a-menu-item>
                   <a-menu-item :key="MEMBER_INVITATION_STATUS_ACCEPTED"
-                    >未註冊
+                    >{{ $t("Iisyekt19U48nfo2BFypV") }}
                   </a-menu-item>
                   <a-menu-item :key="MEMBER_INVITATION_STATUS_JOINED"
-                    >已加入
+                    >{{ $t("w_iPwp1wwma-yB2Ly5PW4") }}
                   </a-menu-item>
                 </a-menu>
               </template>
@@ -106,7 +110,7 @@ onMounted(() => {
       </InfiniteScroll>
     </div>
     <div class="basis-2/5 p-4 bg-white rounded-xl">
-      <ComponentTitle title="成員邀請" />
+      <ComponentTitle :title="$t('6zx8lqftFQuNpgSzzlpUU')" class="mb-4"/>
       <InviteForm @refresh="fetch" />
     </div>
   </div>

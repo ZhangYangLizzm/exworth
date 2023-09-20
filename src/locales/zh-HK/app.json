@@ -174,7 +174,6 @@
   "5T9IqkrF8DTnOiDZlrrIl": "請選擇鏈類型",
   "KA634HBkYSrLFNgGwVCX8": "請選擇狀態",
   "OcfJlH4QmIPpM8_XAtT0h": "輸入郵箱搜索",
-  "HdqCyzznm7hS5EZblV5Xr": "請輸入郵箱搜索",
   "QzD6F1l8Ue9UNPMHcBruL": "請選擇幣種",
   "9X7FO5do5O5FIYhSXc5FG": "卡號不能為空",
   "_skPFb-gpUBUTW-epVro7": "地址不能為空",
@@ -245,5 +244,16 @@
   "WNb2W_CLp8_wtYx_tk-Is": "已過期",
   "69QS20gBy46WWnMh3nvqy": "已註銷",
   "Ks1Uxt7tf0w9ah1IBHD0O": "換卡中",
-  "Ig7Obh5SnlDU1vzDmOUOV": "請輸入轉帳對象"
+  "Ig7Obh5SnlDU1vzDmOUOV": "請輸入轉帳對象",
+  "dMtTcFJx8_cbtE0DTO7W5": "全屏",
+  "BIKOB1bo7UcnTnw_yDond": "退出全屏",
+  "t2sx0DwaTOgHF7yVSVCOK": "請輸入訂單號",
+  "WfWtL5wXzB2jAE8bKp-hF": "篩選明細",
+  "qaS2XVHmYe3vNdvtTQ7Ad": "邀請記錄",
+  "6zx8lqftFQuNpgSzzlpUU": "邀請成員",
+  "uWhhhJI1_Rf7xmMk5h8mu": "密鑰允許你驗證API請求，您可以像我們提供您的公鑰信息，以便我們在交易時解析它。",
+  "03T3p-NHnHL3nDxk9xYof": "請輸入密鑰",
+  "dkRiXkPIS0oKMtvCefl8N": "下一步",
+  "VhHMY_sr-L5bicsHqZ3EM": "使用MD5對稱加密方式運作，您將獲得API密鑰和MD5密鑰。請將API密鑰和MD5密鑰視為密碼一樣妥善保管，切勿與任何第三方分享。",
+  "gomoOFSdvm27SwRWOowkR": "使用Sign或RSA非對稱加密方式運作。您將獲得API密鑰，且必須通過軟件，自行創建一對公鑰和私鑰，然後僅向Exworth提供公鑰。請將API密鑰和私鑰視為密碼一樣妥善保管，切勿與任何第三方分享。"
 }

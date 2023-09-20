@@ -99,7 +99,7 @@ onMounted(() => {
           <p>
             {{ $t("FPnQ4woLU-EYPfpsY6oX6") }}<br />
             {{ $t("A6kNlDZAbmYayenIODMIj") }}
-            <a @click="settingStore.fetchConfig()">{{
+            <a @click="settingStore.fetchConfig()" class="text-primary">{{
               $t("_CD1ho41rkMxFKnIKKvKk")
             }}</a>
             {{ $t("5GYt-vY5CTG3o72Y5GCxr") }}
@@ -120,7 +120,7 @@ onMounted(() => {
       <Cell title="API KEY" :divider="false">
         <template #content>
           <p>
-            密鑰允許你驗證API請求，您可以像我們提供您的公鑰信息，以使我們在交易時解析它。
+            {{ $t("uWhhhJI1_Rf7xmMk5h8mu") }}
           </p>
         </template>
         <template #action>

@@ -44,7 +44,7 @@ const { drawerPattern, wrapClick } = useDrawerInject();
           <div class="flex gap-x-2">
             <a-input
               allow-clear
-              placeholder="Search"
+              :placeholder="$t('OcfJlH4QmIPpM8_XAtT0h')"
               v-model:value="memberFilterOptions.emailLike"
               @keyup.enter="() => fetchMember()"
             >
@@ -52,8 +52,12 @@ const { drawerPattern, wrapClick } = useDrawerInject();
                 <SearchOutlined />
               </template>
             </a-input>
-            <a-button type="primary" @click="wrapClick(MEMBER_TRANSFER)" :disabled="drawerPattern===MEMBER_TRANSFER">
-              轉帳
+            <a-button
+              type="primary"
+              @click="wrapClick(MEMBER_TRANSFER)"
+              :disabled="drawerPattern === MEMBER_TRANSFER"
+            >
+              {{ $t("_iMQNMQatEhTi4yWkEjxs") }}
             </a-button>
           </div>
         </template>

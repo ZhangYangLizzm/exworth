@@ -25,7 +25,7 @@ const onRangeChange = (value: any[]) => {
 <template>
   <div class="px-4 overflow-y-auto">
     <a-form layout="vertical">
-      <a-form-item label="選擇日期">
+      <a-form-item :label="$t('CrpJvRaeD2UtLIpSA4Is7')">
         <a-range-picker
           class="w-full"
           valueFormat="YYYY-MM-DD"
@@ -34,7 +34,7 @@ const onRangeChange = (value: any[]) => {
         />
       </a-form-item>
 
-      <a-form-item label="訂單類型">
+      <a-form-item :label="$t('10MvsZXdn3EOSKcFB4Fzf')">
         <a-select
           :placeholder="$t('xPOa-lYXJ2QlRzV5wTa0r')"
           :options="FLOW_TYPE_GROUPS"
@@ -43,16 +43,16 @@ const onRangeChange = (value: any[]) => {
         </a-select>
       </a-form-item>
 
-      <a-form-item label="貨幣類型">
+      <a-form-item :label="$t('AsHuYNM5Ic6nO-wMh23Fi')">
         <CurrencySelect
           :walletAccounts="accountStore.walletAccounts"
           v-model:currency="filterOptions!.currency"
         />
       </a-form-item>
-      <a-form-item label="訂單號">
+      <a-form-item :label="$t('Lt2Yb3nacWIDdbk1RYlMf')">
         <a-input
           autocomplete="off"
-          placeholder="請輸入訂單號"
+          :placeholder="$t('t2sx0DwaTOgHF7yVSVCOK')"
           v-model:value="filterOptions!.affectOrderNo"
         />
       </a-form-item>

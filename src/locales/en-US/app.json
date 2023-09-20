@@ -170,7 +170,6 @@
   "bggAC96HS1OvTEKsh9rg_": "Balance",
   "sMkxYlIlj4SgxGAKFOjgJ": "Please enter the transfer amount",
   "OcfJlH4QmIPpM8_XAtT0h": "Input Email Search",
-  "HdqCyzznm7hS5EZblV5Xr": "Enter email",
   "QzD6F1l8Ue9UNPMHcBruL": "Please select a currency",
   "9X7FO5do5O5FIYhSXc5FG": "Card number cannot be empty",
   "KbcfSX5ia5pOmBlREN6PC": "Please select network",
@@ -241,5 +240,16 @@
   "WNb2W_CLp8_wtYx_tk-Is": "EXPIRED",
   "69QS20gBy46WWnMh3nvqy": "CANCELLED",
   "Ks1Uxt7tf0w9ah1IBHD0O": "CHANGING",
-  "Ig7Obh5SnlDU1vzDmOUOV": "Please enter the person's  Email or PROUID"
+  "Ig7Obh5SnlDU1vzDmOUOV": "Please enter the person's  Email or PROUID",
+  "dMtTcFJx8_cbtE0DTO7W5": "Fullscreen",
+  "BIKOB1bo7UcnTnw_yDond": "Exit Fullscreen",
+  "t2sx0DwaTOgHF7yVSVCOK": "Please enter the order number",
+  "WfWtL5wXzB2jAE8bKp-hF": "Filtering Details",
+  "qaS2XVHmYe3vNdvtTQ7Ad": "Invitation Record",
+  "6zx8lqftFQuNpgSzzlpUU": "Invite Members",
+  "uWhhhJI1_Rf7xmMk5h8mu": "Keys allow you to validate API requests, and you can provide us with your public key information so that we can parse it during transactions.",
+  "03T3p-NHnHL3nDxk9xYof": "Please enter the key",
+  "gomoOFSdvm27SwRWOowkR": "Works with Sign or RSA asymmetric encryption. You will be provided with an API key and must create your own pair of public and private keys through the software and then provide Exworth with the public key only. Please keep the API key and private key as if they were passwords and do not share them with any third party.",
+  "VhHMY_sr-L5bicsHqZ3EM": "By using MD5 symmetric encryption, you will receive both the API key and the MD5 key. Please keep the API key and MD5 key as a password and do not share them with any third party.",
+  "dkRiXkPIS0oKMtvCefl8N": "Next"
 }

@@ -6,7 +6,12 @@ import {
   CARD_STATUS_BADGE_MAP,
   useCard,
 } from "@/hooks/useCard";
-import {MEMBER_CARD_LOSS,MEMBER_CARD_REPLACE,MEMBER_CARD_TOPUP} from "@/hooks/useDrawer"
+import {
+  MEMBER_CARD_LOSS,
+  MEMBER_CARD_REPLACE,
+  MEMBER_CARD_TOPUP,
+  useDrawerInject,
+} from "@/hooks/useDrawer";
 import { encryptStr } from "@/utils/encrypt";
 
 const props = withDefaults(
@@ -32,6 +37,7 @@ const onClick = (item: any, type: "recharge" | "replace" | "cardLoss") => {
 const showAction = ref<Array<boolean>>(
   new Array(props.dataSource.length).fill(false)
 );
+
 </script>
 
 <template>
