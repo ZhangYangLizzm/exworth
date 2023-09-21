@@ -17,7 +17,7 @@ useIntersectionObserver(loadObserver, ([{ isIntersecting }]) => {
 
 <template>
   <a-list
-    class="overflow-y-auto overflow-x-hidden pr-4"
+    class="overflow-y-auto overflow-x-hidden"
     :dataSource="dataSource"
   >
     <template #renderItem="{ item }">

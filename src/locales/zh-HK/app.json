@@ -257,5 +257,8 @@
   "VhHMY_sr-L5bicsHqZ3EM": "使用MD5對稱加密方式運作，您將獲得API密鑰和MD5密鑰。請將API密鑰和MD5密鑰視為密碼一樣妥善保管，切勿與任何第三方分享。",
   "gomoOFSdvm27SwRWOowkR": "使用Sign或RSA非對稱加密方式運作。您將獲得API密鑰，且必須通過軟件，自行創建一對公鑰和私鑰，然後僅向Exworth提供公鑰。請將API密鑰和私鑰視為密碼一樣妥善保管，切勿與任何第三方分享。",
   "IizIVPS-xlYnKPl_EUAN2": "輸入登錄白名單，用英文','分隔",
-  "j2BrhCWY6Id-I-h7GHKcU": "卡片"
+  "j2BrhCWY6Id-I-h7GHKcU": "卡片",
+  "1BLfOjzdVKxiPjNW8eTZR": "綁定谷歌驗證碼",
+  "JTWzP44eyItAI3ZVXPe-K": "修改登錄白名單",
+  "0Uir9fGp6oKkJneCTNZWJ": "設置API KEY"
 }

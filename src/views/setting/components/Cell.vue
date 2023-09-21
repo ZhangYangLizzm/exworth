@@ -14,7 +14,7 @@ defineProps({
       {{ title }}
     </div>
 
-    <div class="text-[#00000073] w-3/4">
+    <div class="text-[#00000073]">
       <slot name="content" />
     </div>
 

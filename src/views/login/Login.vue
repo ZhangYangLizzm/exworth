@@ -7,9 +7,9 @@ const thisYear = computed(() => dayjs().year());
 
 <template>
   <div class="w-full h-full login overflow-hidden flex flex-col rounded-xl">
-    <header class="header h-16 flex items-center justify-between px-4">
+    <header class="header h-16 flex items-center px-4 justify-between">
       <div class="h-6">
-        <Logo dark />
+        <Logo dark width="8rem"/>
       </div>
       <LocaleDropdown />
     </header>

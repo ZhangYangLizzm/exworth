@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useDrawerInject } from "@/hooks/useDrawer.ts";
-
+import { useDrawerInject, useDrawerTitle } from "@/hooks/useDrawer.ts";
+import { useAppStore } from "@/stores/app";
 defineProps({
   getContainer: {
     type: String,
@@ -17,29 +17,35 @@ defineProps({
 });
 
 const { drawerVisible, closeDrawer } = useDrawerInject();
-
-const emit = defineEmits(["afterClose"]);
+const { Title } = useDrawerTitle();
 const onCloseDrawer = () => {
   closeDrawer();
-  emit("afterClose");
 };
+
+const appStore = useAppStore();
 </script>
 
 <template>
   <Teleport :to="getContainer" v-if="drawerVisible">
-    <div class="h-full w-full absolute shadow rounded-r-xl overflow-hidden flex flex-col">
+    <div
+      class="h-full w-full absolute shadow rounded-r-xl overflow-hidden flex flex-col"
+    >
       <div
         class="drawer-header flex w-full h-12 justify-center items-center py-4"
         v-if="showTitle"
       >
         <close-outlined
           @click="onCloseDrawer"
-          class="ml-2 cursor-pointer hover:text-primary"
+          class="cursor-pointer hover:text-primary"
+          :class="[appStore.isMobile ? 'mr-4 order-1' : 'ml-2']"
         />
-        <div class="flex-grow text-center">
+        <div
+          class="flex-grow"
+          :class="[appStore.isMobile ? 'ml-4' : 'text-center']"
+        >
           <slot name="header">
-            <div class="font-bold text-base tracking-wide">
-              {{ title }}
+            <div class="font-semibold text-base tracking-wide">
+              {{ Title || title }}
             </div>
           </slot>
         </div>

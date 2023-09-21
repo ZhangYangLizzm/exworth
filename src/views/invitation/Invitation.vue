@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useList } from "@/hooks";
+import { useDrawerInject, useList } from "@/hooks";
 import { useMember } from "@/hooks/useMember";
 import { loadInvitation } from "@/api/member";
 import InviteForm from "./InviteForm.vue";
@@ -8,7 +8,10 @@ import {
   MEMBER_INVITATION_STATUS_INVITED,
   MEMBER_INVITATION_STATUS_ACCEPTED,
 } from "@/hooks/useMember";
+import { useAppStore } from "@/stores";
 
+const appStore = useAppStore();
+const { wrapClick } = useDrawerInject();
 const { MEMBER_INVITATION_STATUS_TEXT, MEMBER_INVITATION_STATUS_COLOR } =
   useMember();
 
@@ -41,6 +44,7 @@ onMounted(() => {
         <template #extra>
           <div class="flex gap-x-2">
             <a-input
+              v-if="!appStore.isMobile"
               allow-clear
               :placeholder="$t('OcfJlH4QmIPpM8_XAtT0h')"
               @keyup.enter="fetch({ noAppend: true })"
@@ -73,10 +77,29 @@ onMounted(() => {
                 </a-menu>
               </template>
             </a-dropdown>
+
+            <a-button
+              type="primary"
+              @click="() => wrapClick()"
+              v-if="appStore.isMobile"
+              >{{ $t("VPTp-QATJSurGdzHeGrXT") }}</a-button
+            >
           </div>
         </template>
       </ComponentTitle>
 
+      <a-input
+        v-if="appStore.isMobile"
+        allow-clear
+        :placeholder="$t('OcfJlH4QmIPpM8_XAtT0h')"
+        @keyup.enter="fetch({ noAppend: true })"
+        v-model:value="filterOptions.emailLike"
+        class="mt-4"
+      >
+        <template #prefix>
+          <SearchOutlined />
+        </template>
+      </a-input>
       <InfiniteScroll
         :dataSource="dataSource"
         :loading="loading"
@@ -109,9 +132,12 @@ onMounted(() => {
         </template>
       </InfiniteScroll>
     </div>
-    <div class="basis-2/5 p-4 bg-white rounded-xl">
-      <ComponentTitle :title="$t('6zx8lqftFQuNpgSzzlpUU')" class="mb-4"/>
+    <div class="basis-2/5 p-4 bg-white rounded-xl" v-if="!appStore.isMobile">
+      <ComponentTitle :title="$t('6zx8lqftFQuNpgSzzlpUU')" class="mb-4" />
       <InviteForm @refresh="fetch" />
     </div>
+    <ExDrawer v-else="appStore.isMobile">
+      <InviteForm @refresh="fetch" />
+    </ExDrawer>
   </div>
 </template>

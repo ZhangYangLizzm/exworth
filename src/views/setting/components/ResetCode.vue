@@ -83,7 +83,7 @@ const handleSubmit = async () => {
     </a-form-item>
 
     <div class="flex justify-center items-center">
-      <a-button type="primary" @click="handleSubmit" :loading="btnLoading">
+      <a-button type="primary" @click="handleSubmit" :loading="btnLoading" class="w-40 h-8">
         {{ $t("jLzFLAlFFSK9y4A-QE8Ye") }}
       </a-button>
     </div>

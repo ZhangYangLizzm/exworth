@@ -85,17 +85,16 @@ const { handleValidate, validateInfos } = useForm(formState, rules);
           </AForm>
         </div>
         <div class="text-center mt-4">
-      <a-button @click="next" type="primary">
-        {{
-          step === SelectSercretType
-            ? $t("dkRiXkPIS0oKMtvCefl8N")
-            : $t("utkQ-uv-4gXBHkFXvGL5u")
-        }}
-      </a-button>
-    </div>
+          <a-button @click="next" type="primary" class="w-40 h-8">
+            {{
+              step === SelectSercretType
+                ? $t("dkRiXkPIS0oKMtvCefl8N")
+                : $t("utkQ-uv-4gXBHkFXvGL5u")
+            }}
+          </a-button>
+        </div>
       </div>
     </transition>
-
   </div>
 </template>
 

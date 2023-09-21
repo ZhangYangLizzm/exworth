@@ -253,5 +253,8 @@
   "VhHMY_sr-L5bicsHqZ3EM": "By using MD5 symmetric encryption, you will receive both the API key and the MD5 key. Please keep the API key and MD5 key as a password and do not share them with any third party.",
   "dkRiXkPIS0oKMtvCefl8N": "Next",
   "IizIVPS-xlYnKPl_EUAN2": "Input the white list, separated by ','.",
-  "j2BrhCWY6Id-I-h7GHKcU": "Card"
+  "j2BrhCWY6Id-I-h7GHKcU": "Card",
+  "0Uir9fGp6oKkJneCTNZWJ": "Setting the API KEY",
+  "JTWzP44eyItAI3ZVXPe-K": "Modify Whitelist",
+  "1BLfOjzdVKxiPjNW8eTZR": "Binding Google Authentication Code"
 }

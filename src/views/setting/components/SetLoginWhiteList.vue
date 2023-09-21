@@ -57,26 +57,26 @@ const handleConfirm = async () => {
 
 <template>
   <div class="p-4">
-    <a-form layout="vertical">
-      <a-form-item
+    <AForm layout="vertical">
+      <AFormItem
         :label="$t('4Pf3mZrhh3LiqO5ocQQ3T')"
         required
         v-bind="validateInfos.whiteList"
       >
-        <a-textarea
+        <ATextarea
           v-model:value="formState.whiteList"
           :placeholder="$t('IizIVPS-xlYnKPl_EUAN2')"
-        ></a-textarea>
-      </a-form-item>
+        ></ATextarea>
+      </AFormItem>
       <GoogleAuthCode
         v-model:value="formState.authCode"
         :validateInfo="validateInfos.authCode"
       />
-      <a-form-item class="text-center">
-        <a-button type="primary" @click="handleConfirm" class="w-40 h-8"
+      <AFormItem class="text-center">
+        <AButton type="primary" @click="handleConfirm" class="w-40 h-8"
           >{{ $t("utkQ-uv-4gXBHkFXvGL5u") }}
-        </a-button>
-      </a-form-item>
-    </a-form>
+        </AButton>
+      </AFormItem>
+    </AForm>
   </div>
 </template>

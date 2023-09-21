@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import Functions from "./Functions.vue";
 
-defineProps({
-  dataSource: Array,
-  loading: Boolean,
-  activeUUID: String,
-});
+defineProps<{
+  dataSource: Array<any>;
+  loading: boolean;
+  activeUUID: string;
+  isMobile: boolean;
+}>();
 
 const emit = defineEmits(["fetchMore", "click"]);
 
@@ -26,7 +27,7 @@ const onFetchMore = () => {
   >
     <template #renderItem="{ item }">
       <a-list-item
-        class="rounded cursor-pointer hover:bg-slate-100 !px-2 !py-0"
+        class="rounded cursor-pointer hover:bg-slate-100 !px-4 !py-0"
         :class="[activeUUID === item.uuid ? 'bg-slate-100' : 'bg-white']"
       >
         <a-list-item-meta @click="onClick(item.uuid)">
@@ -42,8 +43,11 @@ const onFetchMore = () => {
                   {{ item.uuid }}
                 </span>
               </div>
-              <div class="flex justify-end">
-                <Functions :functions="item.memberFunction" />
+              <div class="flex justify-end mt-2">
+                <Functions
+                  :functions="item.memberFunction"
+                  :isMobile="isMobile"
+                />
               </div>
             </div>
           </template>

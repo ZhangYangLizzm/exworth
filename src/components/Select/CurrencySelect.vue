@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { AccountInfo } from '@/stores/types/account';
+import { AccountInfo } from "@/stores/types/account";
 
 defineProps<{
-  currency: string;
+  currency: string | undefined;
   disabled?: boolean;
   walletAccounts: AccountInfo[];
 }>();

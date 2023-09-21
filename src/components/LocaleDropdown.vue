@@ -12,7 +12,7 @@ const handleLocaleSelect: MenuClickEventHandler = ({ key }) => {
 
 <template>
   <ADropdown placement="bottom">
-    <a class="px-1">
+    <a type="text" class="text-primary ml-1">
       {{ localeText }}
     </a>
     <template #overlay>

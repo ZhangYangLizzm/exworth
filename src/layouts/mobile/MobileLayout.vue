@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import WebSider from "./sider/WebSider.vue";
-import { useDrawerProvide } from "@/hooks/useDrawer.ts";
-
-const { drawerFlexGrowClass, drawerVisible } = useDrawerProvide();
+import MobileHeader from "@/layouts/mobile/header/MobileHeader.vue";
+import { useDrawerProvide } from "@/hooks/useDrawer";
+const { drawerVisible } = useDrawerProvide();
 </script>
 
 <template>
-  <div class="flex relative w-full overflow-hidden rounded-xl">
-    <WebSider />
+  <div class="relative w-full overflow-hidden h-full">
+    <MobileHeader />
 
     <ALayoutContent
-      class="!flex-grow-[2] !basis-0 !shrink-0 relative overflow-hidden p-4 !bg-[rgba(245,245,245,0.8)]"
-      :class="[drawerVisible ? 'rounded-none' : 'rounded-r-xl']"
+      class=" relative overflow-hidden p-4 !bg-[rgba(245,245,245,0.8)]"
     >
       <router-view v-slot="{ Component, route }">
         <transition name="slide-page">
@@ -25,8 +23,9 @@ const { drawerFlexGrowClass, drawerVisible } = useDrawerProvide();
 
     <div
       id="ex-drawer"
-      class="relative rounded-r-xl bg-white grow-transition"
-      :class="[drawerFlexGrowClass]"
+      class="absolute rounded-r-xl bg-white w-full h-full top-0 left-0"
+      :style="[`visibility:${drawerVisible ? 'visible' : 'hidden'}`]"
+      :class="[drawerVisible ? 'ex-drawer-enter' : 'ex-drawer-exit']"
     ></div>
   </div>
 </template>

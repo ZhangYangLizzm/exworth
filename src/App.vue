@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Locale } from "ant-design-vue/es/locale";
 import dayjs from "dayjs";
+import { useAppStore } from "@/stores/app";
 
 const { messages, locale } = useI18n();
 const antLocale = computed(
@@ -16,6 +17,8 @@ const theme = {
 watch(antLocale, (newVal: any) => dayjs.locale(newVal.locale), {
   immediate: true,
 });
+
+const appStore = useAppStore();
 </script>
 
 <template>
@@ -25,7 +28,12 @@ watch(antLocale, (newVal: any) => dayjs.locale(newVal.locale), {
     :theme="theme"
   >
     <a-layout
-      class="rounded-xl shadow flex bg-[rgb(255,255,255,0.8)] relative overflow-hidden min-w-[80vw] max-w-[80vw] h-[80vh]"
+      class="shadow flex bg-[rgb(255,255,255,0.8)] relative overflow-hidden"
+      :class="[
+        appStore.isMonitor
+          ? 'min-w-[80vw] max-w-[80vw] h-[80vh] rounded-xl'
+          : 'w-full h-full',
+      ]"
     >
       <router-view v-slot="{ Component }">
         <Transition name="slide-page">

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import NavigationMenu from "./NavigationMenu.vue";
-
+import NavigationMenu from "@/layouts/common/NavigationMenu.vue";
 import { useUserStore } from "@/stores/user.ts";
 import { useFullscreen } from "@vueuse/core";
 

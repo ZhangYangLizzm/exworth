@@ -96,4 +96,3 @@ const {
     <Withdraw v-if="drawerPattern === WALLET_WITHDRAW" @refresh="refresh" />
   </ExDrawer>
 </template>
-./components/actions

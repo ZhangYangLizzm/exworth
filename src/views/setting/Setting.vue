@@ -45,7 +45,7 @@ onMounted(() => {
     >
       <a-spin :spinning="settingStore.loading" size="large" />
     </div>
-    <div class="overflow-y-auto h-full pr-4" v-else>
+    <div class="overflow-y-auto h-full" v-else>
       <Cell :title="$t('18QwzD-fefF67FeBfT3TO')">
         <template #content>
           <p>{{ $t("Hjnh0CglItCAlSV7VeuUx") }}</p>

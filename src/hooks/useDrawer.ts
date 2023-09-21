@@ -8,7 +8,7 @@ export const SETTING_GOOGLE_AUTH = "SETTING_GOOGLE_AUTH";
 export const SETTING_RESET_PASSWORD = "SETTING_RESET_PASSWORD";
 export const SETTING_RESET_CODE = "SETTING_RESET_CODE";
 export const SETTING_APIKEY = "SETTING_APIKEY";
-export const SETTING_LOGIN_WHITELIST = "SETTING_LOGIN_WHITELIST"
+export const SETTING_LOGIN_WHITELIST = "SETTING_LOGIN_WHITELIST";
 export const WALLET_TOPUP = "WALLET_TOPUP";
 export const WALLET_WITHDRAW = "WALLET_WITHDRAW";
 export const WALLET_TRANSFER = "WALLET_TRANSFER";
@@ -93,9 +93,9 @@ const useDrawerInject = () => {
    * @param pattern 字符串判断disabled和组件的渲染
    * @param callback click事件的回调
    */
-  const wrapClick = async (pattern: string, callback?: () => any) => {
+  const wrapClick = async (pattern?: string, callback?: () => any) => {
     callback && (await callback());
-    setDrawerPattern(pattern);
+    pattern && setDrawerPattern(pattern);
     openDrawer();
   };
 
@@ -114,4 +114,19 @@ const useDrawerInject = () => {
   };
 };
 
-export { useDrawerProvide, useDrawerInject };
+const useDrawerTitle = () => {
+  const { drawerPattern } = inject(rightSiderkey)!;
+  const { t } = useI18n();
+  const DrawerTitle: Record<string, string> = reactive({
+    [SETTING_GOOGLE_AUTH]: t("1BLfOjzdVKxiPjNW8eTZR"),
+    [SETTING_LOGIN_WHITELIST]: t("JTWzP44eyItAI3ZVXPe-K"),
+    [SETTING_APIKEY]: t("0Uir9fGp6oKkJneCTNZWJ"),
+    [SETTING_RESET_CODE]: t("y1TuxkHrhkk1OLo6_jtVB"),
+    [SETTING_RESET_PASSWORD]: t("B-q5-tYEdulJDodx4ihUb"),
+  });
+
+  const Title = computed(() => DrawerTitle[drawerPattern.value]);
+  return { Title };
+};
+
+export { useDrawerProvide, useDrawerInject, useDrawerTitle };

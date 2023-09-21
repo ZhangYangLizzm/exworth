@@ -32,7 +32,7 @@ const handleChange: any = async (index: number) => {
 </script>
 
 <template>
-  <div>
+  <div class="px-4">
     <div class="mb-4">
       <p class="text-xl font-bold">{{ $t("G_iTl-wrlc73k_p_Y1vKV") }}</p>
       <p>
