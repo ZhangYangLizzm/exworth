@@ -55,7 +55,7 @@ const showAction = ref<Array<boolean>>(
         <Card
           :brand="item.cardType"
           :mode="cardMode"
-          class="transition-all z-50"
+          class="transition-all"
           :class="[showAction[index] ? 'card-active' : 'card-deactive']"
         >
           <template #footer>

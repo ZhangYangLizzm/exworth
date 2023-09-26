@@ -6,11 +6,18 @@ import {
   WALLET_TRANSFER,
 } from "@/hooks/useDrawer.ts";
 import { useAccountStore } from "@/stores/account.ts";
-import { WebCurrency, AccountDetails, FilterForm } from "./components";
+import {
+  WebCurrency,
+  AccountDetails,
+  FilterForm,
+  MobileCurrency,
+} from "./components";
 import { getBalanceHistory } from "@/api/wallet";
 import { useList } from "@/hooks";
 import { TopUp, WalletTransfer, Withdraw } from "./components/actions";
+import { useAppStore } from "@/stores";
 
+const appStore = useAppStore();
 const { loading, walletAccounts } = storeToRefs(useAccountStore());
 
 const { wrapClick, drawerPattern } = useDrawerInject();
@@ -28,15 +35,48 @@ const {
   loading: detailLoading,
   fetchMore,
   refresh,
-} = useList(getBalanceHistory, filterOptions, { mode: "list", pageSize: 8});
-
+} = useList(getBalanceHistory, filterOptions, { mode: "list", pageSize: 8 });
 </script>
 
 <template>
-  <div class="h-32 relative bg-white p-4 rounded-xl">
+  <div class="relative bg-white p-4 rounded-xl">
     <ComponentTitle :title="$t('VxYFMoZm9I6D7n_8ojjV4')">
       <template #extra>
-        <div class="flex gap-x-2">
+        <ADropdown>
+          <AButton type="primary">Actions <DownOutlined /></AButton>
+          <template #overlay>
+            <AMenu>
+              <AMenuItem>
+                <AButton
+                  type="text"
+                  :disabled="drawerPattern === WALLET_TOPUP"
+                  @click="wrapClick(WALLET_TOPUP)"
+                >
+                  {{ $t("p85LUkdtTlZNxvwxEVGX8") }}
+                </AButton>
+              </AMenuItem>
+              <AMenuItem>
+                <AButton
+                  type="text"
+                  :disabled="drawerPattern === WALLET_WITHDRAW"
+                  @click="wrapClick(WALLET_WITHDRAW)"
+                >
+                  {{ $t("mtzd-o04L2UDLaN81GSRl") }}
+                </AButton>
+              </AMenuItem>
+              <AMenuItem>
+                <AButton
+                  type="text"
+                  :disabled="drawerPattern === WALLET_TRANSFER"
+                  @click="wrapClick(WALLET_TRANSFER)"
+                >
+                  {{ $t("_iMQNMQatEhTi4yWkEjxs") }}
+                </AButton>
+              </AMenuItem>
+            </AMenu>
+          </template>
+        </ADropdown>
+        <!-- <div class="flex gap-x-2">
           <a-button
             :disabled="drawerPattern === WALLET_TOPUP"
             type="primary"
@@ -58,10 +98,20 @@ const {
           >
             {{ $t("_iMQNMQatEhTi4yWkEjxs") }}
           </a-button>
-        </div>
+        </div> -->
       </template>
     </ComponentTitle>
-    <WebCurrency :loading="loading" :walletAccounts="walletAccounts" class="py-2"/>
+    <WebCurrency
+      v-if="!appStore.isMobile"
+      :loading="loading"
+      :walletAccounts="walletAccounts"
+      class="py-2"
+    />
+    <MobileCurrency
+      v-if="appStore.isMobile"
+      :loading="loading"
+      :walletAccounts="walletAccounts"
+    />
   </div>
 
   <div class="flex overflow-hidden mt-4 gap-x-2 flex-grow">
@@ -76,9 +126,11 @@ const {
       />
     </div>
     <div
+      v-if="!appStore.isMobile"
       class="basis-1/3 overflow-hidden flex flex-col bg-white p-4 rounded-xl"
     >
-      <ComponentTitle :title="$t('WfWtL5wXzB2jAE8bKp-hF')" class="mb-4"> </ComponentTitle>
+      <ComponentTitle :title="$t('WfWtL5wXzB2jAE8bKp-hF')" class="mb-4">
+      </ComponentTitle>
       <FilterForm
         :loading="detailLoading"
         v-model:options="filterOptions"

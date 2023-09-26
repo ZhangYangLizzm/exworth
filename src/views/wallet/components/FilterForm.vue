@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatRangerPickerTime } from "@/utils/formatUtil";
+import { FormatRangerPickerTime } from "@/utils/formatUtil";
 import { useOrderType } from "@/hooks/useOrderType";
 import { useAccountStore } from "@/stores/account";
 import { useVModel } from "@vueuse/core";
@@ -18,7 +18,7 @@ const emit = defineEmits(["fetch", "update:options"]);
 const filterOptions = useVModel(props, "options", emit);
 
 const onRangeChange = (value: any[]) => {
-  filterOptions.value!.createTime = formatRangerPickerTime(value);
+  filterOptions.value!.createTime = FormatRangerPickerTime(value);
 };
 </script>
 

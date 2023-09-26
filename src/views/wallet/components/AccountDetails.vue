@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useOrderType } from "@/hooks/";
 import { DirectionClass } from "@/utils/getClasses";
-import { Format } from "@/utils/number";
+import { Format } from "@/utils/formatUtil";
 
 defineProps({
   loading: Boolean,

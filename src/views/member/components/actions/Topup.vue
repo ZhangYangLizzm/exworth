@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { postRecharge, postRechargeVCC } from "@/api/card";
 import { useAccountStore } from "@/stores/account";
-import { Format } from "@/utils/number";
+import { Format } from "@/utils/formatUtil";
 import useFormRules from "@/hooks/useFormRules.js";
 import { CARD_MODE_PHYSICAL, CARD_MODE_VIRTUAL } from "@/hooks/useCard";
 import { useForm } from "@/hooks";

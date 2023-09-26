@@ -12,7 +12,7 @@ export const loadSelf = () =>
     url: "otc/userInfo",
   });
 
-export const login = (data: any) =>
+export const login = (data: any):Promise<ExResponse<any>> =>
   request({
     url: "login",
     method: "POST",
@@ -25,7 +25,7 @@ export const authCode = (params: any) =>
     params,
   });
 
-export const firstLogin = (data: any) =>
+export const firstLogin = (data: any):Promise<ExResponse<any>> =>
   request({
     url: "firstLogin/reset/password",
     method: "POST",

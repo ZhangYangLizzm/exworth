@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SvgIcon from "@/components/SvgIcon.vue";
-import { Format } from "@/utils/number";
+import { Format } from "@/utils/formatUtil";
 import { AccountInfo } from "@/stores/types/account";
 
 defineProps<{
@@ -10,8 +10,8 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex">
-    <a-spin :spinning="loading" class="translate-x-8 translate-y-8">
+  <div class="flex min-h-[4rem]">
+    <a-spin :spinning="loading" class="translate-x-8">
       <div
         class="flex overflow-x-auto overflow-y-hidden rounded-xl wallet-container"
       >

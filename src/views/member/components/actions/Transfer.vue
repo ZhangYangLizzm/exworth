@@ -2,7 +2,7 @@
 import { useFormRules, useForm } from "@/hooks";
 import { postMemberTransfer } from "@/api/wallet";
 import { useAccountStore } from "@/stores";
-import { Format } from "@/utils/number";
+import { Format } from "@/utils/formatUtil";
 
 const accountStore = useAccountStore();
 

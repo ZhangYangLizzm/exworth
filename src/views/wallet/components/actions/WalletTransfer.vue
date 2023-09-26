@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAccountStore } from "@/stores/account";
-import { Format } from "@/utils/number";
+import { Format } from "@/utils/formatUtil";
 import { postWithdrawTransfer } from "@/api/wallet";
 import { useForm, useFormRules } from "@/hooks";
 import { RuleObject } from "ant-design-vue/es/form";

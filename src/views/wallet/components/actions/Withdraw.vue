@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Format } from "@/utils/number";
+import { Format } from "@/utils/formatUtil";
 import { OtcRateRes, getOtcRate, postCurrencyWithdraw } from "@/api/wallet";
 import { useForm, useFormRules } from "@/hooks";
 import { useAccountStore } from "@/stores/account";

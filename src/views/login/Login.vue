@@ -1,15 +1,27 @@
 <script setup lang="ts">
 import LoginForm from "./components/LoginForm.vue";
+import ResetForm from "./components/ResetForm.vue";
+import MfaForm from "./components/MfaForm.vue";
+
 import dayjs from "dayjs";
 
 const thisYear = computed(() => dayjs().year());
+const step = ref("login");
+const name = ref("");
+const reset = (value) => {
+  name.value = value;
+  step.value = "reset";
+};
+const mfa = () => {
+  step.value = "mfa";
+};
 </script>
 
 <template>
   <div class="w-full h-full login overflow-hidden flex flex-col rounded-xl">
     <header class="header h-16 flex items-center px-4 justify-between">
       <div class="h-6">
-        <Logo dark width="8rem"/>
+        <Logo dark width="8rem" />
       </div>
       <LocaleDropdown />
     </header>
@@ -19,8 +31,10 @@ const thisYear = computed(() => dayjs().year());
       </div>
       <div class="text-lg text-center">{{ $t("uRZHmMHGIbHs9TMJtbzT6") }}</div>
       <div class="mt-8">
-        <LoginForm />
-        <!-- TODO:待加入登錄校验 -->
+        <LoginForm v-if="step === 'login'" @reset="reset" @mfa="mfa" />
+
+        <ResetForm v-else-if="step === 'reset'" :name="name" />
+        <MfaForm v-else-if="step === 'mfa'" />
       </div>
     </main>
     <footer class="text-center w-full h-16 flex items-center justify-center">

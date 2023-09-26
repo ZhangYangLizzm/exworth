@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useForm } from "@/hooks/useForm";
 import { login } from "@/api/user";
+import message from "ant-design-vue/es/message";
 
 const { t } = useI18n();
-const formState = reactive({
+const formState:Record<string,string|undefined> = reactive({
   name: undefined,
   password: undefined,
+  code: undefined,
 });
 
 const rules = computed(() => ({
@@ -13,23 +15,62 @@ const rules = computed(() => ({
   password: [{ required: true, message: t("8dRn48_9RTO6Q2804fgFp") }],
 }));
 
+const loading = ref(false);
+const emit = defineEmits(["reset", "mfa"]);
+
 const { handleValidate, validateInfos } = useForm(formState, rules);
 
-const loading = ref(false);
-const validateCode = ref(false);
 const router = useRouter();
+const validateCode = ref(false);
+const graphCode = ref();
 const handleSubmit = async () => {
   const { values } = await handleValidate(
     validateCode.value ? ["name", "password", "code"] : ["name", "password"]
   );
   if (values) {
     loading.value = true;
-    await login({
+    const { statusCode, content } = await login({
       ...values,
       name: values.name.toUpperCase(),
     });
     loading.value = false;
-    router.replace({ path: "/wallet" });
+    if (statusCode === 200) {
+      const {
+        // need mfa
+        ifCheckGoogleSecretKey,
+        // need bind mfa
+        ifGoogleSecretKeyBound,
+        // first login
+        ifFirstLogin,
+        name,
+      } = content;
+      if (ifCheckGoogleSecretKey) {
+        if (ifGoogleSecretKeyBound) {
+          if (ifFirstLogin) {
+            emit("reset", name);
+          } else {
+            emit("mfa");
+          }
+        } else {
+          message.warning(t("8jnmiDecv_inomSIVKpDF"));
+        }
+      } else {
+        if (ifFirstLogin) {
+          // reset password
+          emit("reset", name);
+        } else {
+          router.replace({ path: "/wallet" });
+        }
+      }
+    } else {
+      if (content.codeFlag) {
+        formState.code = "";
+        validateCode.value = true;
+        nextTick(() => {
+          graphCode.value.refreshCode();
+        });
+      }
+    }
   }
 };
 </script>
