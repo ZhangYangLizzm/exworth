@@ -19,8 +19,18 @@ const routes = [
       },
       {
         path: "member",
-        name: "Member",
-        component: () => import("@/views/member/Member.vue"),
+        children: [
+          {
+            path: "",
+            name: "Member",
+            component: () => import("@/views/member/Member.vue"),
+          },
+          {
+            path: ":uuid",
+            name: "MemberCard",
+            component: () => import("@/views/member/components/MemberCard.vue"),
+          },
+        ],
       },
       {
         path: "invitation",
@@ -32,11 +42,11 @@ const routes = [
         name: "Setting",
         component: () => import("@/views/setting/Setting.vue"),
       },
-      // {
-      //   path: "card-manage",
-      //   name: "CardManage",
-      //   component: () => import("@/views/cardManage/CardManage.vue"),
-      // },
+      {
+        path: "card-manage",
+        name: "CardManage",
+        component: () => import("@/views/cardManage/CardManage.vue"),
+      },
     ],
   },
   {

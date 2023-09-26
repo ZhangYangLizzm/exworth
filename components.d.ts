@@ -39,7 +39,6 @@ declare module 'vue' {
     ASpin: typeof import('ant-design-vue/es')['Spin']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
-    ATag: typeof import('ant-design-vue/es')['Tag']
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
     Card: typeof import('./src/components/Card.vue')['default']
     CheckOutlined: typeof import('@ant-design/icons-vue')['CheckOutlined']

@@ -29,14 +29,19 @@ const props = withDefaults(
 const { CARD_STATUS_TEXT } = useCard();
 const emit = defineEmits(["click"]);
 
-const onClick = (item: any, type: "recharge" | "replace" | "cardLoss") => {
-  emit("click", { item, type, mode: props.cardMode });
+const onClick = (
+  item: any,
+  type:
+    | typeof MEMBER_CARD_TOPUP
+    | typeof MEMBER_CARD_LOSS
+    | typeof MEMBER_CARD_REPLACE
+) => {
+  emit("click", { item, type });
 };
 
 const showAction = ref<Array<boolean>>(
   new Array(props.dataSource.length).fill(false)
 );
-
 </script>
 
 <template>

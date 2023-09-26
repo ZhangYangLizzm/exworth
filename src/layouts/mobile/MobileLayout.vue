@@ -9,7 +9,7 @@ const { drawerVisible } = useDrawerProvide();
     <MobileHeader />
 
     <ALayoutContent
-      class=" relative overflow-hidden p-4 !bg-[rgba(245,245,245,0.8)]"
+      class="relative overflow-hidden p-4 !bg-[rgba(245,245,245,0.8)] h-[calc(100%-4rem)]"
     >
       <router-view v-slot="{ Component, route }">
         <transition name="slide-page">

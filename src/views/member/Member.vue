@@ -23,19 +23,30 @@ const {
 
 const uuid = ref<string>("");
 
-// 获得列表数据时渲染第一个成员的卡片
-const stopWatch = watch(
-  () => dataSource.value,
-  (newVal) => {
-    if (newVal) {
-      uuid.value = newVal[0].uuid;
-      stopWatch();
-    }
-  }
-);
-
 const { drawerPattern, wrapClick } = useDrawerInject();
 const appStore = useAppStore();
+
+// 获得列表数据时渲染第一个成员的卡片
+if (!appStore.isMobile) {
+  const stopWatch = watch(
+    () => dataSource.value,
+    (newVal) => {
+      if (newVal) {
+        uuid.value = newVal[0].uuid;
+        stopWatch();
+      }
+    }
+  );
+}
+const router = useRouter();
+
+const onMemberListItemClick = (id: string) => {
+  if (appStore.isMobile) {
+    router.push({ name: "MemberCard", params: { uuid: id } });
+  } else {
+    uuid.value = id;
+  }
+};
 </script>
 
 <template>
@@ -81,19 +92,22 @@ const appStore = useAppStore();
       <MemberList
         :dataSource="dataSource"
         :loading="memberLoading"
-        @click="(id) => (uuid = id)"
+        @click="(id) => onMemberListItemClick(id)"
         @fetchMore="fetchMore"
         :activeUUID="uuid"
         :isMobile="appStore.isMobile"
       />
     </div>
-    <div class="basis-[400px] shrink-0 bg-white p-4 rounded-xl" v-if="!appStore.isMobile">
+
+    <div
+      class="basis-[400px] shrink-0 bg-white rounded-xl"
+      v-if="!appStore.isMobile"
+    >
       <MemberCard :uuid="uuid" />
     </div>
 
     <ExDrawer>
       <Transfer v-if="drawerPattern === MEMBER_TRANSFER"></Transfer>
-
     </ExDrawer>
   </div>
 </template>

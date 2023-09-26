@@ -1,5 +1,3 @@
-export type CardMode = "Physical" | "Virtual";
-
 export const CARD_MODE_PHYSICAL = "Physical";
 export const CARD_MODE_VIRTUAL = "Virtual";
 

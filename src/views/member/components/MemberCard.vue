@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { loadMemberPhysicalCard, loadMemberVirtualCard } from "@/api/member";
 import { useList } from "@/hooks";
-import {
-  CardMode,
-  CARD_MODE_PHYSICAL,
-  CARD_MODE_VIRTUAL,
-} from "@/hooks/useCard";
+import { CARD_MODE_PHYSICAL, CARD_MODE_VIRTUAL } from "@/hooks/useCard";
 import {
   MEMBER_CARD_LOSS,
   MEMBER_CARD_REPLACE,
@@ -14,15 +10,19 @@ import {
 } from "@/hooks/useDrawer";
 import CardList from "./CardList.vue";
 import { CardLoss, Replace, Topup } from "./actions/";
+import { useAppStore } from "@/stores";
+
+const route = useRoute();
 
 const props = defineProps({
   uuid: String,
 });
 
+const uuid = computed(() => props.uuid || route.params.uuid);
 const selectdKey = ref("PPC");
 
 const filterOptions = computed(() => ({
-  uuid: props.uuid,
+  uuid: uuid.value,
 }));
 
 const { drawerPattern, wrapClick } = useDrawerInject();
@@ -53,34 +53,37 @@ const onTabClick = (key: string) => {
 
 const topupMode = ref();
 
-const onClick = ({
-  item,
-  type,
-  mode,
-}: {
-  item: any;
-  type: string;
-  mode: CardMode;
-}) =>
+const onClick = ({ item, type }: { item: any; type: string }) =>
   wrapClick(type, () => {
     {
-      if (mode) {
-        topupMode.value = mode;
+      if (type === MEMBER_CARD_TOPUP) {
+        if (selectdKey.value === "PPC") {
+          topupMode.value = CARD_MODE_PHYSICAL;
+        } else {
+          topupMode.value = CARD_MODE_VIRTUAL;
+        }
       }
       cardInfo.value = item;
     }
   });
 
-watch(
-  () => props.uuid,
-  () => {
+const appStore = useAppStore();
+if (!appStore.isMobile) {
+  watch(
+    () => uuid.value,
+    () => {
+      fetchPhysicalCard();
+      selectdKey.value = "PPC";
+    }
+  );
+} else if (uuid.value) {
+  onMounted(() => {
     fetchPhysicalCard();
-    selectdKey.value = "PPC";
-  }
-);
+  });
+}
 </script>
 <template>
-  <div class="h-full flex">
+  <div class="h-full flex bg-white rounded-xl px-4">
     <a-tabs
       @tabClick="(key) => onTabClick(key as string)"
       class="h-full w-full"
@@ -106,8 +109,12 @@ watch(
   </div>
 
   <ExDrawer>
+    <Topup
+      v-if="drawerPattern === MEMBER_CARD_TOPUP"
+      :cardInfo="cardInfo"
+      :topupMode="topupMode"
+    />
     <CardLoss v-if="drawerPattern === MEMBER_CARD_LOSS" :cardInfo="cardInfo" />
-    <Topup v-if="drawerPattern === MEMBER_CARD_TOPUP" :cardInfo="cardInfo" />
     <Replace
       v-if="drawerPattern === MEMBER_CARD_REPLACE"
       :cardInfo="cardInfo"

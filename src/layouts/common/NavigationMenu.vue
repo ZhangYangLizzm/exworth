@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { MenuClickEventHandler } from "ant-design-vue/es/menu/src/interface";
-import { emit } from "process";
 
 const router = useRouter();
 const route = useRoute();
@@ -8,13 +7,12 @@ const selectedKeys = computed(() => [
   ...route.matched.map((i) => i.name as string),
 ]);
 
-const emit=defineEmits(['close'])
+const emit = defineEmits(["close"]);
 
 const handleMenuClick: MenuClickEventHandler = ({ key }) => {
   router.push({ name: key as string });
-  emit('close')
+  emit("close");
 };
-
 </script>
 
 <template>
@@ -40,12 +38,12 @@ const handleMenuClick: MenuClickEventHandler = ({ key }) => {
       {{ $t("6e9lOmW7RuhrqYotHMpJ8") }}
     </AMenuItem>
 
-    <!-- <AMenuItem class="rounded" key="CardManage">
+    <AMenuItem class="rounded" key="CardManage">
       <template #icon>
         <CreditCardOutlined />
       </template>
       {{ $t("j2BrhCWY6Id-I-h7GHKcU") }}
-    </AMenuItem> -->
+    </AMenuItem>
 
     <AMenuItem class="rounded" key="Setting">
       <template #icon>
