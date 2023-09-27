@@ -12,6 +12,9 @@ export function Permission() {
    * 每个路由都重新获取钱包数据
    */
   router.beforeEach(async (to, from, next) => {
+    if(!to.matched.length){
+      next('/login')
+    }
     if (!WhiteList.includes(to.name as string)) {
       // 非登录页
       if (!from.name || WhiteList.includes(from.name as string)) {

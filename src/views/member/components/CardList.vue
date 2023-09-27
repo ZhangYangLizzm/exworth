@@ -42,22 +42,22 @@ const onClick = (
 const showAction = ref<Array<boolean>>(
   new Array(props.dataSource.length).fill(false)
 );
+
+onMounted(() => {
+  showAction.value[0] = true;
+});
 </script>
 
 <template>
   <a-spin :spinning="loading">
     <template v-for="(item, index) in dataSource">
       <div
-        class="rounded-xl mb-4 relative"
+        class="rounded-xl mb-4 relative bg-gray-50"
         @mouseover="showAction[index] = true"
         @mouseleave="showAction[index] = false"
+        :class="[showAction[index] ? 'card-active' : 'card-deactive']"
       >
-        <Card
-          :brand="item.cardType"
-          :mode="cardMode"
-          class="transition-all"
-          :class="[showAction[index] ? 'card-active' : 'card-deactive']"
-        >
+        <Card :brand="item.cardType" :mode="cardMode" class="transition-all">
           <template #footer>
             <div class="flex items-center justify-between">
               <div class="drop-shadow text-base">
@@ -87,7 +87,10 @@ const showAction = ref<Array<boolean>>(
             type="text"
             size="large"
             @click="onClick(item, MEMBER_CARD_REPLACE)"
-            v-if="cardMode === CARD_MODE_PHYSICAL"
+            v-if="
+              cardMode === CARD_MODE_PHYSICAL &&
+              [CARD_STATUS_NORMAL].includes(item?.cardStatus)
+            "
           >
             {{ $t("gVPkNpXqcOdkRBKMOR_9i") }}
           </a-button>
@@ -95,7 +98,10 @@ const showAction = ref<Array<boolean>>(
             type="text"
             size="large"
             @click="onClick(item, MEMBER_CARD_LOSS)"
-            v-if="cardMode === CARD_MODE_PHYSICAL"
+            v-if="
+              cardMode === CARD_MODE_PHYSICAL &&
+              [CARD_STATUS_NORMAL].includes(item?.cardStatus)
+            "
           >
             {{ $t("h0EQGD5w6L9xSdGkk4eG0") }}
           </a-button>
@@ -110,7 +116,7 @@ const showAction = ref<Array<boolean>>(
 <style scoped lang="less">
 .card-active {
   transform: translate(-10px, -10px);
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .card-deactive {

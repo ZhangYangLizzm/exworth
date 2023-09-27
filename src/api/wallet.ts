@@ -61,7 +61,7 @@ export const postCurrencyWithdraw = (data: any): Promise<ExResponse<any>> =>
     data,
   });
 
-export const postMemberTransfer = (data: any) =>
+export const postMemberTransfer = (data: any): Promise<ExResponse<any>> =>
   request({
     url: "otc/withdraw",
     method: "POST",

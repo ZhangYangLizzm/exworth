@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useDrawerInject, useList } from "@/hooks";
+import { useList } from "@/hooks";
+import { useDrawerInject, MEMBER_INVITE } from "@/hooks/useDrawer";
 import { useMember } from "@/hooks/useMember";
 import { loadInvitation } from "@/api/member";
 import InviteForm from "./InviteForm.vue";
@@ -11,7 +12,7 @@ import {
 import { useAppStore } from "@/stores";
 
 const appStore = useAppStore();
-const { wrapClick } = useDrawerInject();
+const { wrapClick, drawerPattern } = useDrawerInject();
 const { MEMBER_INVITATION_STATUS_TEXT, MEMBER_INVITATION_STATUS_COLOR } =
   useMember();
 
@@ -80,7 +81,7 @@ onMounted(() => {
 
             <a-button
               type="primary"
-              @click="() => wrapClick()"
+              @click="() => wrapClick(MEMBER_INVITE)"
               v-if="appStore.isMobile"
               >{{ $t("VPTp-QATJSurGdzHeGrXT") }}</a-button
             >
@@ -137,7 +138,10 @@ onMounted(() => {
       <ComponentTitle :title="$t('6zx8lqftFQuNpgSzzlpUU')" class="mb-4" />
       <InviteForm @refresh="fetch" />
     </div>
-    <ExDrawer v-else="appStore.isMobile">
+    <ExDrawer
+      v-else="appStore.isMobile"
+      :open="drawerPattern === MEMBER_INVITE"
+    >
       <InviteForm @refresh="fetch" />
     </ExDrawer>
   </div>

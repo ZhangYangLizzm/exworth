@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useIntersectionObserver } from "@vueuse/core";
+
 const props = defineProps({
   dataSource: Array,
   loading: Boolean,

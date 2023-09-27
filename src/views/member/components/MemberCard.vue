@@ -9,7 +9,7 @@ import {
   useDrawerInject,
 } from "@/hooks/useDrawer";
 import CardList from "./CardList.vue";
-import { CardLoss, Replace, Topup } from "./actions/";
+import { CardLoss, Replace, Topup } from "./actions";
 import { useAppStore } from "@/stores";
 
 const route = useRoute();
@@ -108,17 +108,14 @@ if (!appStore.isMobile) {
     </a-tabs>
   </div>
 
-  <ExDrawer>
-    <Topup
-      v-if="drawerPattern === MEMBER_CARD_TOPUP"
-      :cardInfo="cardInfo"
-      :topupMode="topupMode"
-    />
-    <CardLoss v-if="drawerPattern === MEMBER_CARD_LOSS" :cardInfo="cardInfo" />
-    <Replace
-      v-if="drawerPattern === MEMBER_CARD_REPLACE"
-      :cardInfo="cardInfo"
-    />
+  <ExDrawer :open="drawerPattern === MEMBER_CARD_TOPUP">
+    <Topup :cardInfo="cardInfo" :topupMode="topupMode" />
+  </ExDrawer>
+  <ExDrawer :open="drawerPattern === MEMBER_CARD_LOSS">
+    <CardLoss :cardInfo="cardInfo" />
+  </ExDrawer>
+  <ExDrawer :open="drawerPattern === MEMBER_CARD_REPLACE">
+    <Replace :cardInfo="cardInfo" />
   </ExDrawer>
 </template>
 
@@ -131,4 +128,3 @@ if (!appStore.isMobile) {
   overflow-y: auto !important;
 }
 </style>
-./actions/CardLossModal.vue

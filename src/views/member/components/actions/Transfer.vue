@@ -39,10 +39,22 @@ const handleTransfer = async () => {
   const { values } = await handleValidate();
   if (values) {
     transferConfirmLoading.value = true;
-    await postMemberTransfer({ ...transferState });
-    await accountStore.fetchWalletAccount();
+    let tempState = {};
+    if (transferState.uuid.includes("@")) {
+      tempState = {
+        ...transferState,
+        uuid: undefined,
+        email: transferState.uuid,
+      };
+    } else {
+      tempState = { ...transferState };
+    }
+    const { statusCode } = await postMemberTransfer(tempState);
     transferConfirmLoading.value = false;
-    resetFields();
+    if (statusCode === 200) {
+      await accountStore.fetchWalletAccount();
+      resetFields();
+    }
   }
 };
 </script>

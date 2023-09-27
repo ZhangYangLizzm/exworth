@@ -14,6 +14,10 @@ defineProps({
     type: Boolean,
     default: true,
   },
+  open: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const { drawerVisible, closeDrawer } = useDrawerInject();
@@ -29,6 +33,7 @@ const appStore = useAppStore();
   <Teleport :to="getContainer" v-if="drawerVisible">
     <div
       class="h-full w-full absolute shadow rounded-r-xl overflow-hidden flex flex-col"
+      :style="{ display: open ? 'block' : 'none' }"
     >
       <div
         class="drawer-header flex w-full h-12 justify-center items-center py-4"
@@ -52,7 +57,9 @@ const appStore = useAppStore();
       </div>
       <div class="p-2 overflow-y-auto h-full">
         <Transition name="slide-page" mode="out-in">
-          <slot> </slot>
+          <div v-if="open">
+            <slot> </slot>
+          </div>
         </Transition>
       </div>
     </div>

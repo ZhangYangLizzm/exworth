@@ -39,7 +39,7 @@ const {
 </script>
 
 <template>
-  <div class="relative bg-white p-4 rounded-xl">
+  <div class="relative bg-white p-4 rounded-xl ">
     <ComponentTitle :title="$t('VxYFMoZm9I6D7n_8ojjV4')">
       <template #extra>
         <ADropdown>
@@ -71,6 +71,11 @@ const {
                   @click="wrapClick(WALLET_TRANSFER)"
                 >
                   {{ $t("_iMQNMQatEhTi4yWkEjxs") }}
+                </AButton>
+              </AMenuItem>
+              <AMenuItem>
+                <AButton type="text" @click="$router.push({ name: 'Details' })">
+                  {{ $t("ovLktXuIHMUA7a1STIy3X") }}
                 </AButton>
               </AMenuItem>
             </AMenu>
@@ -114,7 +119,10 @@ const {
     />
   </div>
 
-  <div class="flex overflow-hidden mt-4 gap-x-2 flex-grow">
+  <div
+    class="flex overflow-hidden mt-4 gap-x-2 flex-grow"
+    v-if="!appStore.isMobile"
+  >
     <div
       class="flex-grow flex overflow-y-hidden flex-col bg-white p-4 rounded-xl"
     >
@@ -125,8 +133,8 @@ const {
         @fetchMore="fetchMore"
       />
     </div>
+
     <div
-      v-if="!appStore.isMobile"
       class="basis-1/3 overflow-hidden flex flex-col bg-white p-4 rounded-xl"
     >
       <ComponentTitle :title="$t('WfWtL5wXzB2jAE8bKp-hF')" class="mb-4">
@@ -139,12 +147,13 @@ const {
     </div>
   </div>
 
-  <ExDrawer>
-    <TopUp v-if="drawerPattern === WALLET_TOPUP" />
-    <WalletTransfer
-      v-if="drawerPattern === WALLET_TRANSFER"
-      @refresh="refresh"
-    />
-    <Withdraw v-if="drawerPattern === WALLET_WITHDRAW" @refresh="refresh" />
+  <ExDrawer :open="drawerPattern === WALLET_TOPUP">
+    <TopUp />
+  </ExDrawer>
+  <ExDrawer :open="drawerPattern === WALLET_TRANSFER">
+    <WalletTransfer @refresh="refresh" />
+  </ExDrawer>
+  <ExDrawer :open="drawerPattern === WALLET_WITHDRAW">
+    <Withdraw @refresh="refresh" />
   </ExDrawer>
 </template>

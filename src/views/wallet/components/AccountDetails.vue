@@ -21,11 +21,11 @@ const fetchMore = () => emit("fetchMore");
   >
     <template #renderItem="{ item }">
       <a-list-item class="rounded !px-4 !py-2">
-        <SvgIcon :name="`coin-${item.currency}`" class="w-8 h-8 mr-4" />
+        <SvgIcon :name="`coin-${item.currency}`" class="w-10 h-10 mr-4" />
         <a-list-item-meta class="flex">
           <template #title>
             <div class="flex">
-              <div class="flex-grow text-base tracking-wider">
+              <div class="flex-grow text-base tracking-wide">
                 {{ FlowTypeLable(item.type) }}
               </div>
               <div

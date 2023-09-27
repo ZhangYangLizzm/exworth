@@ -150,15 +150,22 @@ onMounted(() => {
     </div>
   </div>
 
-  <ExDrawer @afterClose="drawerPattern = ''">
-    <ResetPassword v-if="drawerPattern === SETTING_RESET_PASSWORD" />
+  <ExDrawer :open="drawerPattern === SETTING_RESET_PASSWORD">
+    <ResetPassword />
+  </ExDrawer>
+  <ExDrawer :open="drawerPattern === SETTING_GOOGLE_AUTH">
     <BindGoogleAuth
-      v-if="drawerPattern === SETTING_GOOGLE_AUTH"
       :codeImgUrl="googleSecretKeyContent?.codeImgUrl"
       :secretKey="googleSecretKeyContent?.secretKey"
     />
-    <ResetCode v-if="drawerPattern === SETTING_RESET_CODE" />
-    <SetAPI v-if="drawerPattern === SETTING_APIKEY" />
-    <SetLoginWhiteList v-if="drawerPattern === SETTING_LOGIN_WHITELIST" />
+  </ExDrawer>
+  <ExDrawer :open="drawerPattern === SETTING_RESET_CODE">
+    <ResetCode />
+  </ExDrawer>
+  <ExDrawer :open="drawerPattern === SETTING_APIKEY">
+    <SetAPI />
+  </ExDrawer>
+  <ExDrawer :open="drawerPattern === SETTING_LOGIN_WHITELIST">
+    <SetLoginWhiteList />
   </ExDrawer>
 </template>

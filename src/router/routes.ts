@@ -14,8 +14,18 @@ const routes = [
     children: [
       {
         path: "wallet",
-        name: "Wallet",
-        component: Wallet,
+        children: [
+          {
+            path: "",
+            name: "Wallet",
+            component: Wallet,
+          },
+          {
+            path: "details",
+            name: "Details",
+            component: () => import("@/views/wallet/Details.vue"),
+          },
+        ],
       },
       {
         path: "member",
@@ -42,16 +52,12 @@ const routes = [
         name: "Setting",
         component: () => import("@/views/setting/Setting.vue"),
       },
-      {
-        path: "card-manage",
-        name: "CardManage",
-        component: () => import("@/views/cardManage/CardManage.vue"),
-      },
+      // {
+      //   path: "card-manage",
+      //   name: "CardManage",
+      //   component: () => import("@/views/cardManage/CardManage.vue"),
+      // },
     ],
-  },
-  {
-    path: "",
-    redirect: "/login",
   },
 ];
 

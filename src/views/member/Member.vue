@@ -106,8 +106,9 @@ const onMemberListItemClick = (id: string) => {
       <MemberCard :uuid="uuid" />
     </div>
 
-    <ExDrawer>
-      <Transfer v-if="drawerPattern === MEMBER_TRANSFER"></Transfer>
+    <!-- 挂载两个exdrawer会导致层叠上下文问题 -->
+    <ExDrawer :open="drawerPattern === MEMBER_TRANSFER">
+      <Transfer />
     </ExDrawer>
   </div>
 </template>

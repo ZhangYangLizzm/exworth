@@ -52,8 +52,9 @@ const handleTransfer = async () => {
         uuid: undefined,
         email: transferState.uuid,
       };
+    } else {
+      tempState = { ...transferState };
     }
-    tempState={...transferState}
     const { statusCode } = await postWithdrawTransfer({
       ...tempState,
       type: "transfer",
