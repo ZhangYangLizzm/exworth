@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import NavigationMenu from "@/layouts/common/NavigationMenu.vue";
 import { useUserStore } from "@/stores/user.ts";
-import { useFullscreen } from "@vueuse/core";
+// import { useFullscreen } from "@vueuse/core";
 
 const userStore = useUserStore();
-const { isSupported, isFullscreen, toggle } = useFullscreen();
+// const { isSupported, isFullscreen, toggle } = useFullscreen();
 </script>
 
 <template>
@@ -16,7 +16,10 @@ const { isSupported, isFullscreen, toggle } = useFullscreen();
     <NavigationMenu class="flex-grow" />
 
     <AMenu :selected-keys="[]">
-      <AMenuItem
+      <AMenuItem>
+        {{ $t('CYwQJVnFx9IMWDj-P4Vn-', [userStore.uuid]) }}
+      </AMenuItem>
+      <!-- <AMenuItem
         @click="toggle"
         key="Screen"
         class="rounded"
@@ -31,7 +34,7 @@ const { isSupported, isFullscreen, toggle } = useFullscreen();
             ? $t("dMtTcFJx8_cbtE0DTO7W5")
             : $t("BIKOB1bo7UcnTnw_yDond")
         }}
-      </AMenuItem>
+      </AMenuItem> -->
 
       <AMenuItem class="rounded" key="Locale">
         <template #icon>

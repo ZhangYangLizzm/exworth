@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import NavigationMenu from "@/layouts/common/NavigationMenu.vue";
-import { useUserStore } from "@/stores";
+import { useUserStore } from "@/stores/user";
 
 const userStore = useUserStore();
 const open = ref(false);

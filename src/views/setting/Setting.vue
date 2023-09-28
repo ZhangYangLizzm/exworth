@@ -77,7 +77,7 @@ onMounted(() => {
             :loading="loading"
             type="primary"
             @click="wrapClick(SETTING_GOOGLE_AUTH, bindGoogleAuth)"
-            v-if="!settingStore.config.ifGoogleSecretKeyBound"
+            v-if="settingStore.config?.ifGoogleSecretKeyBound"
             :disabled="drawerPattern === SETTING_GOOGLE_AUTH"
             >{{ $t("pYAVunqd83mox12MvD_DW") }}</a-button
           >
@@ -86,27 +86,27 @@ onMounted(() => {
 
       <Cell :title="$t('4Pf3mZrhh3LiqO5ocQQ3T')">
         <template #content>
-          <!-- <div>
+          <div>
             <span>已设置IP白名单 : </span>
             <a-tag class="px-2 py-1 text-sm" color="success">192.168.0.1</a-tag>
-          </div> -->
+          </div>
           <p>
             {{ $t("F40221OplXwtCfKpjPD3j") }}<br />
             {{
               $t("vcMAWw5y_SAl2AsXpHfMC", {
-                count: settingStore.config.loginIpWhiteList?.length || 0,
+                count: settingStore.config?.loginIpWhiteList?.length || 0,
               })
             }}
           </p>
         </template>
-        <!-- <template #action>
+        <template #action>
           <a-button
             type="primary"
             @click="wrapClick(SETTING_LOGIN_WHITELIST)"
             :disabled="drawerPattern === SETTING_LOGIN_WHITELIST"
             >{{ $t("tn1dw0_d4hpGoJZiMaCjB") }}</a-button
           >
-        </template> -->
+        </template>
       </Cell>
       <Cell :title="$t('yj74dO9iA9rD0NRDm8h2n')">
         <template #content>
@@ -123,7 +123,7 @@ onMounted(() => {
           <a-button
             type="primary"
             @click="wrapClick(SETTING_RESET_CODE)"
-            v-if="!settingStore.config.isSetWithdrawPassword"
+            v-if="!settingStore.config?.isSetWithdrawPassword"
             :disabled="drawerPattern === SETTING_RESET_CODE"
           >
             {{ $t("mcPGcZyC7QxBRP9o_nR9i") }}

@@ -1,4 +1,14 @@
-export interface AccountInfo {
+export interface WalletAddressRes {
+  address: string;
+  codeImgUrl: string;
+}
+
+export interface WalletAddressReqParams {
+  currency: string;
+  chain: string;
+}
+
+export interface WalletBalanceProperty {
   accountId: string;
   agentId: string;
   balanceAmount: number;

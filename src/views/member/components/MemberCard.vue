@@ -10,16 +10,27 @@ import {
 } from "@/hooks/useDrawer";
 import CardList from "./CardList.vue";
 import { CardLoss, Replace, Topup } from "./actions";
-import { useAppStore } from "@/stores";
+import { useAppStore } from "@/stores/app";
 
 const route = useRoute();
 
 const props = defineProps({
   uuid: String,
+  tabKey: String,
 });
 
+const emit = defineEmits(["update:tabKey"]);
+
 const uuid = computed(() => props.uuid || route.params.uuid);
-const selectdKey = ref("PPC");
+
+const selectdKey = computed({
+  get() {
+    return props.tabKey;
+  },
+  set(value) {
+    emit("update:tabKey", value);
+  },
+});
 
 const filterOptions = computed(() => ({
   uuid: uuid.value,
@@ -39,17 +50,6 @@ const {
 } = useList(loadMemberVirtualCard, filterOptions);
 
 const cardInfo = ref<any>();
-
-const onTabClick = (key: string) => {
-  selectdKey.value = key;
-
-  if (key === "PPC" && !physicalList.value.length && filterOptions.value.uuid) {
-    fetchPhysicalCard();
-  }
-  if (key === "VCC" && !virtualList.value.length && filterOptions.value.uuid) {
-    fetchVirtualCard();
-  }
-};
 
 const topupMode = ref();
 
@@ -72,8 +72,24 @@ if (!appStore.isMobile) {
   watch(
     () => uuid.value,
     () => {
-      fetchPhysicalCard();
-      selectdKey.value = "PPC";
+      physicalList.value = [];
+      virtualList.value = [];
+      if (selectdKey.value === "PPC") {
+        fetchPhysicalCard();
+      } else if (selectdKey.value === "VCC") {
+        fetchVirtualCard();
+      }
+    }
+  );
+
+  watch(
+    () => selectdKey.value,
+    (newVal) => {
+      if (newVal === "PPC") {
+        fetchPhysicalCard();
+      } else if (newVal == "VCC") {
+        fetchVirtualCard();
+      }
     }
   );
 } else if (uuid.value) {
@@ -83,13 +99,11 @@ if (!appStore.isMobile) {
 }
 </script>
 <template>
-  <div class="h-full flex bg-white rounded-xl px-4">
-    <a-tabs
-      @tabClick="(key) => onTabClick(key as string)"
-      class="h-full w-full"
-      :activeKey="selectdKey"
-    >
-      <a-tab-pane :tab="$t('OnPSpwMATKuG2io4jQP3a')" key="PPC" class="p-4">
+  <div class="h-full bg-white rounded-xl p-4">
+    <ComponentTitle title="成員卡片" />
+
+    <a-tabs class="h-full w-full" v-model:active-key="selectdKey">
+      <a-tab-pane :tab="$t('OnPSpwMATKuG2io4jQP3a')" key="PPC" class="p-2">
         <CardList
           :dataSource="physicalList"
           :loading="loading"
@@ -97,7 +111,7 @@ if (!appStore.isMobile) {
           @click="onClick"
         />
       </a-tab-pane>
-      <a-tab-pane :tab="$t('S2OrYOKW-4S0okv_ixAu-')" key="VCC" class="p-4">
+      <a-tab-pane :tab="$t('S2OrYOKW-4S0okv_ixAu-')" key="VCC" class="p-2">
         <CardList
           :dataSource="virtualList"
           :loading="VCC_Loading"

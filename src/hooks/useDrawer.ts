@@ -116,7 +116,9 @@ const useDrawerInject = () => {
 
 const useDrawerTitle = () => {
   const { drawerPattern } = inject(rightSiderkey)!;
+
   const { t } = useI18n();
+  
   const DrawerTitle: Record<string, string> = reactive({
     [SETTING_GOOGLE_AUTH]: t("1BLfOjzdVKxiPjNW8eTZR"),
     [SETTING_LOGIN_WHITELIST]: t("JTWzP44eyItAI3ZVXPe-K"),
@@ -126,6 +128,7 @@ const useDrawerTitle = () => {
   });
 
   const Title = computed(() => DrawerTitle[drawerPattern.value]);
+
   return { Title };
 };
 

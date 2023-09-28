@@ -1,4 +1,5 @@
 import { useRequest } from "@/hooks";
+import { WalletAddressReqParams, WalletAddressRes, WalletBalanceProperty } from "./types/account";
 
 const { request } = useRequest("/api/otc");
 
@@ -7,19 +8,15 @@ const api = {
   address: "blockchain/deposit/addresses",
 };
 
-export interface WalletAddressRes {
-  address: string;
-  codeImgUrl: string;
-}
 export const loadWalletAddress = (
-  params: any
+  params: WalletAddressReqParams
 ): Promise<ExResponse<WalletAddressRes>> =>
   request({
     url: api.address,
     params,
   });
 
-export const loadWalletBalance = () =>
+export const loadWalletBalance = ():Promise<ExResponse<WalletBalanceProperty[]>> =>
   request({
     url: api.wallet,
   });

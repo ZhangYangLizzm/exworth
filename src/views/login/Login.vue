@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 const thisYear = computed(() => dayjs().year());
 const step = ref("login");
 const name = ref("");
-const reset = (value) => {
+const reset = (value:string) => {
   name.value = value;
   step.value = "reset";
 };

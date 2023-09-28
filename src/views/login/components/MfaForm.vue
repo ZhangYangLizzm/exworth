@@ -1,12 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { checkAuthcode } from "@/api/user";
-const time = ref(0);
 const codeValue = ref("");
 const codeText = ref("");
 const inputFocus = ref(false);
 const loading = ref(false);
 
-const props = defineProps({
+ defineProps({
   step: String,
 });
 

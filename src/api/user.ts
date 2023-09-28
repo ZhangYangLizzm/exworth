@@ -32,7 +32,7 @@ export const firstLogin = (data: any):Promise<ExResponse<any>> =>
     data,
   });
 
-export const checkAuthcode = (data: any) =>
+export const checkAuthcode = (data: any):Promise<ExResponse<any>> =>
   request({
     url: "login/checkAuthcode",
     method: "POST",

@@ -169,7 +169,7 @@
   "10MvsZXdn3EOSKcFB4Fzf": "Order Type",
   "bggAC96HS1OvTEKsh9rg_": "Balance",
   "sMkxYlIlj4SgxGAKFOjgJ": "Please enter the transfer amount",
-  "OcfJlH4QmIPpM8_XAtT0h": "Input Email Search",
+  "OcfJlH4QmIPpM8_XAtT0h": "Search",
   "QzD6F1l8Ue9UNPMHcBruL": "Please select a currency",
   "9X7FO5do5O5FIYhSXc5FG": "Card number cannot be empty",
   "KbcfSX5ia5pOmBlREN6PC": "Please select network",
@@ -257,5 +257,6 @@
   "0Uir9fGp6oKkJneCTNZWJ": "Setting the API KEY",
   "JTWzP44eyItAI3ZVXPe-K": "Modify Whitelist",
   "1BLfOjzdVKxiPjNW8eTZR": "Binding Google Authentication Code",
-  "tBff95q02RqhzFr_gdFQp": "Filter"
+  "tBff95q02RqhzFr_gdFQp": "Filter",
+  "CYwQJVnFx9IMWDj-P4Vn-": "ID : {0}"
 }

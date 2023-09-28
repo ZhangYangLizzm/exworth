@@ -1,13 +1,13 @@
 import { loadWalletBalance } from "@/api/account";
-import { AccountInfo } from "./types/account";
+import { WalletBalanceProperty } from "@/api/types/account";
 
 export const useAccountStore = defineStore("account", () => {
   // 钱包资产
-  const walletAccounts = ref<AccountInfo[]>([]);
+  const walletAccounts = ref<WalletBalanceProperty[]>([]);
   const loading = ref(false);
   const fetchWalletAccount = async () => {
     loading.value = true;
-    const { statusCode, content } = (await loadWalletBalance()) as any;
+    const { statusCode, content } = await loadWalletBalance();
     if (statusCode === 200) {
       walletAccounts.value = content;
       loading.value = false;

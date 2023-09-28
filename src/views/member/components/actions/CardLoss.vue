@@ -17,23 +17,24 @@ const rules = reactive({
   password: SecurityPasswordRule,
   authCode: GoogleAuthCodeRule,
 });
-const reportLossState = reactive({
+const formState = reactive({
   password: "",
   authCode: "",
+  currency: "USDE",
 });
 
-const { handleValidate, validateInfos } = useForm(reportLossState, rules);
+const { handleValidate, validateInfos } = useForm(formState, rules);
 
-const btnLoading = ref(false);
+const confirmLoading = ref(false);
 const handleConfirm = async () => {
   const { values } = await handleValidate();
   if (values) {
-    btnLoading.value = true;
+    confirmLoading.value = true;
     await postReportLoss({
-      ...reportLossState,
+      ...formState,
       cardKey: props.cardInfo.cardKey,
     });
-    btnLoading.value = false;
+    confirmLoading.value = false;
     await accountStore.fetchWalletAccount();
   }
 };
@@ -48,21 +49,26 @@ const handleConfirm = async () => {
           disabled
           :placeholder="props.cardInfo.maskCardNo"
         />
+      </a-form-item>
+      <a-form-item :label="$t('xL0Xq46pD4xDZv4kET1pb')">
+        <CurrencySelect
+          v-model:currency="formState.currency"
+          :walletAccounts="accountStore.walletAccounts"
+          :disabled="accountStore.availableBalance('USDE') >= 10"
+        />
         <AmountLabel
           :title="$t('xL0Xq46pD4xDZv4kET1pb')"
           amount="10"
-          currency="USDT"
-        >
-        </AmountLabel>
+          :currency="formState.currency"
+        />
       </a-form-item>
-
       <a-form-item
         :label="$t('yj74dO9iA9rD0NRDm8h2n')"
         v-bind="validateInfos.password"
       >
         <a-input-password
           :placeholder="$t('g-CkGyBqori4UAmxL4HS5')"
-          v-model:value="reportLossState.password"
+          v-model:value="formState.password"
         />
       </a-form-item>
       <a-form-item
@@ -71,7 +77,7 @@ const handleConfirm = async () => {
       >
         <a-input-password
           :placeholder="$t('0A89nPyaGbq5-v9reFOzw')"
-          v-model:value="reportLossState.authCode"
+          v-model:value="formState.authCode"
         />
       </a-form-item>
     </a-form>
@@ -86,7 +92,7 @@ const handleConfirm = async () => {
       <a-button
         type="primary"
         @click="handleConfirm"
-        :loading="btnLoading"
+        :loading="confirmLoading"
         class="w-40 h-8"
       >
         {{ $t("utkQ-uv-4gXBHkFXvGL5u") }}

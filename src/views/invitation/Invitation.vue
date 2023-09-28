@@ -9,7 +9,7 @@ import {
   MEMBER_INVITATION_STATUS_INVITED,
   MEMBER_INVITATION_STATUS_ACCEPTED,
 } from "@/hooks/useMember";
-import { useAppStore } from "@/stores";
+import { useAppStore } from "@/stores/app";
 
 const appStore = useAppStore();
 const { wrapClick, drawerPattern } = useDrawerInject();
@@ -26,16 +26,15 @@ const {
   fetch,
   loading,
   fetchMore,
-} = useList(loadInvitation, filterOptions, { pageSize: 10, mode: "list" });
+} = useList(loadInvitation, filterOptions, {
+  mode: "list",
+  immediate: true,
+});
 
 const hanldeInvitationMenuClick = (key: string) => {
   filterOptions.status = key;
   fetch({ noAppend: true });
 };
-
-onMounted(() => {
-  fetch();
-});
 </script>
 
 <template>

@@ -15,7 +15,7 @@ import {
 import { getBalanceHistory } from "@/api/wallet";
 import { useList } from "@/hooks";
 import { TopUp, WalletTransfer, Withdraw } from "./components/actions";
-import { useAppStore } from "@/stores";
+import { useAppStore } from "@/stores/app";
 
 const appStore = useAppStore();
 const { loading, walletAccounts } = storeToRefs(useAccountStore());
@@ -39,49 +39,49 @@ const {
 </script>
 
 <template>
-  <div class="relative bg-white p-4 rounded-xl ">
+  <div class="relative bg-white p-4 rounded-xl">
     <ComponentTitle :title="$t('VxYFMoZm9I6D7n_8ojjV4')">
       <template #extra>
-        <ADropdown>
-          <AButton type="primary">Actions <DownOutlined /></AButton>
-          <template #overlay>
-            <AMenu>
-              <AMenuItem>
-                <AButton
-                  type="text"
-                  :disabled="drawerPattern === WALLET_TOPUP"
-                  @click="wrapClick(WALLET_TOPUP)"
-                >
-                  {{ $t("p85LUkdtTlZNxvwxEVGX8") }}
-                </AButton>
-              </AMenuItem>
-              <AMenuItem>
-                <AButton
-                  type="text"
-                  :disabled="drawerPattern === WALLET_WITHDRAW"
-                  @click="wrapClick(WALLET_WITHDRAW)"
-                >
-                  {{ $t("mtzd-o04L2UDLaN81GSRl") }}
-                </AButton>
-              </AMenuItem>
-              <AMenuItem>
-                <AButton
-                  type="text"
-                  :disabled="drawerPattern === WALLET_TRANSFER"
-                  @click="wrapClick(WALLET_TRANSFER)"
-                >
-                  {{ $t("_iMQNMQatEhTi4yWkEjxs") }}
-                </AButton>
-              </AMenuItem>
-              <AMenuItem>
-                <AButton type="text" @click="$router.push({ name: 'Details' })">
-                  {{ $t("ovLktXuIHMUA7a1STIy3X") }}
-                </AButton>
-              </AMenuItem>
-            </AMenu>
-          </template>
-        </ADropdown>
-        <!-- <div class="flex gap-x-2">
+        <div class="flex gap-x-2" v-if="appStore.isMobile">
+          <ADropdown>
+            <AButton type="primary">Actions <DownOutlined /></AButton>
+            <template #overlay>
+              <AMenu>
+                <AMenuItem>
+                  <AButton
+                    type="text"
+                    :disabled="drawerPattern === WALLET_TOPUP"
+                    @click="wrapClick(WALLET_TOPUP)"
+                  >
+                    {{ $t("p85LUkdtTlZNxvwxEVGX8") }}
+                  </AButton>
+                </AMenuItem>
+                <AMenuItem>
+                  <AButton
+                    type="text"
+                    :disabled="drawerPattern === WALLET_WITHDRAW"
+                    @click="wrapClick(WALLET_WITHDRAW)"
+                  >
+                    {{ $t("mtzd-o04L2UDLaN81GSRl") }}
+                  </AButton>
+                </AMenuItem>
+                <AMenuItem>
+                  <AButton
+                    type="text"
+                    :disabled="drawerPattern === WALLET_TRANSFER"
+                    @click="wrapClick(WALLET_TRANSFER)"
+                  >
+                    {{ $t("_iMQNMQatEhTi4yWkEjxs") }}
+                  </AButton>
+                </AMenuItem>
+              </AMenu>
+            </template>
+          </ADropdown>
+          <AButton type="primary" @click="$router.push({ name: 'Details' })">
+            {{ $t("ovLktXuIHMUA7a1STIy3X") }}
+          </AButton>
+        </div>
+        <div class="flex gap-x-2" v-if="!appStore.isMobile">
           <a-button
             :disabled="drawerPattern === WALLET_TOPUP"
             type="primary"
@@ -103,7 +103,7 @@ const {
           >
             {{ $t("_iMQNMQatEhTi4yWkEjxs") }}
           </a-button>
-        </div> -->
+        </div>
       </template>
     </ComponentTitle>
     <WebCurrency
@@ -147,13 +147,22 @@ const {
     </div>
   </div>
 
-  <ExDrawer :open="drawerPattern === WALLET_TOPUP">
+  <ExDrawer
+    :open="drawerPattern === WALLET_TOPUP"
+    :title="$t('p85LUkdtTlZNxvwxEVGX8')"
+  >
     <TopUp />
   </ExDrawer>
-  <ExDrawer :open="drawerPattern === WALLET_TRANSFER">
+  <ExDrawer
+    :open="drawerPattern === WALLET_TRANSFER"
+    :title="$t('mtzd-o04L2UDLaN81GSRl')"
+  >
     <WalletTransfer @refresh="refresh" />
   </ExDrawer>
-  <ExDrawer :open="drawerPattern === WALLET_WITHDRAW">
+  <ExDrawer
+    :open="drawerPattern === WALLET_WITHDRAW"
+    :title="$t('_iMQNMQatEhTi4yWkEjxs')"
+  >
     <Withdraw @refresh="refresh" />
   </ExDrawer>
 </template>

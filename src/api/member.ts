@@ -1,23 +1,15 @@
 import { useRequest } from "@/hooks/useRequest";
+import { MemberListType } from "./types/member";
 const { request } = useRequest("/api/member");
 
-export interface MemberListItem {
-  email: string;
-  memberFunction: {
-    ppc: boolean;
-    vcc: boolean;
-    transfer: boolean;
-  };
-  uuid: string;
-}
 
-export type MemberListType = MemberListItem[];
-
-export const loadMember = (params: any): Promise<ExResponse<MemberListType>> =>
+export const loadMember = (params: any,controller?:AbortController): Promise<ExResponse<MemberListType>> =>
   request({
     url: "member",
     params,
+    signal: controller?.signal,
   });
+
 export const loadMemberInfo = (params: any): Promise<ExResponse<any>> =>
   request({
     url: `member/proUID`,
@@ -47,4 +39,15 @@ export const loadMemberVirtualCard = (params: any): Promise<ExResponse<any>> =>
   request({
     url: "credit/list",
     params,
+  });
+
+export const searchMemberByCardNo = (
+  params: any,
+  type: "PPC" | "VCC",
+  controller:AbortController
+): Promise<ExResponse<any>> =>
+  request({
+    url: `member${type}`,
+    params,
+    signal: controller?.signal,
   });

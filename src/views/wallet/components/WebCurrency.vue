@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { WalletBalanceProperty } from "@/api/types/account";
 import SvgIcon from "@/components/SvgIcon.vue";
 import { Format } from "@/utils/formatUtil";
-import { AccountInfo } from "@/stores/types/account";
 
 defineProps<{
   loading: boolean;
-  walletAccounts: AccountInfo[];
+  walletAccounts: WalletBalanceProperty[];
 }>();
 </script>
 

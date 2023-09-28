@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useDrawerInject, useDrawerTitle } from "@/hooks/useDrawer.ts";
+import { useDrawerInject } from "@/hooks/useDrawer.ts";
 import { useAppStore } from "@/stores/app";
 defineProps({
   getContainer: {
@@ -21,7 +21,6 @@ defineProps({
 });
 
 const { drawerVisible, closeDrawer } = useDrawerInject();
-const { Title } = useDrawerTitle();
 const onCloseDrawer = () => {
   closeDrawer();
 };
@@ -50,7 +49,7 @@ const appStore = useAppStore();
         >
           <slot name="header">
             <div class="font-semibold text-base tracking-wide">
-              {{ Title || title }}
+              {{ title }}
             </div>
           </slot>
         </div>

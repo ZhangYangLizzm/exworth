@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ValidateInfo } from "@ant-design-vue/lib/form/useForm.d.ts";
+import { ValidateInfo } from 'ant-design-vue/es/form/useForm';
+
 const props = defineProps<{
   value: string;
   validateInfo: ValidateInfo;
@@ -9,7 +10,7 @@ const emit = defineEmits(["update:value"]);
 
 const authCode = computed({
   get() {
-    return props.authCode;
+    return props.value;
   },
   set(newVal) {
     emit("update:value", newVal);

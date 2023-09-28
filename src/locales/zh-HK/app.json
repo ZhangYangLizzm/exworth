@@ -173,7 +173,7 @@
   "4Jogg03YNl3gG3ZgAQlml": "交易哈希",
   "5T9IqkrF8DTnOiDZlrrIl": "請選擇鏈類型",
   "KA634HBkYSrLFNgGwVCX8": "請選擇狀態",
-  "OcfJlH4QmIPpM8_XAtT0h": "輸入郵箱搜索",
+  "OcfJlH4QmIPpM8_XAtT0h": "搜索",
   "QzD6F1l8Ue9UNPMHcBruL": "請選擇幣種",
   "9X7FO5do5O5FIYhSXc5FG": "卡號不能為空",
   "_skPFb-gpUBUTW-epVro7": "地址不能為空",
@@ -261,5 +261,6 @@
   "1BLfOjzdVKxiPjNW8eTZR": "綁定谷歌驗證碼",
   "JTWzP44eyItAI3ZVXPe-K": "修改登錄白名單",
   "0Uir9fGp6oKkJneCTNZWJ": "設置API KEY",
-  "tBff95q02RqhzFr_gdFQp": "條件篩選"
+  "tBff95q02RqhzFr_gdFQp": "條件篩選",
+  "CYwQJVnFx9IMWDj-P4Vn-": "商戶號 : {0}"
 }

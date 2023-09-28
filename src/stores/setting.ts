@@ -1,9 +1,8 @@
 import { getConfig } from "@/api/setting";
+import { SettingConfig } from "@/api/types/setting";
 
 export const useSettingStore = defineStore("setting", () => {
-  const config = ref<Record<string, any>>({
-    isSetWithdrawPassword: true,
-  });
+  const config = ref<SettingConfig>();
   const loading = ref(false);
   const fetchConfig = async () => {
     loading.value = true;

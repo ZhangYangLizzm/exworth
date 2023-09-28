@@ -1,7 +1,8 @@
 import { useRequest } from "@/hooks/useRequest";
+import { SettingConfig } from "./types/setting";
 const { request } = useRequest("/api");
 
-export const getConfig = (): Promise<ExResponse<any>> =>
+export const getConfig = (): Promise<ExResponse<SettingConfig>> =>
   request({
     url: "withdraw/config/security/center",
     method: "GET",
@@ -30,9 +31,9 @@ export const postSetCode = (data: any): Promise<ExResponse<any>> =>
     data,
   });
 
-export const postSetLoginWhiteList = (data: any): Promise<ExResponse<any>> => {
+export const postSetLoginWhiteList = (data: any): Promise<ExResponse<any>> => 
   request({
     url: "withdraw/config/user/ipWhiteList",
     data,
   });
-};
+;

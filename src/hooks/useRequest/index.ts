@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import useRequestHandler from "./handler";
 import { stringify } from "qs";
 
 export const useRequest = (domain = "") => {
   const { errorHandler, reqInterceptor, resInterceptor } = useRequestHandler();
 
-  const request = axios.create({
+  const request:AxiosInstance= axios.create({
     baseURL: `${domain}/`,
     timeout: 6000,
     paramsSerializer: {
@@ -19,6 +19,7 @@ export const useRequest = (domain = "") => {
 
   // response interceptors
   request.interceptors.response.use(resInterceptor, errorHandler);
+  
   return {
     request,
   };

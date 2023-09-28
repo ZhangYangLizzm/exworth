@@ -102,7 +102,7 @@ const handleTransfer = async () => {
         />
         <AmountLabel
           :title="$t('e8DgaMG0nnSK1cxzTVxp1')"
-          :amount="Format(available)"
+          :amount="Format(+available)"
           :currency="transferState.currency"
         />
       </a-form-item>

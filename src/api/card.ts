@@ -1,4 +1,5 @@
 import { useRequest } from "@/hooks/useRequest";
+import { CardProperty } from "./types/card";
 const { request } = useRequest("/api");
 
 export const loadPhysicalCard = (params: any): Promise<ExResponse<any>> =>
@@ -56,7 +57,13 @@ export const postRechargeVCC = (data: {
     data,
   });
 
-export const getCardPropety = () =>
+
+export const getCardProperty = (): Promise<ExResponse<CardProperty>> =>
   request({
     url: "ppc/cardProperty",
+  });
+
+export const getPPCList = (): Promise<ExResponse<any>> =>
+  request({
+    url: "ppc/cards",
   });

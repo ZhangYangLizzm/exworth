@@ -65,7 +65,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          "ant-design":['ant-design-vue']
+          "ant-design": ["ant-design-vue"],
         },
       },
     },

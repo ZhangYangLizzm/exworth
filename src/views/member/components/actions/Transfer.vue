@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useFormRules, useForm } from "@/hooks";
 import { postMemberTransfer } from "@/api/wallet";
-import { useAccountStore } from "@/stores";
+import { useAccountStore } from "@/stores/account";
 import { Format } from "@/utils/formatUtil";
 
 const accountStore = useAccountStore();

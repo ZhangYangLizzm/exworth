@@ -11,10 +11,9 @@ const app = createApp(App);
 app.use(router);
 
 const store = createPinia();
+
 app.use(store);
 app.use(i18n);
 app.use(Permission);
-
-app.component('ExDrawer', defineAsyncComponent(() => import('@/components/ExDrawer.vue')))
 
 app.mount("#app");

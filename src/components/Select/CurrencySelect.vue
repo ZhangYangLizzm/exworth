@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { AccountInfo } from "@/stores/types/account";
+import { WalletBalanceProperty } from '@/api/types/account';
 
 defineProps<{
   currency: string | undefined;
   disabled?: boolean;
-  walletAccounts: AccountInfo[];
+  walletAccounts: WalletBalanceProperty[];
 }>();
 
 const emit = defineEmits(["update:currency", "selectChange"]);

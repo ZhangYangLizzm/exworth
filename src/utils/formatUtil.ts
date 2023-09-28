@@ -13,7 +13,6 @@ export const FormatRangerPickerTime = (value: Array<any>) => {
   });
 };
 
-
 export const Format = (
   value: number,
   num = 2,
@@ -53,4 +52,3 @@ export const padZero = (value = "0", num = 2) => {
     return `${value}.${zero}`;
   }
 };
- 

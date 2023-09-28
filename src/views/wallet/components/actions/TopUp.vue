@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useAccountStore } from "@/stores/account";
-import { WalletAddressRes, loadWalletAddress } from "@/api/account";
+import {  loadWalletAddress } from "@/api/account";
+import { WalletAddressReqParams, WalletAddressRes } from "@/api/types/account";
 
 const accountStore = useAccountStore();
 const chainOptions = computed(() => ["TRC20", "ERC20"]);
-const formState = reactive({
+const formState:WalletAddressReqParams = reactive({
   currency: "USDE",
   chain: "TRC20",
 });
