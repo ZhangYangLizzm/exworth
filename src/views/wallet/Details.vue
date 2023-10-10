@@ -38,7 +38,7 @@ const {
       @fetchMore="fetchMore"
     />
   </div>
-  <ExDrawer :open="drawerPattern === WALLET_FILTER">
+  <ExDrawer :open="drawerPattern === WALLET_FILTER" :title="$t('tBff95q02RqhzFr_gdFQp')">
     <FilterForm
       v-model:options="filterOptions"
       @fetch="

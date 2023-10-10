@@ -138,6 +138,7 @@ const hanldeInvitationMenuClick = (key: string) => {
       <InviteForm @refresh="fetch" />
     </div>
     <ExDrawer
+      :title="$t('6zx8lqftFQuNpgSzzlpUU')"
       v-else="appStore.isMobile"
       :open="drawerPattern === MEMBER_INVITE"
     >

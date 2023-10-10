@@ -122,13 +122,13 @@ if (!appStore.isMobile) {
     </a-tabs>
   </div>
 
-  <ExDrawer :open="drawerPattern === MEMBER_CARD_TOPUP">
+  <ExDrawer :open="drawerPattern === MEMBER_CARD_TOPUP" :title="$t('VVQaPte21XgxJXEM9H8gu')">
     <Topup :cardInfo="cardInfo" :topupMode="topupMode" />
   </ExDrawer>
-  <ExDrawer :open="drawerPattern === MEMBER_CARD_LOSS">
+  <ExDrawer :open="drawerPattern === MEMBER_CARD_LOSS" :title="$t('h0EQGD5w6L9xSdGkk4eG0')">
     <CardLoss :cardInfo="cardInfo" />
   </ExDrawer>
-  <ExDrawer :open="drawerPattern === MEMBER_CARD_REPLACE">
+  <ExDrawer :open="drawerPattern === MEMBER_CARD_REPLACE" :title="$t('gVPkNpXqcOdkRBKMOR_9i')">
     <Replace :cardInfo="cardInfo" />
   </ExDrawer>
 </template>

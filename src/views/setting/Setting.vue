@@ -150,22 +150,22 @@ onMounted(() => {
     </div>
   </div>
 
-  <ExDrawer :open="drawerPattern === SETTING_RESET_PASSWORD">
+  <ExDrawer :open="drawerPattern === SETTING_RESET_PASSWORD" :title="$t('B-q5-tYEdulJDodx4ihUb')">
     <ResetPassword />
   </ExDrawer>
-  <ExDrawer :open="drawerPattern === SETTING_GOOGLE_AUTH">
+  <ExDrawer :open="drawerPattern === SETTING_GOOGLE_AUTH" :title="$t('1BLfOjzdVKxiPjNW8eTZR')">
     <BindGoogleAuth
       :codeImgUrl="googleSecretKeyContent?.codeImgUrl"
       :secretKey="googleSecretKeyContent?.secretKey"
     />
   </ExDrawer>
-  <ExDrawer :open="drawerPattern === SETTING_RESET_CODE">
+  <ExDrawer :open="drawerPattern === SETTING_RESET_CODE" :title="$t('y1TuxkHrhkk1OLo6_jtVB')">
     <ResetCode />
   </ExDrawer>
-  <ExDrawer :open="drawerPattern === SETTING_APIKEY">
+  <ExDrawer :open="drawerPattern === SETTING_APIKEY" :title="$t('0Uir9fGp6oKkJneCTNZWJ')">
     <SetAPI />
   </ExDrawer>
-  <ExDrawer :open="drawerPattern === SETTING_LOGIN_WHITELIST">
+  <ExDrawer :open="drawerPattern === SETTING_LOGIN_WHITELIST" :title="$t('JTWzP44eyItAI3ZVXPe-K')">
     <SetLoginWhiteList />
   </ExDrawer>
 </template>

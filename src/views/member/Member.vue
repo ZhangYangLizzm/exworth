@@ -306,7 +306,7 @@ const onSelect: SelectHandler = (value: string, option: any) => {
       <MemberCard :uuid="uuid" v-model:tabKey="tabKey" />
     </div>
 
-    <ExDrawer :open="drawerPattern === MEMBER_TRANSFER">
+    <ExDrawer :open="drawerPattern === MEMBER_TRANSFER" :title="$t('7czJid2WhXi6cEvGTtQXo')">
       <Transfer />
     </ExDrawer>
   </div>
