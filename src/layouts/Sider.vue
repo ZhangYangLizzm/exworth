@@ -9,6 +9,7 @@ const selectedKeys = computed(() => [
 ]);
 
 const handleMenuClick: MenuClickEventHandler = ({ key }) => {
+  console.log(selectedKeys.value)
   router.push({ name: key as string });
 };
 </script>
@@ -19,12 +20,12 @@ const handleMenuClick: MenuClickEventHandler = ({ key }) => {
       <Logo dark />
     </div>
 
-    <AMenu :selectedKeys="selectedKeys" @click="handleMenuClick" mode="inline">
+    <AMenu :selectedKeys="selectedKeys" @click="handleMenuClick" mode="inline" :openKeys="['MerchantMenuGroup']">
       <ASubMenu :title="$t('rPh_Y_AvyyfdFIXXKYs8k')" key="MerchantMenuGroup" >
         <template #icon>
           <ShopOutlined />
         </template>
-        <AMenuItem class="rounded" key="Merchant">
+        <AMenuItem class="rounded" key="MerchantList">
           {{ $t("rPh_Y_AvyyfdFIXXKYs8k") }}
         </AMenuItem>
 

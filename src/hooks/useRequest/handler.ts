@@ -1,7 +1,7 @@
 import { message, notification } from "ant-design-vue";
 import { STORAGE_LOCALE } from "@/config/constant.ts";
 import { AxiosHeaders, AxiosResponse, InternalAxiosRequestConfig } from "axios";
-
+import store from "store";
 const ERROR_CODES = [101];
 const WARN_CONDES = [103, 105, 106, 107, 108];
 
@@ -42,7 +42,7 @@ const useRequestHandler = () => {
     return Promise.resolve({ statusCode: 500, message: "Network Exception" });
   };
   const reqInterceptor = (config: InternalAxiosRequestConfig) => {
-    const locale = localStorage.getItem(STORAGE_LOCALE);
+    const locale = store.get(STORAGE_LOCALE);
     if (locale) {
       config.headers["User-Lang"] = locale;
     }

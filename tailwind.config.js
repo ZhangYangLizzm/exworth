@@ -4,8 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#0cbf53",
-        danger: "#ff0000",
+        primary: "#52c41a",
+        danger: "#f5222d",
+        warning:"#fadb14",
+        pending:"#1890ff"
       },
     },
   },

@@ -3,12 +3,24 @@ const { request } = useRequest("/api");
 
 export const getMerchantList = (params: any): Promise<ExResponse<any>> =>
   request({
-    url: "merchant",
+    url: "/merchant",
     params,
   });
 
-export const getMerchantGroupList = (params: any): Promise<ExResponse<any>> =>
+export const getMerchantBaseInfo = (merchantId: string) =>
   request({
-    url: "merchantGroup",
+    url: `/merchant/${merchantId}/ppcBaseInfo`,
+  });
+
+export const getMerchantPayInfo = (merchantId: string) =>
+  request({
+    url: `/merchant/${merchantId}/payInfo`,
+  });
+
+export const getMerchantPrepaidCardList = (
+  params: any
+): Promise<ExResponse<any>> =>
+  request({
+    url: "ppc/manage/cards",
     params,
   });

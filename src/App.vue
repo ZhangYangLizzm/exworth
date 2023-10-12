@@ -9,7 +9,7 @@ const antLocale = computed(
 
 const theme = {
   token: {
-    colorPrimary: "#0cbf53",
+    colorPrimary: "#52c41a",
   },
 };
 

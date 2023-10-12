@@ -1,13 +1,17 @@
 import Login from "@/views/login/Login.vue";
 import Layout from "@/layouts/Layout.vue";
+
 import User from "@/views/user/User.vue";
-import Merchant from "@/views/merchant/Merchant.vue";
+
+import MerchantList from "@/views/merchant/MerchantList.vue";
+import MerchantId from "@/views/merchant/MerchantId.vue";
+
 import Channel from "@/views/channel/Channel.vue";
 
-
 import { switchPPC } from "@/api/login";
+import { RouteRecordRaw } from "vue-router";
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: "/login",
     name: "Login",
@@ -16,7 +20,7 @@ const routes = [
   {
     path: "/",
     component: Layout,
-    beforeEnter: async(to: any, from: any, next: () => void) => {
+    beforeEnter: async (to: any, from: any, next: () => void) => {
       await switchPPC();
       next();
     },
@@ -34,7 +38,18 @@ const routes = [
       {
         path: "merchant",
         name: "Merchant",
-        component: Merchant,
+        children: [
+          { path: "", component: MerchantList, name: "MerchantList" },
+          {
+            path: ":merchantId",
+            name: "MerchantId",
+            component: MerchantId,
+            props: (route) => ({
+              merchantName: route.query.merchantName,
+              merchantId: route.params.merchantId,
+            }),
+          },
+        ],
       },
     ],
   },

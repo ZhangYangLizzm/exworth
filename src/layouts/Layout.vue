@@ -5,15 +5,15 @@ import Sider from "./Sider.vue";
 <template>
   <div class="flex w-full">
     <Sider />
-    <ALayoutContent class="relative overflow-hidden p-4 ">
+    <ALayoutContent class="relative overflow-hidden p-4">
       <router-view v-slot="{ Component, route }">
         <transition name="slide-page">
           <!-- vue3组件中可没有根组件，避免在子组件没有根组件时候transition失效的情况 -->
           <div
             :key="route.path"
-            class="h-full flex flex-col bg-white p-4 rounded-xl"
+            class="h-full flex flex-col bg-white p-4 rounded-xl overflow-auto"
           >
-            <component :is="Component"></component>
+            <component :is="Component" />
           </div>
         </transition>
       </router-view>

@@ -63,7 +63,7 @@ const handleSubmit = async () => {
         }
       }
     } else {
-      if (content.codeFlag) {
+      if (content?.codeFlag) {
         formState.code = "";
         validateCode.value = true;
         nextTick(() => {

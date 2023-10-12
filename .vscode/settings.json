@@ -5,5 +5,5 @@
   "i18n-ally.translate.deepl.useFreeApiEntry": true,
   "i18n-ally.translate.deepl.enableLog": false,
   "i18n-ally.translate.engines": ["deepl"],
-  "i18n-ally.sourceLanguage": "zh-HK"
+  "i18n-ally.sourceLanguage": "zh-CN"
 }

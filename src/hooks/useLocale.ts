@@ -1,16 +1,17 @@
 import { DEFAULT_LOCALE, STORAGE_LOCALE } from "@/config/constant.ts";
 import { i18n } from "@/locales";
+import store from "store";
 
 export const LOCALES_MAP = {
   "en-US": "English",
-  "zh-HK": "繁體中文",
+  "zh-CN": "简体中文",
 };
 
 export type LocalesKey = keyof typeof LOCALES_MAP;
 
 export const useLocale = () => {
   const getLocale = () => {
-    return localStorage.getItem(STORAGE_LOCALE) || DEFAULT_LOCALE;
+    return store.get(STORAGE_LOCALE) || DEFAULT_LOCALE;
   };
 
   const locale = ref(getLocale());
@@ -19,7 +20,7 @@ export const useLocale = () => {
 
   const setLocale = (value: LocalesKey) => {
     i18n.global.locale.value = value;
-    localStorage.setItem(STORAGE_LOCALE, value);
+    store.set(STORAGE_LOCALE,value)
   };
 
   const SUPPORT_LOCALES = Object.entries(LOCALES_MAP).map(([value, label]) => ({
